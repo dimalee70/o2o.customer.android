@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/dialog_bg"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="@dimen/dialogMargination"
+                android:layout_marginEnd="@dimen/dialogMargination"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginBottom="8dp"
+                android:paddingBottom="13dp"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+<!--            <com.airbnb.lottie.LottieAnimationView-->
+<!--                    android:id="@+id/anMail"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="60dp"-->
+<!--                    app:lottie_autoPlay="true"-->
+<!--                    app:lottie_loop="true"-->
+<!--                    app:lottie_fileName="mail.json"/>-->
+
+            <TextView
+                    android:id="@+id/titleTv"
+                    android:text="@string/phone_number_checking"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:theme="@style/Dialog.Text"
+                    android:layout_marginStart="13dp"
+                    android:layout_marginEnd="13dp"
+                    />
+
+            <TextView
+                    android:id="@+id/confirmTv"
+                    android:text="@string/wait_for_sms"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/titleTv"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:textColor="@color/black_overlay"
+                    android:singleLine="false"
+                    android:autoSizeTextType="uniform"
+                    style="@style/Widget.TextView.Hint"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginStart="13dp"
+                    android:layout_marginEnd="13dp"
+                    />
+
+            <LinearLayout
+                    android:id="@+id/buttonsLl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:gravity="right"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toBottomOf="@+id/confirmTv"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    >
+
+                <Button
+                        android:id="@+id/noBtn"
+                        style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+                        android:textColor="?attr/colorControlActivated"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Нет" />
+
+                <Button
+                        android:id="@+id/yesBtn"
+                        style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+                        android:textColor="?attr/colorControlActivated"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Да" />
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

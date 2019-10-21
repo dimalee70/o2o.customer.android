@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="minPhotoIconWidth">68dp</dimen>
+    <dimen name="dialogMargination">30dp</dimen>
+    <dimen name="minTextSize">4sp</dimen>
+    <dimen name="maxTextSize">11sp</dimen>
+    <dimen name="stepGranularity">1sp</dimen>
+
+    <dimen name="minHeaderTextSize">12sp</dimen>
+    <dimen name="maxHeaderTextSize">16sp</dimen>
+    <dimen name="marginText">16sp</dimen>
+    <dimen name="smallDialogWidth">290dp</dimen>
+    <dimen name="smallDialogHeight">310dp</dimen>
+    <dimen name="largeDialogWidth">300dp</dimen>
+    <dimen name="largeDialogHeight">500dp</dimen>
+</resources>

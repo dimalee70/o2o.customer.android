@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="primaryTextColor" format="reference"/>
+    <attr name="buttonNormalColor" format="reference"/>
+    <attr name="buttonHighlightColor" format="reference"/>
+    <attr name="buttonTextColor" format="reference"/>
+    <attr name="primaryButtonTheme" format="reference"/>
+
+    <attr name="borderColor" format="reference"/>
+    <attr name="panelColor" format="reference"/>
+    <attr name="subviewsColor" format="reference"/>
+    <attr name="clearSubviewsColor" format="reference"/>
+    <attr name="playButtonTextColor" format="reference"/>
+    <attr name="boldTextColor" format="reference"/>
+    <attr name="thinTextColor" format="reference"/>
+    <attr name="grayTextColor" format="reference"/>
+    <attr name="redTextColor" format="reference"/>
+    <attr name="greenTextColor" format="reference"/>
+    <attr name="blueTextColor" format="reference"/>
+    <attr name="partnerMissionDescriptionTextColor" format="reference"/>
+    <attr name="prizedTopMissionColor" format="reference"/>
+    <attr name="timerTextColor" format="reference"/>
+    <attr name="buttonBackdround" format="reference"/>
+    <attr name="loaderColor" format="reference"/>
+    <attr name="opponentTurnTextColor" format="reference"/>
+    <attr name="inverseTextColor" format="reference"/>
+    <attr name="settingsFieldTextColor" format="reference"/>
+    <attr name="hintTextColor" format="reference"/>
+    <attr name="whiteColor" format="reference"/>
+    <attr name="textInputEditTextStyle" format="reference"/>
+
+
+    <!-- Declare custom theme attributes that allow changing which styles are
+         used for button bars depending on the API level.
+         ?android:attr/buttonBarStyle is new as of API 11 so this is
+         necessary to support previous API levels. -->
+    <declare-styleable name="ButtonBarContainerTheme">
+        <attr name="metaButtonBarStyle" format="reference"/>
+        <attr name="metaButtonBarButtonStyle" format="reference"/>
+    </declare-styleable>
+</resources>

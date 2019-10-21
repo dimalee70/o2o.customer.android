@@ -1,0 +1,180 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'kotlin-kapt'
+
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
+    defaultConfig {
+        applicationId "dragau.o2o.customer"
+        minSdkVersion 24
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    signingConfigs {
+        release {
+            storeFile file("../keystore")
+            storePassword "A1234567a"
+            keyAlias "o2ocustomer"
+            keyPassword "A1234567a"
+        }
+    }
+
+    buildTypes {
+        debug {
+            ndk {
+                minifyEnabled false
+                abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a'
+            }
+            ext.enableCrashlytics = false
+            signingConfig signingConfigs.release
+        }
+
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+    }
+
+    dataBinding {
+        enabled true
+    }
+
+    flavorDimensions "api"
+    productFlavors {
+        development {
+            buildConfigField "String", "apiEndpoint", '"http://92.46.55.206:50770/api/"'
+            buildConfigField "String", "wsEndpoint", '"wss://echo.websocket.org"'
+            dimension "api"
+
+//           http://92.46.55.206:50770/api/
+//            "http://192.168.121.71:8090/api/
+
+        }
+        production {
+            buildConfigField "String", "apiEndpoint", '"http://92.46.55.206:50770/api/"'
+            buildConfigField "String", "wsEndpoint", '"wss://echo.websocket.org"'
+            dimension "api"
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+}
+
+def support = '29.0.0'
+def retrofit = '2.6.0'
+def exoplayer = '2.9.0'
+def moxy = '1.5.6'
+def persistence_room = '1.1.1'
+def lottieVersion = '3.0.7'
+
+kapt {
+    generateStubs = true
+}
+
+dependencies {
+    ext.dagger2_version = '2.23.2'
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.1'
+    implementation "com.android.support:design:$support"
+    implementation "com.android.support:recyclerview-v7:$support"
+    implementation 'com.android.support.constraint:constraint-layout:2.0.0-beta2'
+    implementation "com.android.support:support-v4:$support"
+    testImplementation 'junit:junit:4.13-beta-3'
+    implementation "com.arello-mobile:moxy:$moxy"
+    implementation "com.arello-mobile:moxy-app-compat:$moxy"
+    kapt "com.arello-mobile:moxy-compiler:$moxy"
+
+    implementation "com.squareup.retrofit2:retrofit:$retrofit"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit"
+    implementation 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
+    implementation 'io.reactivex.rxjava2:rxkotlin:2.4.0'
+    // Timber dependency
+    implementation'com.jakewharton.timber:timber:4.7.1'
+    // OkHttp3 dependencies
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.12.1'
+    implementation 'androidx.core:core-ktx:1.1.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    implementation 'com.seatgeek:placesautocomplete:0.3-SNAPSHOT'
+    // dagger.android package (optional)
+    implementation "com.google.dagger:dagger:$dagger2_version"
+    kapt "com.google.dagger:dagger-compiler:$dagger2_version"
+    implementation "com.google.dagger:dagger-android:$dagger2_version"
+    kapt "com.google.dagger:dagger-android-processor:$dagger2_version"
+    kapt "com.google.dagger:dagger-android-support:$dagger2_version"
+
+    kapt 'com.github.bumptech.glide:compiler:4.9.0'
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    implementation 'com.github.bumptech.glide:okhttp3-integration:4.9.0'
+
+    implementation 'com.android.support:multidex:1.0.3'
+
+    implementation 'ru.terrakok.cicerone:cicerone:5.0.0'
+
+    implementation "com.airbnb.android:lottie:$lottieVersion"
+
+    implementation 'com.github.navinilavarasan:rxWebSocket:1.04'
+
+    implementation "android.arch.persistence.room:runtime:$persistence_room"
+    implementation "android.arch.persistence.room:rxjava2:$persistence_room"
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.10'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+
+    implementation "androidx.preference:preference-ktx:1.1.0"
+
+    api 'com.theartofdev.edmodo:android-image-cropper:2.8.0'
+
+    implementation 'net.danlew:android.joda:2.10.2'
+
+    implementation 'com.caverock:androidsvg-aar:1.4'
+
+    implementation 'com.google.firebase:firebase-core:17.2.0'
+    implementation 'com.google.firebase:firebase-invites:17.0.0'
+
+    implementation 'com.google.firebase:firebase-auth:19.1.0'
+    implementation 'com.github.yongjhih.rxfirebase:rxfirebase2-auth-kotlin:-SNAPSHOT'
+    implementation 'com.google.firebase:firebase-messaging:20.0.0'
+
+    annotationProcessor 'android.arch.persistence.room:compiler:1.1.1'
+    implementation "android.arch.persistence.room:runtime:1.1.1"
+    annotationProcessor "android.arch.persistence.room:compiler:1.1.1"
+    implementation "android.arch.persistence.room:rxjava2:1.1.1"
+    kapt "android.arch.persistence.room:compiler:1.1.1"
+
+    implementation 'ru.egslava:MaskedEditText:1.0.5'
+
+    implementation 'me.dm7.barcodescanner:zxing:1.9'
+
+    implementation 'com.journeyapps:zxing-android-embedded:3.6.0'
+
+//    implementation "androidx.room:room-runtime:2.2.0"
+//    kapt "androidx.room:room-compiler:2.2.0"
+
+    implementation 'com.github.tiper:MaterialSpinner:1.3.3'
+
+    api 'com.theartofdev.edmodo:android-image-cropper:2.8.0'
+
+}
+
+apply plugin: 'com.google.gms.google-services'

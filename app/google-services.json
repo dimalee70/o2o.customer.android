@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "218559144433",
+    "firebase_url": "https://o2o-customer.firebaseio.com",
+    "project_id": "o2o-customer",
+    "storage_bucket": "o2o-customer.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:218559144433:android:875c062fd8092eb56c6450",
+        "android_client_info": {
+          "package_name": "dragau.o2o.customer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "218559144433-5p4hjhh5bato9qlvjcc0rgaf82uh5p0j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-3ChDrohP5SAzVrsdgjLz5zh8AjdRPEs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "218559144433-5p4hjhh5bato9qlvjcc0rgaf82uh5p0j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

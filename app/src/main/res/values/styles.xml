@@ -1,0 +1,305 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.App" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="primaryButtonTheme">@style/Widget.Button.Primary</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:typeface">serif</item>
+        <item name="fontFamily">@font/roboto_regular</item>
+    </style>
+
+    <style name="Theme.App.Dark.FullScreen" parent="Theme.App.Dark">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+    <style name="Theme.App.Light.FullScreen" parent="Theme.App.Light">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+    <!--    <resources>-->
+    <style name="AppTheme" parent="android:Theme.Holo.Light">
+        <!--        <item name="android:actionBarStyle">@style/AppTheme.ActionBar</item>-->
+        <!--        <item name="android:background">#ff0000</item>-->
+        <!--        <item name="android:colorBackground">#ff0000</item>-->
+    </style>
+    <style name="AppTheme.ActionBar" parent="android:Widget.ActionBar">
+        <!--        <item name="android:background">#ff0000</item>-->
+    </style>
+    <!--    </resources>-->
+
+    <style name="DialogAnimation" parent="@android:style/Animation.Activity">
+        <item name="android:windowEnterAnimation">@animator/anim_in</item>
+        <item name="android:windowExitAnimation">@animator/anim_out</item>
+    </style>
+
+    <style name="NotificationDialogAnimation">
+        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
+    </style>
+
+    <style name="Theme.App.Dark" parent="Base.Theme.App">
+        <item name="android:textViewStyle">@style/Widget.TextView.Primary</item>
+
+        <item name="editTextStyle">@style/Widget.EditText.Primary.Dark</item>
+        <item name="textInputEditTextStyle">@style/Widget.TextInputEditText.Primary</item>
+        <item name="buttonStyle">@style/Widget.Button.Primary</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="primaryTextColor">@color/primaryText</item>
+        <item name="buttonNormalColor">@color/buttonNormal</item>
+        <item name="buttonHighlightColor">@color/buttonHighlight</item>
+        <item name="buttonTextColor">@color/buttonText</item>
+        <item name="panelColor">@color/colorPanel</item>
+        <item name="borderColor">@color/borderColor</item>
+        <item name="subviewsColor">@color/subviewsColor</item>
+        <item name="clearSubviewsColor">@color/clearSubviewsColor</item>
+        <item name="playButtonTextColor">@color/playButtonTextColor</item>
+        <item name="boldTextColor">@color/boldTextColor</item>
+        <item name="thinTextColor">@color/thinTextColor</item>
+        <item name="grayTextColor">@color/grayTextColor</item>
+        <item name="redTextColor">@color/redTextColor</item>
+        <item name="greenTextColor">@color/greenTextColor</item>
+        <item name="blueTextColor">@color/blueTextColor</item>
+        <item name="partnerMissionDescriptionTextColor">@color/partnerMissionDescriptionTextColor</item>
+        <item name="prizedTopMissionColor">@color/prizedTopMissionColor</item>
+        <item name="timerTextColor">@color/timerTextColor</item>
+        <item name="loaderColor">@color/colorSelected</item>
+        <item name="opponentTurnTextColor">@color/opponentTurnTextColor</item>
+        <item name="inverseTextColor">@color/inverseTextColor</item>
+        <item name="settingsFieldTextColor">@color/settingsFieldTextColor</item>
+        <item name="whiteColor">@color/whiteColor</item>
+        <item name="hintTextColor">@color/hintTextColor</item>
+        <item name="colorControlNormal">@color/whiteColor</item>
+        <item name="colorControlActivated">@color/greenTextColor</item>
+        <item name="colorControlHighlight">@color/lightBlueTextColor</item>
+    </style>
+
+    <style name="Theme.App.Light" parent="Base.Theme.App">
+        <item name="textInputEditTextStyle">@style/Widget.TextInputEditText.Primary</item>
+        <item name="android:textViewStyle">@style/Widget.TextView.Primary</item>
+        <item name="editTextStyle">@style/Widget.EditText.Primary.Light</item>
+        <item name="buttonStyle">@style/Widget.Button.Primary</item>
+        <item name="inverseTextColor">@color/lightInverseTextColor</item>
+        <item name="panelColor">@color/colorWhite</item>
+        <item name="colorPrimary">@color/lightColorPrimary</item>
+        <item name="colorPrimaryDark">@color/lightColorPrimaryDark</item>
+        <item name="colorAccent">@color/lightColorAccent</item>
+        <item name="primaryTextColor">@color/lightPrimaryText</item>
+        <item name="buttonNormalColor">@color/lightButtonNormal</item>
+        <item name="buttonHighlightColor">@color/lightButtonHighlight</item>
+        <item name="buttonTextColor">@color/lightButtonText</item>
+        <item name="loaderColor">@color/lightColorSelected</item>
+        <item name="borderColor">@color/lightBorderColor</item>
+        <item name="subviewsColor">@color/lightSubviewsColor</item>
+        <item name="clearSubviewsColor">@color/lightClearSubviewsColor</item>
+        <item name="playButtonTextColor">@color/lightPlayButtonTextColor</item>
+        <item name="boldTextColor">@color/lightBoldTextColor</item>
+        <item name="thinTextColor">@color/lightThinTextColor</item>
+        <item name="grayTextColor">@color/lightGrayTextColor</item>
+        <item name="redTextColor">@color/lightRedTextColor</item>
+        <item name="greenTextColor">@color/lightGreenTextColor</item>
+        <item name="blueTextColor">@color/lightBlueTextColor</item>
+        <item name="partnerMissionDescriptionTextColor">@color/lightPartnerMissionDescriptionTextColor</item>
+        <item name="prizedTopMissionColor">@color/lightPrizedTopMissionColor</item>
+        <item name="timerTextColor">@color/lightTimerTextColor</item>
+        <item name="buttonBackdround">@drawable/button_bg</item>
+        <item name="opponentTurnTextColor">@color/lightOpponentTurnTextColor</item>
+        <item name="settingsFieldTextColor">@color/lightSettingsFieldTextColor</item>
+        <item name="hintTextColor">@color/lightHintTextColor</item>
+        <item name="colorControlActivated">@color/lightButtonHighlight</item>
+    </style>
+
+
+
+    <style name="Widget.TextInputEditText.Primary" parent="@android:style/TextAppearance">
+        <item name="colorControlNormal">@color/quantum_black_100</item>
+        <item name="colorControlActivated">@color/quantum_black_100</item>
+        <item name="colorControlHighlight">@color/greenBgColor</item>
+    </style>
+    ®
+    <style name="Widget.Button.Primary" parent="Widget.AppCompat.Button">
+        <item name="background">@drawable/button_green_bg</item>
+        <item name="android:textColor">@color/playButtonTextColor</item>
+        <item name="android:textSize">18sp</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:padding">11dp</item>
+    </style>
+
+    <style name="Widget.TextView.Primary" parent="android:Widget.TextView">
+        <item name="android:textColor">@color/primaryText</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="Widget.TextView.Hint" parent="android:Widget.TextView">
+        <item name="android:textColor">?attr/inverseTextColor</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="TextView.AutoSize" parent="Widget.TextView.Primary">
+        <item name="autoSizeTextType">uniform</item>
+        <item name="autoSizeMinTextSize">@dimen/minTextSize</item>
+        <item name="autoSizeMaxTextSize">@dimen/maxTextSize</item>
+        <item name="autoSizeStepGranularity">@dimen/stepGranularity</item>
+    </style>
+
+    <style name="Dialog.Text" parent="Widget.TextView.Primary">
+        <item name="android:textColor">@color/colorPanel</item>
+    </style>
+
+    <style name="TextView.BoldAutoSize" parent="Widget.TextView.Primary">
+        <item name="fontFamily">@font/roboto_regular</item>
+        <item name="autoSizeTextType">uniform</item>
+        <item name="autoSizeMinTextSize">@dimen/minTextSize</item>
+        <item name="autoSizeMaxTextSize">@dimen/maxTextSize</item>
+        <item name="autoSizeStepGranularity">@dimen/stepGranularity</item>
+
+    </style>
+
+    <style name="TextView.Bold" parent="Widget.TextView.Primary">
+        <item name="fontFamily">@font/roboto_regular</item>
+    </style>
+
+    <style name="TextView.Number" parent="Widget.TextView.Primary">
+        <item name="fontFamily">@font/roboto_regular</item>
+    </style>
+
+    <style name="TextView.PartnerMission" parent="TextView.Bold">
+        <item name="android:textColor">@color/partnerMissionDescriptionTextColor</item>
+    </style>
+
+    <style name="TextView.FieldTitle" parent="TextView.Bold">
+        <item name="android:textColor">@color/settingsFieldTextColor</item>
+    </style>
+
+    <style name="TextView.OpponentTurn" parent="TextView.Bold">
+        <item name="android:textColor">@color/opponentTurnTextColor</item>
+    </style>
+
+    <style name="TextView.Timer" parent="TextView.Bold">
+        <item name="android:textColor">@color/timerTextColor</item>
+    </style>
+
+    <style name="TextView.YourTurn" parent="TextView.Bold">
+        <item name="android:textColor">@color/inverseTextColor</item>
+    </style>
+
+    <style name="TextView.HeaderAutoSize" parent="TextView.AutoSize">
+        <item name="autoSizeMinTextSize">@dimen/minHeaderTextSize</item>
+        <item name="autoSizeMaxTextSize">@dimen/maxHeaderTextSize</item>
+    </style>
+
+    <style name="TextView.Header" parent="Widget.TextView.Primary">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextView.HeaderInverseColor" parent="TextView.Header">
+        <item name="android:textColor">@color/inverseTextColor</item>
+    </style>
+
+    <!--    <style name="TextView.HeaderInverseColorLight" parent="TextView.Header">-->
+    <!--        <item name="android:textColor">@color/lightInverseTextColor</item>-->
+    <!--    </style>-->
+
+
+    <style name="TextView.HeaderBlackColor" parent="TextView.Header">
+        <item name="android:textColor">@color/quantum_black_100</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="Widget.EditText.Primary.Light" parent="Widget.AppCompat.EditText">
+        <item name="colorControlNormal">@color/greenBgColor</item>
+        <item name="colorControlActivated">@color/greenBgColor</item>
+        <item name="colorControlHighlight">@color/greenBgColor</item>
+        <item name="android:textColor">@color/quantum_black_100</item>
+        <item name="android:backgroundTint" tools:targetApi="lollipop">@color/greenBgColor</item>
+        <item name="android:textSize">18sp</item>
+        <item name="background">@android:color/transparent</item>
+    </style>
+
+    <style name="Widget.EditText.Primary.Dark" parent="Widget.AppCompat.EditText">
+        <item name="android:textColorHint">@color/textColorHint</item>
+        <item name="android:textColor">@color/darkInverseTextColor</item>
+        <item name="android:backgroundTint" tools:targetApi="lollipop">@color/greenBgColor</item>
+        <item name="android:textSize">18sp</item>
+        <item name="background">@android:color/transparent</item>
+    </style>
+
+    <style name="Theme.App.Launcher" parent="Theme.App.Dark">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+        <item name="android:windowAnimationStyle">@null</item>
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+    <style name="Widget.TextView.Primary.SettingsText" parent="Widget.TextView.Primary">
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:shadowDy">5</item>
+        <item name="android:shadowDx">5</item>
+        <item name="android:shadowRadius">5</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:drawablePadding">20dp</item>
+        <item name="android:layout_margin">8dp</item>
+    </style>
+
+    <style name="Base.Widget.AppCompat.ProgressBar.Horizontal.ProgressBar" parent="Base.Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="color">@color/yellowBgColor</item>
+        <item name="android:progressDrawable">@drawable/progress_bar</item>
+    </style>
+
+    <style name="Widget.AppCompat.SeekBar.CustomSeekBar" parent="Base.Widget.AppCompat.SeekBar">
+        <item name="color">@color/greenTextColor</item>
+        <item name="android:paddingLeft">0dp</item>
+        <item name="paddingStart">0dp</item>
+        <item name="android:paddingRight">0dp</item>
+        <item name="paddingEnd">0dp</item>
+        <item name="android:progressDrawable">@drawable/seekbar_progress</item>
+        <item name="android:thumb">@drawable/thumb</item>
+    </style>
+
+    <style name="header_bar">
+        <item name="android:background">?attr/whiteColor</item>
+        <item name="android:actionBarDivider">@android:color/transparent</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:textColorPrimary">@color/colorPrimary</item>
+        <item name="android:textColorSecondary">@color/greenBgColor</item>
+    </style>
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
+    </style>
+    <style name="MyCustomTheme" parent="@style/Theme.AppCompat.Light">
+        <item name="android:actionBarStyle">@style/MyActionBarTheme</item>
+        <item name="android:actionBarTabBarStyle">@style/MyActionBarTabTheme</item>
+
+        <item name="actionBarStyle">@style/MyActionBarTheme</item>
+        <item name="actionBarTabBarStyle">@style/MyActionBarTabTheme</item>
+    </style>
+
+    <style name="MyActionBarTheme" parent="@style/Widget.AppCompat.Light.ActionBar">
+
+        <item name="background">@color/yellowBgColor</item>
+    </style>
+    <style name="MyActionBarTabTheme" parent="@style/Widget.AppCompat.ActionBar.TabView">
+    </style>
+
+    <!--    <style name="TextAppearance.App.TextInputLayout" parent="@android:style/TextAppearance">-->
+    <!--        <item name="colorControlNormal">#c5c5c5</item>-->
+    <!--        <item name="colorControlActivated">@color/btnDarkRed</item>-->
+    <!--        <item name="colorControlHighlight">@color/greenBgColor</item>-->
+    <!--    </style>-->
+
+</resources>

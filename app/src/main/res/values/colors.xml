@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimaryLight">#ffffff</color>
+    <color name="colorPrimaryLightD">#ffffff</color>
+    <color name="colorAccentLight">#000000</color>
+
+    <color name="colorPrimaryDarkD">#000000</color>
+    <color name="colorAccentDark">#ffffff</color>
+
+    <color name="darkColorText">#FFFFFF</color>
+    <color name="darkInverseTextColor">#FFFFFF</color>
+
+
+
+    <color name="quantum_black_100">#000000</color>
+
+
+    <color name="colorPrimary">#000000</color>
+    <color name="colorPanel">#000000</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#ffffff</color>
+    <color name="primaryText">#000000</color>
+    <color name="buttonNormal">#e30425</color>
+    <color name="buttonHighlight">#ff554f</color>
+    <color name="buttonText">#FFFFFF</color>
+
+    <color name="btnDarkGreen">#117B23</color>
+    <color name="btnLightGreen">#00CE00</color>
+
+    <color name="btnDarkRed">#C12F23</color>
+    <color name="btnLightRed">#E73A2C</color>
+
+    <color name="borderColor">#2EA5B0</color>
+    <color name="subviewsColor">#1fffffff</color>
+    <color name="clearSubviewsColor">#12ffffff</color>
+    <color name="playButtonTextColor">#ffffff</color>
+    <color name="whiteColor">#ffffff</color>
+    <color name="boldTextColor">#FFFFFF</color>
+    <color name="thinTextColor">#ffffff</color>
+    <color name="grayTextColor">#D9DFE7</color>
+    <color name="redTextColor">#ff2817</color>
+    <color name="greenTextColor">#2cb613</color>
+    <color name="blueTextColor">#399bdb</color>
+    <color name="partnerMissionDescriptionTextColor">#EEE41D</color>
+    <color name="prizedTopMissionColor">#898321</color>
+    <color name="timerTextColor">#da65e8</color>
+    <color name="offerTitleColor">#C4D849</color>
+    <color name="opponentTurnTextColor">#ffffff</color>
+    <color name="inverseTextColor">#ffffff</color>
+    <color name="settingsFieldTextColor">#D9DFE7</color>
+    <color name="lineColor">#BBBBBB</color>
+    <color name="textColorHint">#BBBBBB</color>
+
+    <color name="colorUnselected">#BB000000</color>
+    <color name="colorSelected">#BBFFFFFF</color>
+
+    <color name="hintTextColor">#D6D6D6</color>
+
+
+
+
+    <color name="lightColorPrimary">#ffffff</color>
+    <color name="lightColorPanel">#000000</color>
+    <color name="lightColorPrimaryDark">#424242</color>
+    <color name="lightColorAccent">#000000</color>
+    <color name="lightPrimaryText">#424242</color>
+    <color name="lightButtonNormal">#76be2f</color>
+    <color name="lightButtonHighlight">#81c784</color>
+    <color name="lightButtonText">#FFFFFF</color>
+
+    <color name="lightBorderColor">#6D6F76</color>
+    <color name="lightSubviewsColor">#1f000000</color>
+    <color name="lightClearSubviewsColor">#12000000</color>
+    <color name="lightPlayButtonTextColor">#6D6F76</color>
+    <color name="lightBoldTextColor">#434343</color>
+    <color name="lightThinTextColor">#636363</color>
+    <color name="lightGrayTextColor">#636363</color>
+    <color name="lightRedTextColor">#ec0d12</color>
+    <color name="lightGreenTextColor">#079f20</color>
+    <color name="lightBlueTextColor">#205c82</color>
+    <color name="lightPartnerMissionDescriptionTextColor">#205c82</color>
+    <color name="lightPrizedTopMissionColor">#205c82</color>
+    <color name="lightTimerTextColor">#a049aa</color>
+    <color name="lightOfferTitleColor">#205c82</color>
+    <color name="lightOpponentTurnTextColor">#636363</color>
+    <color name="lightInverseTextColor">#000000</color>
+    <color name="lightSettingsFieldTextColor">#636363</color>
+
+    <color name="yellowBgColor">#eae406</color>
+    <color name="greenBgColor">#2CC245</color>
+    <color name="orangeBgColor">#e93f1c</color>
+
+    <color name="lightColorUnselected">#BBFFFFFF</color>
+    <color name="lightColorSelected">#BB000000</color>
+
+    <color name="lightHintTextColor">#D6D6D6</color>
+
+    <color name="indicatorRed">#C12F23</color>
+    <color name="indicatorGreen">#2CC245</color>
+
+    <color name="splashColor">#132E65</color>
+    <color name="dialogTextColor">#35363C</color>
+    <color name="dialogCompanyNameColor">#3C3D43</color>
+    <color name="dialogTextColor1">#757882</color>
+
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorTransparentWhite">#CCCCCC</color>
+    <color name="colorLightGreen">#7ece5f</color>
+    <color name="colorLightBlue">#3ebeed</color>
+    <color name="colorPurple">#ca51da</color>
+    <color name="colorDarkPink">#fe5f63</color>
+
+    <color name="black_overlay">#66000000</color>
+    <color name="transparent_blue">#CCFF0000</color>
+
+    <color name="iconPhoneColor">#919191</color>
+    <color name="toolbarTitleColor">#117B23</color>
+
+
+</resources>
