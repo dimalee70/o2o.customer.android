@@ -1,6 +1,7 @@
 package dragau.o2o.customer.ui.fragment.product
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -17,20 +18,23 @@ import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
 import com.tiper.MaterialSpinner
 import dragau.o2o.customer.App
+import dragau.o2o.customer.BR
 import dragau.o2o.customer.R
 import dragau.o2o.customer.api.requests.ProductRegisterViewModel
 import dragau.o2o.customer.api.response.ProductCategoriesResponce
 import dragau.o2o.customer.databinding.FragmentProductRegisterBinding
+import dragau.o2o.customer.models.objects.BaseParameter
 import dragau.o2o.customer.models.objects.ProductCategories
 import dragau.o2o.customer.presentation.presenter.product.ProductRegisterPresenter
 import dragau.o2o.customer.presentation.view.product.ProductRegisterView
 import dragau.o2o.customer.ui.fragment.BaseMvpFragment
 import kotlinx.android.synthetic.main.activity_product.*
+import kz.dragau.larek.ui.adapters.RecyclerBindingAdapter
 import ru.terrakok.cicerone.Router
 import timber.log.Timber
 import javax.inject.Inject
 
-class ProductRegisterFragment : BaseMvpFragment(), ProductRegisterView {
+class ProductRegisterFragment : BaseMvpFragment(), ProductRegisterView, RecyclerBindingAdapter.OnItemClickListener<BaseParameter> {
 
     companion object {
         const val TAG = "ProductRegisterFragment"
@@ -53,6 +57,9 @@ class ProductRegisterFragment : BaseMvpFragment(), ProductRegisterView {
     lateinit var productRegisterViewModel: ProductRegisterViewModel
 
     lateinit var binding: FragmentProductRegisterBinding
+
+    lateinit var recyclerBindingAdapter: RecyclerBindingAdapter<BaseParameter>
+    private var onItemClickListenerRecycler: RecyclerBindingAdapter.OnItemClickListener<BaseParameter>? = null
 
     private val lifecycleRegistry = LifecycleRegistry(this)
 
@@ -79,6 +86,11 @@ class ProductRegisterFragment : BaseMvpFragment(), ProductRegisterView {
     override fun onCreate(savedInstanceState: Bundle?) {
         App.appComponent.inject(this)
         super.onCreate(savedInstanceState)
+        recyclerBindingAdapter = RecyclerBindingAdapter(R.layout.product_parameter_item, BR.data, context!!)
+
+        if (onItemClickListenerRecycler != null) {
+            recyclerBindingAdapter.setOnItemClickListener(onItemClickListenerRecycler!!)
+        }
 
         mProductRegisterPresenter.attachLifecycle(lifecycleRegistry)
         mProductRegisterPresenter.observeForProductCategoriesResponseBoundary()
@@ -87,12 +99,14 @@ class ProductRegisterFragment : BaseMvpFragment(), ProductRegisterView {
                     setProductCategories(response)
             }
             })
+
+        recyclerBindingAdapter.setItems(productRegisterViewModel.parameters)
     }
 
     private fun setProductCategories(response: ProductCategoriesResponce){
 
         val productCategories = response.resultObject
-        ArrayAdapter<ProductCategories>(context!!, android.R.layout.simple_list_item_1, productCategories!!)
+        /*ArrayAdapter<ProductCategories>(context!!, android.R.layout.simple_list_item_1, productCategories!!)
             .let {
                 it.setDropDownViewResource(R.layout.item_spinner_simple)
                 binding.productCategoryMs.apply {
@@ -101,7 +115,7 @@ class ProductRegisterFragment : BaseMvpFragment(), ProductRegisterView {
                 }
             }
 
-        binding.productCategoryMs.selection = productCategories.indexOfFirst { it.productCategoryId ==  productRegisterViewModel.categoryName }
+        binding.productCategoryMs.selection = productCategories.indexOfFirst { it.productCategoryId ==  productRegisterViewModel.categoryName }*/
 
     }
 
@@ -119,6 +133,13 @@ class ProductRegisterFragment : BaseMvpFragment(), ProductRegisterView {
         binding.productRegisterViewModel = productRegisterViewModel
         binding.presenter = mProductRegisterPresenter
         mProductRegisterPresenter.getProductCategoris()
+
+        binding.recyclerview.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(
+            context,
+            androidx.recyclerview.widget.LinearLayoutManager.VERTICAL,
+            false
+        )
+        binding.recyclerview.adapter = recyclerBindingAdapter
 
         return binding.root
     }
@@ -146,5 +167,24 @@ class ProductRegisterFragment : BaseMvpFragment(), ProductRegisterView {
                 .setGuidelines(CropImageView.Guidelines.ON)
                 .start(it)
         }
+    }
+
+    override fun onItemClick(position: Int, item: BaseParameter) {
+
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        onItemClickListenerRecycler = null
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        try {
+            onItemClickListenerRecycler = this
+        } catch (e: Throwable) {
+            throw ClassCastException(context.toString())
+        }
+
     }
 }

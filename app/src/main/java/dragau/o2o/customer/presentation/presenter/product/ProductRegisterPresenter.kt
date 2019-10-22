@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
 import androidx.core.content.ContextCompat.startActivity
+import androidx.databinding.ObservableArrayList
 import androidx.lifecycle.MutableLiveData
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
@@ -15,17 +16,21 @@ import dragau.o2o.customer.Constants
 import dragau.o2o.customer.api.ApiManager
 import dragau.o2o.customer.api.requests.ProductRegisterViewModel
 import dragau.o2o.customer.api.response.ProductCategoriesResponce
+import dragau.o2o.customer.models.enums.ParameterType
+import dragau.o2o.customer.models.objects.BaseParameter
+import dragau.o2o.customer.models.objects.ProductBarcode
 import dragau.o2o.customer.presentation.presenter.BasePresenter
 import dragau.o2o.customer.presentation.view.product.ProductRegisterView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import org.joda.time.DateTime
 import ru.terrakok.cicerone.Router
 import timber.log.Timber
 import javax.inject.Inject
 
 @InjectViewState
-class ProductRegisterPresenter(private var router: Router, private var productRegisterViewModel: ProductRegisterViewModel): BasePresenter<ProductRegisterView>() {
+class ProductRegisterPresenter(private var router: Router, var productRegisterViewModel: ProductRegisterViewModel): BasePresenter<ProductRegisterView>() {
 
     @Inject
     lateinit var client: ApiManager
@@ -37,6 +42,21 @@ class ProductRegisterPresenter(private var router: Router, private var productRe
 
     init {
         App.appComponent.inject(this)
+
+
+
+        productRegisterViewModel.parameters = ObservableArrayList<BaseParameter>()
+        productRegisterViewModel.parameters!!.addAll(arrayListOf(
+            BaseParameter("2", ParameterType.STRING, "Название", "" ),
+            BaseParameter("1", ParameterType.STRING, "Категория", "" ),
+            BaseParameter("2", ParameterType.STRING, "Производитель", "" ),
+            BaseParameter("4", ParameterType.INT, "Рекомендуемая цена", 0 ),
+            BaseParameter("2", ParameterType.BARCODE, "Штрих-код", productRegisterViewModel.productBarcode),
+            BaseParameter("3", ParameterType.STRING, "Описание", "" )
+        ))
+        val footer = BaseParameter("-1", ParameterType.FOOTER, "", null)
+        footer.presenter = this
+        productRegisterViewModel.parameters?.add(footer)
     }
 
     @SuppressLint("CheckResult")

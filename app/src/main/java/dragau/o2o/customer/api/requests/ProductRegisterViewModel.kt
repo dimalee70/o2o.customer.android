@@ -3,7 +3,14 @@ package dragau.o2o.customer.api.requests
 import android.net.Uri
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
+import androidx.databinding.ObservableArrayList
+import com.google.zxing.BarcodeFormat
 import dragau.o2o.customer.extensions.encodeImage
+import dragau.o2o.customer.models.enums.ParameterType
+import dragau.o2o.customer.models.objects.BaseParameter
+import dragau.o2o.customer.models.objects.ProductBarcode
+import dragau.o2o.customer.presentation.presenter.product.ProductRegisterPresenter
+import org.joda.time.DateTime
 
 class ProductRegisterViewModel: BaseObservable() {
 
@@ -17,6 +24,8 @@ class ProductRegisterViewModel: BaseObservable() {
     var productId: String? = null
 
     var productCategoryId: String? = null
+
+    var parameters: ObservableArrayList<BaseParameter>? = null
 
     var categoryName: String? = null
         @Bindable get
@@ -48,6 +57,14 @@ class ProductRegisterViewModel: BaseObservable() {
 //            notifyPropertyChanged(androidx.databinding.library.baseAdapters.BR.barCode)
 //            notifyPropertyChanged(androidx.databinding.library.baseAdapters.BR.categoryName)
         }
+
+    var productBarcode: ProductBarcode? = null
+        @Bindable get
+        set(value) {
+            field = value
+            notifyChange()
+        }
+
     var describe: String? = null
         @Bindable get
         set(value){

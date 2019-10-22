@@ -4,11 +4,13 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
+import com.google.zxing.BarcodeFormat
 import com.journeyapps.barcodescanner.BarcodeResult
 import dragau.o2o.customer.App
 import dragau.o2o.customer.Screens
 import dragau.o2o.customer.api.ApiManager
 import dragau.o2o.customer.api.requests.ProductRegisterViewModel
+import dragau.o2o.customer.models.objects.ProductBarcode
 import dragau.o2o.customer.presentation.view.ScanView
 import dragau.o2o.customer.ui.activity.product.ProductActivity
 import dragau.o2o.customer.ui.activity.product.ScanActivity
@@ -43,7 +45,7 @@ class ScanPresenter(private val router: Router
 //    }
 //
 @SuppressLint("CheckResult")
-fun  checkProduct(barcode: String){
+fun  checkProduct(barcode: String, format: BarcodeFormat){
         client.getProductByBarcode(barcode)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -66,11 +68,11 @@ fun  checkProduct(barcode: String){
                             viewState.showProductExistsDialog()
                             return@subscribe
                         }
+                        productRegisterViewModel.productBarcode = ProductBarcode(barcode, format)
                         productRegisterViewModel.isVisiblePhoto = false
                         productRegisterViewModel.isEnable = true
                         productRegisterViewModel.barCode = barcode
-                        viewState!!.openProduct()
-//                        router.navigateTo(Screens.ProductScreen())
+                        router.navigateTo(Screens.ProductScreen())
 
                     }
                 },
