@@ -46,7 +46,7 @@ class AppGlideModule : AppGlideModule() {
 @Subcomponent(modules = [(GlideDaggerModule::class)])
 interface GlideComponent {
 
-    fun inject(newOkHttpLibraryGlideModule: AppGlideModule)
+    fun inject(newOkHttpLibraryGlideModule: dragau.o2o.customer.di.modules.AppGlideModule)
 
     @Subcomponent.Builder
     interface Builder {

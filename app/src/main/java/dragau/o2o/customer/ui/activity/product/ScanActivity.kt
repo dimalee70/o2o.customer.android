@@ -37,7 +37,9 @@ class ScanActivity : BaseActivity(), ScanView,
 {
     override fun openProduct() {
         var intent = Intent(this, ProductActivity::class.java)
-        this!!.startActivity(intent)
+        this.startActivity(intent)
+
+//        router.navigateTo(Screens.ProductScreen())
     }
 
     @Inject
@@ -186,7 +188,9 @@ class ScanActivity : BaseActivity(), ScanView,
 //                    router.exit()
                 }
                 showBtnClickListener {
-                    router.navigateTo(Screens.ProductScreen())
+                    openProduct()
+
+//                    router.navigateTo(Screens.ProductScreen())
                 }
             }
         }

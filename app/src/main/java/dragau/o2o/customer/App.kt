@@ -40,6 +40,7 @@ class App : MultiDexApplication() {
             .wSocketModule(WSocketModule())
             .build()
 
+
 //        val crashlyticsKit = Crashlytics.Builder()
 //            .core(CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build())
 //            .build()

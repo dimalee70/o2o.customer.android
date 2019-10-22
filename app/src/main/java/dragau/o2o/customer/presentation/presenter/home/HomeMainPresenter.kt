@@ -62,7 +62,7 @@ class HomeMainPresenter(private var router: Router) : BasePresenter<HomeMainView
 //    }
 
     fun openScan(){
-        viewState!!.openScanActivity()
-//        router.navigateTo(Screens.ScanScreen())
+//        viewState!!.openScanActivity()
+        router.navigateTo(Screens.ScanScreen())
     }
 }

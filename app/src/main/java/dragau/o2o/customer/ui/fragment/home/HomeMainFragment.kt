@@ -203,7 +203,7 @@ class HomeMainFragment : BaseMvpFragment(), HomeMainView
 //        PhoneNumberScreen
 //        router.navigateTo(Screens.PhoneNumberScreen())
 //        router.navigateTo(Screens.ScanScreen())
-        var intent = Intent(context, ScanActivity::class.java)
-        activity!!.startActivity(intent)
+//        var intent = Intent(context, ScanActivity::class.java)
+//        activity!!.startActivity(intent)
     }
 }

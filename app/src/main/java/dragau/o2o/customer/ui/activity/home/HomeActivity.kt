@@ -120,7 +120,7 @@ class HomeActivity : BaseActivity(), HomeView {
 
     override fun onResumeFragments() {
         super.onResumeFragments()
-//        navigatorHolder.setNavigator(navigator)
+        navigatorHolder.setNavigator(navigator)
     }
 
     override fun onPause() {
@@ -207,6 +207,8 @@ class HomeActivity : BaseActivity(), HomeView {
 //        println(currentFragment)
 //        var fragment = supportFragmentManager.backStackEntryCount
 //        customs.clear()
-        super.onBackPressed()
+        finishAffinity()
+//        super.onBackPressed()
+
     }
 }
