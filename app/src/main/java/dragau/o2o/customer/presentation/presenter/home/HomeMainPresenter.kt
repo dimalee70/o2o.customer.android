@@ -40,6 +40,10 @@ class HomeMainPresenter(private var router: Router) : BasePresenter<HomeMainView
 //        getProductByContactId(DataHolder.user!!.id)
 
     }
+
+    fun openProductShow(productId: String?){
+        router.navigateTo(Screens.ProductShowScreen(productId))
+    }
 //    fun getOrdersByOtlet(salesOuterId: String){
 //        disposables.add(
 //        client.getOrdersByOutlet(salesOuterId)
@@ -81,6 +85,8 @@ class HomeMainPresenter(private var router: Router) : BasePresenter<HomeMainView
 
     @SuppressLint("CheckResult")
     fun getProductByContactId(contactId: String){
+
+        disposables.add(
         client.getProductsByContact(contactId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -100,5 +106,6 @@ class HomeMainPresenter(private var router: Router) : BasePresenter<HomeMainView
                     }
                 }
             )
+        )
     }
 }

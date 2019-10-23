@@ -3,6 +3,9 @@ package dragau.o2o.customer
 
 object Constants
 {
+    const val PRODUCT_ID = "product_id"
+    const val PHOTO_TRANSITION = "photo_transition"
+    const val ARG_ANIM_DESTINATION = "arg_anim_dest"
     const val appNameKey = "appName"
     const val mimeTypeKey = "mimeType"
     const val EXTRA_CODE_PHONE = "EXTRA_CODE_PHONE"

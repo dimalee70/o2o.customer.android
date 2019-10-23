@@ -38,4 +38,7 @@ interface ApiManager {
 
     @GET("v1/product/getproductthumbnails")
     fun getPhoto(@Query("ProductId") productId: String): Observable<String>
+
+    @GET("/api/v1/product/get")
+    fun getProduct(@Query("productId") productId: String): Observable<ProductResponce>
 }

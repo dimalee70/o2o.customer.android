@@ -79,6 +79,7 @@ class PhoneNumberPresenter(private val router: Router, smsSent: Boolean) : MvpPr
 
         DataHolder.userId = user.id
         DataHolder.user = user
+        router.navigateTo(Screens.HomeScreen())
     }
 
     var verifId: String? = null
@@ -100,7 +101,7 @@ class PhoneNumberPresenter(private val router: Router, smsSent: Boolean) : MvpPr
                             if (task.isSuccessful) {
                                 getToken(task.result?.token)
                                 stopTimedUpdate()
-                                router.navigateTo(Screens.HomeScreen())
+
                                     //router.navigateTo(Screens.SmsCodeScreen())
                             } else {
                                 if (task.exception?.message != null) {
@@ -154,6 +155,7 @@ class PhoneNumberPresenter(private val router: Router, smsSent: Boolean) : MvpPr
         override fun onVerificationFailed(e: FirebaseException) {
             // This callback is invoked if an invalid request for verification is made,
             // for instance if the the phone number format is invalid.
+            viewState!!.showError(e)
             e.printStackTrace()
             Timber.i("onVerificationFailed")
 

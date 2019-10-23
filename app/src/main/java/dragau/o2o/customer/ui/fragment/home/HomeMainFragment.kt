@@ -37,8 +37,14 @@ class HomeMainFragment : BaseMvpFragment(), HomeMainView,
 //    , OnItemClickListener<OrdersByOutletResult>
 {
     override fun onItemClick(position: Int, item: Product) {
-        Toast.makeText(context!!, item.name, Toast.LENGTH_SHORT).show()
+
+        this.position = position
+        mHomeMainPresenter.openProductShow(item.productId)
+
+//        Toast.makeText(context!!, item.name, Toast.LENGTH_SHORT).show()
     }
+
+    var position: Int? = null
 
 
     //    private var onItemClickListenerRecycler
@@ -77,29 +83,8 @@ class HomeMainFragment : BaseMvpFragment(), HomeMainView,
 
     lateinit var recyclerProductsAdapter: RecyclerBindingAdapter<Product>
 
-//    lateinit var recyclerCustomsAdapter: RecyclerBindingAdapter<OrdersByOutletResult>
-//
-//    lateinit var recyclerTypesAdapter: RecyclerBindingAdapter<Types>
-//
-//    private var onCustomClickListenerRecycler: OnItemClickListener<OrdersByOutletResult>? = this
-
     private val lifecycleRegistry = LifecycleRegistry(this)
     private var onCustomClickListenerRecycler: RecyclerBindingAdapter.OnItemClickListener<Product>? = this
-//    var customs = ObservableArrayList<Customs>()
-//    var types = ObservableArrayList<Types>()
-
-//    private var onTypeClickListenerRecycle: OnItemClickListener<Types>? = object: OnItemClickListener<Types>{
-//        override fun onItemClick(position: Int, item: Types) {
-//            Toast.makeText(context!!, item.text, Toast.LENGTH_SHORT).show()
-//        }
-//
-//    }
-//        object: RecyclerBindingAdapter.OnItemClickListener<Customs>{
-//            override fun onItemClick(position: Int, item: Customs) {
-//                Toast.makeText(context!!, item.text, Toast.LENGTH_SHORT).show()
-//            }
-//        }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         App.appComponent.inject(this)
@@ -116,20 +101,7 @@ class HomeMainFragment : BaseMvpFragment(), HomeMainView,
         if(onCustomClickListenerRecycler != null){
             recyclerProductsAdapter.setOnItemClickListener(onCustomClickListenerRecycler!!)
         }
-//        recyclerCustomsAdapter = RecyclerBindingAdapter(R.layout.item_custom, BR.data, context!!)
-//        recyclerTypesAdapter = RecyclerBindingAdapter(R.layout.item_type, BR.data, context!!)
-//        if(onCustomClickListenerRecycler != null){
-//            recyclerCustomsAdapter.setOnItemClickListener(onCustomClickListenerRecycler!!)
-//        }
-//        if(onTypeClickListenerRecycle != null)
-//            recyclerTypesAdapter.setOnItemClickListener(onTypeClickListenerRecycle!!)
     }
-
-//    private fun setOrderByOutlet(ordersByOutletResponce: OrdersByOutletResponce?) {
-//        customs.addAll(ordersByOutletResponce!!.resultObject!!)
-//        recyclerCustomsAdapter.setItems(customs)
-//        recyclerCustomsAdapter.notifyDataSetChanged()
-//    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -137,7 +109,11 @@ class HomeMainFragment : BaseMvpFragment(), HomeMainView,
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home_main, container, false)
         binding.presenter = mHomeMainPresenter
-        mHomeMainPresenter.getProductByContactId(DataHolder.user!!.id)
+
+        if(DataHolder.user!!.id != null){
+            mHomeMainPresenter.getProductByContactId(DataHolder.user!!.id)
+        }
+
 //
 //        val typesList = ArrayList<Types>()
 //        typesList.add(Types("Акции", "#FF7058", "https://img.icons8.com/carbon-copy/2x/instagram-new.png"))
@@ -178,12 +154,6 @@ class HomeMainFragment : BaseMvpFragment(), HomeMainView,
 //        binding.typesRv.adapter = recyclerTypesAdapter
         binding.productsRv.adapter = recyclerProductsAdapter
         binding.productsRv.setHasFixedSize(true)
-
-//        binding.customsRv.adapter = recyclerCustomsAdapter
-//        binding.typesRv.setHasFixedSize(true)
-//        binding.customsRv.setHasFixedSize(true)
-
-//        mHomeMainPresenter.getProductByContactId()
         return binding.root
     }
 
@@ -192,25 +162,19 @@ class HomeMainFragment : BaseMvpFragment(), HomeMainView,
 
     }
 
-//    override fun onAttach(context: Context) {
-//        super.onAttach(context)
-//        try {
-//            onCustomClickListenerRecycler = this
-//            onTypeClickListenerRecycle = object: OnItemClickListener<Types>{
-//                override fun onItemClick(position: Int, item: Types) {
-//                    Toast.makeText(context, item.text, Toast.LENGTH_SHORT).show()
-//                }
-//
-//            }
-//        }catch (e: Throwable){
-//            throw ClassCastException(context.toString())
-//        }
-//    }
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        try {
+            onCustomClickListenerRecycler = this
+        }catch (e: Throwable){
+            throw ClassCastException(context.toString())
+        }
+    }
 
     override fun onDetach() {
         super.onDetach()
-//        onCustomClickListenerRecycler = null
-//        onTypeClickListenerRecycle = null
+        onCustomClickListenerRecycler = null
+
     }
 
 //    override fun openCustomsScreen() {
@@ -219,6 +183,7 @@ class HomeMainFragment : BaseMvpFragment(), HomeMainView,
 
     override fun onResume() {
         super.onResume()
+//        binding.productsRv.adapter!!.notifyDataSetChanged()
 //        binding.customsRv.adapter!!.notifyDataSetChanged()
     }
 
@@ -231,8 +196,9 @@ class HomeMainFragment : BaseMvpFragment(), HomeMainView,
     }
 
     fun setProductsByContact(response: ProductResponceContact){
+        products.clear()
         products.addAll(response.resultObject!!)
         recyclerProductsAdapter.setItems(products)
-        recyclerProductsAdapter.notifyDataSetChanged()
+//        recyclerProductsAdapter.notifyDataSetChanged()
     }
 }

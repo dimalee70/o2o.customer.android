@@ -7,16 +7,22 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import androidx.transition.ChangeBounds
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import dragau.o2o.customer.App
+import dragau.o2o.customer.Constants
 import dragau.o2o.customer.R
 import dragau.o2o.customer.Screens
 import dragau.o2o.customer.presentation.presenter.home.HomePresenter
 import dragau.o2o.customer.presentation.view.home.HomeView
 import dragau.o2o.customer.ui.activity.BaseActivity
+import dragau.o2o.customer.ui.common.BackButtonListener
 import dragau.o2o.customer.ui.fragment.home.HomeMainFragment
+import dragau.o2o.customer.ui.fragment.product.ProductShowFragment
 import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.activity_main.view.*
+import kotlinx.android.synthetic.main.item_product.view.*
 import ru.terrakok.cicerone.Router
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
 import ru.terrakok.cicerone.commands.Command
@@ -29,6 +35,7 @@ class HomeActivity : BaseActivity(), HomeView {
     companion object {
         const val TAG = "HomeActivity"
         fun getIntent(context: Context): Intent = Intent(context, HomeActivity::class.java)
+        var PHOTO_TRANSITION = "photo_trasition"
     }
 
     @Inject
@@ -144,11 +151,11 @@ class HomeActivity : BaseActivity(), HomeView {
         ) {
             if (command is Forward
                 && currentFragment is HomeMainFragment
-                && nextFragment == null
+                && nextFragment is ProductShowFragment
             ) {
                 setupSharedElement(
                     (currentFragment as HomeMainFragment?)!!,
-                    nextFragment,
+                    (nextFragment as ProductShowFragment?)!!,
                     fragmentTransaction!!
                 )
             }
@@ -157,20 +164,30 @@ class HomeActivity : BaseActivity(), HomeView {
 
     private fun setupSharedElement(
         showImageFragment: HomeMainFragment,
-        nextFragment: Nothing? = null,
+        nextFragment: ProductShowFragment,
         fragmentTransaction: FragmentTransaction
     ) {
 
 //        val changeBounds = ChangeBounds()//.apply { duration = 10000 }
-//        productRegisterFragment.sharedElementEnterTransition = changeBounds
-//        productRegisterFragment.sharedElementReturnTransition = changeBounds
-////
+//        showImageFragment.sharedElementEnterTransition = changeBounds
+//        showImageFragment.sharedElementReturnTransition = changeBounds
+//
+//        nextFragment.sharedElementEnterTransition = changeBounds
+//        nextFragment.sharedElementReturnTransition  = changeBounds
+//////
+//        val view = showImageFragment.binding.productsRv.findViewHolderForAdapterPosition(showImageFragment.position!!)!!.itemView.productIconIv
+//
+//        println(view)
+//        fragmentTransaction.addSharedElement(view, Constants.PHOTO_TRANSITION)
+//        nextFragment.setAnimationDestinationId(view.tag as Int)
 //        val view = productRegisterFragment.binding.makePhotoBtn
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 //            view.transitionName = LoginInActivity.LOGIN_TRANSITION
 //        }
 //        fragmentTransaction.addSharedElement(view , HomeActivity.PRODUCT_TRANSITION)
     }
+
+
 
 
 //    Override
@@ -207,6 +224,14 @@ class HomeActivity : BaseActivity(), HomeView {
 //        println(currentFragment)
 //        var fragment = supportFragmentManager.backStackEntryCount
 //        customs.clear()
+        var fragment = supportFragmentManager.findFragmentById(R.id.activity_home_frame_layout)
+        if (fragment != null && (fragment is BackButtonListener)){
+            return
+        }
+        else if (fragment is ProductShowFragment){
+            super.onBackPressed()
+            return
+        }
         finishAffinity()
 //        super.onBackPressed()
 

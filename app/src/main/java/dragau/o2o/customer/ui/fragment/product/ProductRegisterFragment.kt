@@ -19,6 +19,7 @@ import com.theartofdev.edmodo.cropper.CropImageView
 import com.tiper.MaterialSpinner
 import dragau.o2o.customer.App
 import dragau.o2o.customer.BR
+import dragau.o2o.customer.Constants
 import dragau.o2o.customer.R
 import dragau.o2o.customer.api.requests.ProductRegisterViewModel
 import dragau.o2o.customer.api.response.ProductCategoriesResponce
@@ -45,6 +46,8 @@ class ProductRegisterFragment : BaseMvpFragment(), ProductRegisterView, Recycler
             fragment.arguments = args
             return fragment
         }
+
+
     }
 
     @Inject
@@ -185,6 +188,6 @@ class ProductRegisterFragment : BaseMvpFragment(), ProductRegisterView, Recycler
         } catch (e: Throwable) {
             throw ClassCastException(context.toString())
         }
-
     }
+
 }
