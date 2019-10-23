@@ -8,5 +8,5 @@ data class ParameterRequest
     val type: ParameterType,
     val name: String,
     val value: Any?,
-    val Uom: String?
+    val uom: String?
 )
