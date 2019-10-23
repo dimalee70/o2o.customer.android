@@ -96,7 +96,7 @@
     <string name="error">erroe</string>
     <string name="productCategoryHint">Категория</string>
     <string name="productProducerHint">Производитель</string>
-    <string name="productNameHint">Наименование</string>
+    <string name="productNameHint">Название</string>
     <string name="productBarcodeHint">Штрих-код</string>
     <string name="productDescribeHint">Описание</string>
     <string name="productChangePhotoText"><u>Изменить</u></string>
