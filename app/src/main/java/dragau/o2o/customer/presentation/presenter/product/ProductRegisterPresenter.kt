@@ -54,8 +54,11 @@ class ProductRegisterPresenter(private var router: Router, var productRegisterVi
             BaseParameter("1", ParameterType.STRING, "Категория", "" ),
             BaseParameter("2", ParameterType.INT, "Рекомендуемая цена", null, "тг." ),
             BaseParameter("3", ParameterType.DECIMAL, "Вес", null, "кг." ),
-            BaseParameter("4", ParameterType.BARCODE, "Штрих-код", productRegisterViewModel.productBarcode),
-            BaseParameter("5", ParameterType.STRING, "Описание", "" )
+            BaseParameter("4", ParameterType.INT, "Срок годности", null, "дн." ),
+            BaseParameter("5", ParameterType.BARCODE, "Штрих-код", productRegisterViewModel.productBarcode),
+            BaseParameter("6", ParameterType.STRING, "Описание", "" ),
+            BaseParameter("7", ParameterType.STRING, "Состав", "" )
+
         ))
         val footer = BaseParameter("-1", ParameterType.FOOTER, "", null)
         footer.presenter = this

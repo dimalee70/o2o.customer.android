@@ -17,7 +17,7 @@
         android:paddingBottom="3dp">
 
         <TextView android:id="@+id/txtTitle"
-            android:text="Штрих-код"
+            android:text="@string/productBarcodeHint"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
