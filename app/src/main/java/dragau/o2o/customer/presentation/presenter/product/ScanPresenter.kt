@@ -47,8 +47,30 @@ class ScanPresenter(private val router: Router
 //    }
 //
 @SuppressLint("CheckResult")
+fun  getCategories(){
+    disposable = client.getCategories()
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(
+            {
+                    result ->
+                val r = result
+            },
+            {
+                    error ->
+                run {
+                    viewState.showError(error)
+                }
+            }
+        )
+}
+
+
+
+@SuppressLint("CheckResult")
 fun  checkProduct(barcode: String, format: BarcodeFormat){
-        client.getProductByBarcode(barcode)
+    getCategories()
+    disposable = client.getProductByBarcode(barcode)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
@@ -65,7 +87,7 @@ fun  checkProduct(barcode: String, format: BarcodeFormat){
 
                             if (!result.resultObject.productParameters.isNullOrEmpty()) {
                                 val collection = ObservableArrayList<BaseParameter>()
-                                collection.addAll(result.resultObject.productParameters!!.map { BaseParameter(it.id, it.type, it.name, it.value, it.Uom) })
+                                collection.addAll(result.resultObject.productParameters!!.map { BaseParameter(it.id, it.type, it.name, it.value, it.uom) })
                                 productRegisterViewModel.parameters = collection
                             }
 //                            if (result.resultObject.productImageBase64.isNullOrEmpty())

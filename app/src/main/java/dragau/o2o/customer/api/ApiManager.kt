@@ -41,4 +41,9 @@ interface ApiManager {
 
     @GET("v1/product/getproductthumbnails")
     fun getPhoto(@Query("ProductId") productId: String): Observable<String>
+
+    @GET("v1/sync/GetLookups")
+    fun getCategories(): Observable<LookupCustomResponse>
+
+
 }
