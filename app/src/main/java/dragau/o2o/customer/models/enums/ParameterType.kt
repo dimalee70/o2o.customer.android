@@ -16,5 +16,8 @@ enum class ParameterType(val value: Int)
     DECIMAL(4),
     @SerializedName("5")
     BARCODE(5),
+    @SerializedName("6")
+    LIST(6),
+    HEADER(-2),
     FOOTER(-1)
 }

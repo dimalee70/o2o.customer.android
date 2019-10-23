@@ -74,6 +74,7 @@ class RecyclerBindingAdapter<T>(
         {
             when (item.type)
             {
+                ParameterType.HEADER -> return  R.layout.parameter_header_item
                 ParameterType.DECIMAL -> return R.layout.parameter_doube_item
                 ParameterType.DATE -> return R.layout.parameter_date_item
                 ParameterType.BOOL -> return R.layout.parameter_bool_item
