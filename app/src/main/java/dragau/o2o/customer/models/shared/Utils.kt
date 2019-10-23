@@ -355,33 +355,78 @@ object Utils {
     }
 
     @JvmStatic
-    @BindingAdapter("doubleValue")
-    fun setDoubleValue(view: TextInputEditText, value: Any?) {
-        if (view.value == value?.toString())
-        {
+    @BindingAdapter(value = ["bind:doubleUomValue", "bind:uom"], requireAll = false)
+    fun setDoubleUomValue(view: TextInputEditText, value: Any?, uom: String?) {
+        if (view.value == value?.toString() || value == "" || (value == null && view.value == "")) {
             return
         }
 
-        if (value == null) {
-            view.value = "0.0"
+        if (value == null && view.value != "") {
+            view.value = ""
             return
         }
 
         if (value is Double)
         {
-            view.value = value.toString()
+            //view.value = "${String.format(Locale.ROOT, "%.2f", value)} $uom"
+            view.value = "$value $uom"
+            return
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter(value = ["bind:intUomValue", "bind:uom"], requireAll = false)
+    fun setIntUomValue(view: TextInputEditText, value: Any?, uom: String?) {
+        if (view.value == value?.toString() || value == "" || (value == null && view.value == ""))
+        {
             return
         }
 
-        val paramValue = value.toString().toDoubleOrNull()
+        if (value == null && view.value != "") {
+            view.value = ""
+            return
+        }
+
+        if (value is Int)
+        {
+            view.value = "$value $uom"
+            return
+        }
+    }
+
+
+
+    @JvmStatic
+    @BindingAdapter("doubleValue")
+    fun setDoubleValue(view: TextInputEditText, value: Any?) {
+        if (view.value == value?.toString() || value == "" || (value == null && view.value == ""))
+        {
+            return
+        }
+
+       /* if (view.value.last() == '.')
+        {
+            view.value = ""
+            return
+        }*/
+
+        if (value == null) {
+            view.value = ""
+            return
+        }
+
+        if (value is Double)
+        {
+            view.value = value.toString()//String.format(Locale.ROOT, "%.2f", value)
+            return
+        }
+
+        /*val paramValue = value.toString().toDoubleOrNull()
         if (paramValue == null) {
-            view.value = "0.0"
+            view.value = ""
             return
-        }
+        }*/
 
-        val format = NumberFormat.getCurrencyInstance()
-        format.maximumFractionDigits = 0
-        view.value = format.format(paramValue)
     }
 
 
@@ -398,13 +443,13 @@ object Utils {
     @JvmStatic
     @BindingAdapter("intValue")
     fun setIntValue(view: TextInputEditText, value: Any?) {
-        if (view.value == value?.toString())
+        if (view.value == value?.toString() || value == "" || (value == null && view.value == ""))
         {
             return
         }
 
         if (value == null) {
-            view.value = "0"
+            view.value = ""
             return
         }
 
@@ -416,7 +461,7 @@ object Utils {
 
         val paramValue = value.toString().toIntOrNull()
         if (paramValue == null) {
-            view.value = "0"
+            view.value = ""
             return
         }
 
