@@ -33,7 +33,7 @@ class RecyclerBindingAdapter<T>(
     }
 
     init {
-        items.addOnListChangedCallback(ObservableListCallback())
+       // items.addOnListChangedCallback(ObservableListCallback())
     }
 
 //    fun <T> ObservableList<T>.subscribeRecycler(adapter: RecyclerView.Adapter<*>) {
@@ -110,8 +110,8 @@ class RecyclerBindingAdapter<T>(
     {
         if (this.items.isEmpty() && items != null)
         {
-            val list = ArrayList<T>()
-            list.addAll(items.toMutableList())
+            //val list = ArrayList<T>()
+            //list.addAll(items.toMutableList())
             this.items = items
 
             notifyDataSetChanged()
@@ -130,6 +130,7 @@ class RecyclerBindingAdapter<T>(
                 notifyDataSetChanged() //под вопросом, может стоит удалить
             }
         }
+        this.items.addOnListChangedCallback(ObservableListCallback())
 
     }
 

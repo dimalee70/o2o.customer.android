@@ -26,6 +26,6 @@ data class Product(
     var description: String? = null,
 
     @field:SerializedName("productThumbnails")
-    var productThumbnails: Stack<ProductImage>
+    var productThumbnails: Stack<ProductImage>? = null
 ){
 }

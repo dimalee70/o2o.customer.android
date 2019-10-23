@@ -16,7 +16,7 @@
 
 
     <color name="colorPrimary">#000000</color>
-    <color name="colorPanel">#000000</color>
+    <color name="colorPanel">#FFFFFF</color>
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#ffffff</color>
     <color name="primaryText">#000000</color>
@@ -30,7 +30,7 @@
     <color name="btnDarkRed">#C12F23</color>
     <color name="btnLightRed">#E73A2C</color>
 
-    <color name="borderColor">#2EA5B0</color>
+    <color name="borderColor">#EAEAEA</color>
     <color name="subviewsColor">#1fffffff</color>
     <color name="clearSubviewsColor">#12ffffff</color>
     <color name="playButtonTextColor">#ffffff</color>
@@ -68,7 +68,7 @@
     <color name="lightButtonHighlight">#81c784</color>
     <color name="lightButtonText">#FFFFFF</color>
 
-    <color name="lightBorderColor">#6D6F76</color>
+    <color name="lightBorderColor">#EAEAEA</color>
     <color name="lightSubviewsColor">#1f000000</color>
     <color name="lightClearSubviewsColor">#12000000</color>
     <color name="lightPlayButtonTextColor">#6D6F76</color>

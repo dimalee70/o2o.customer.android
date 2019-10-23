@@ -15,6 +15,7 @@ import dragau.o2o.customer.presentation.presenter.home.HomeMainPresenter
 import dragau.o2o.customer.presentation.presenter.home.HomePresenter
 import dragau.o2o.customer.presentation.presenter.login.PhoneNumberPresenter
 import dragau.o2o.customer.presentation.presenter.login.SmsCodePresenter
+import dragau.o2o.customer.presentation.presenter.product.AddParameterPresenter
 import dragau.o2o.customer.presentation.presenter.product.ProductRegisterPresenter
 import dragau.o2o.customer.presentation.presenter.product.ScanPresenter
 import dragau.o2o.customer.ui.activity.BaseActivity
@@ -25,6 +26,7 @@ import dragau.o2o.customer.ui.activity.product.ScanActivity
 import dragau.o2o.customer.ui.fragment.home.HomeMainFragment
 import dragau.o2o.customer.ui.fragment.login.PhoneNumberFragment
 import dragau.o2o.customer.ui.fragment.login.SmsCodeFragment
+import dragau.o2o.customer.ui.fragment.product.AddParameterFragment
 import dragau.o2o.customer.ui.fragment.product.ProductRegisterFragment
 import javax.inject.Singleton
 
@@ -69,6 +71,7 @@ interface AppComponent {
 //    fun inject(fragment: ShowImageFragment)
 //    fun inject(fragment: ImageViewPagerFragment)
     fun inject(fragment: HomeMainFragment)
+    fun inject(fragment: AddParameterFragment)
 //    fun inject(fragment: OnlineCustomsFragment)
 
     fun inject(presenter: MainAppPresenter)
@@ -81,6 +84,7 @@ interface AppComponent {
 //    fun inject(presenter: LocationMapPresenter)
     fun inject(presenter: ProductRegisterPresenter)
     fun inject(presenter: ScanPresenter)
+    fun inject(presenter: AddParameterPresenter)
 //    fun inject(presenter: RegisterStorePresenter)
 //    fun inject(presenter: StorePresenter)
 //    fun inject(presenter: ShowImagePresenter)

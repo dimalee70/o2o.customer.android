@@ -62,7 +62,7 @@ fun  checkProduct(barcode: String, format: BarcodeFormat){
                             productRegisterViewModel.barCode = result.resultObject.barCode
 //                            if (result.resultObject.productImageBase64.isNullOrEmpty())
                                 productRegisterViewModel.isVisiblePhoto = false
-                            productRegisterViewModel.imageUri = result.resultObject.productThumbnails.peek().body
+                            productRegisterViewModel.imageUri = if (!result.resultObject.productThumbnails.isNullOrEmpty()) { result.resultObject.productThumbnails!!.peek().body } else { null }
                             productRegisterViewModel.isVisiblePhoto = true
                             productRegisterViewModel.isEnable = false
                             viewState.showProductExistsDialog()

@@ -4,6 +4,9 @@ import android.net.Uri
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import androidx.databinding.ObservableArrayList
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
+import dragau.o2o.customer.BR
 import dragau.o2o.customer.extensions.encodeImage
 import dragau.o2o.customer.models.enums.ParameterType
 import dragau.o2o.customer.models.objects.BaseParameter
@@ -12,7 +15,7 @@ import dragau.o2o.customer.presentation.presenter.product.ProductRegisterPresent
 import org.joda.time.DateTime
 
 class ProductRegisterViewModel: BaseObservable() {
-
+    @Expose(serialize = false)
     var isEnable: Boolean = true
         @Bindable get
         set(value){
@@ -20,34 +23,43 @@ class ProductRegisterViewModel: BaseObservable() {
             notifyChange()
         }
 
+    @SerializedName("productId")
     var productId: String? = null
 
+    @SerializedName("productCategoryId")
     var productCategoryId: String? = null
 
     var parameters: ObservableArrayList<BaseParameter>? = null
 
+    @Expose(serialize = false)
     var categoryName: String? = null
         @Bindable get
         set(value){
             field = value
 //            notifyChange()
-            notifyPropertyChanged(androidx.databinding.library.baseAdapters.BR.categoryName)
+            notifyPropertyChanged(BR.categoryName)
         }
+
+    @SerializedName("manufacturer")
     var produserName: String? = null
         @Bindable get
         set(value){
             field = value
             notifyChange()
-            notifyPropertyChanged(androidx.databinding.library.baseAdapters.BR.produserName)
+            notifyPropertyChanged(BR.produserName)
         }
+
+    @SerializedName("name")
     var title: String? = null
         @Bindable get
         set(value){
             field = value
 //            notifyChange()
-            notifyPropertyChanged(androidx.databinding.library.baseAdapters.BR.title)
-            notifyPropertyChanged(androidx.databinding.library.baseAdapters.BR.categoryName)
+            notifyPropertyChanged(BR.title)
+            notifyPropertyChanged(BR.categoryName)
         }
+
+    @SerializedName("barCode")
     var barCode: String? = null
         @Bindable get
         set(value) {
@@ -64,13 +76,17 @@ class ProductRegisterViewModel: BaseObservable() {
             notifyChange()
         }
 
+    @SerializedName("description")
     var describe: String? = null
         @Bindable get
         set(value){
             field = value
 //            notifyChange()
-            notifyPropertyChanged(androidx.databinding.library.baseAdapters.BR.describe)
+            notifyPropertyChanged(BR.describe)
         }
+
+
+    @Expose(serialize = false)
     var imageUri: String? = null
         @Bindable get
         set(value) {
@@ -78,6 +94,7 @@ class ProductRegisterViewModel: BaseObservable() {
             notifyChange()
         }
 
+    @Expose(serialize = false)
     var imageBase64: String? = null
 
     fun setImageBase64ByClient(stringUri: String){
@@ -88,6 +105,8 @@ class ProductRegisterViewModel: BaseObservable() {
     fun setImageUriFromServer(string64: String){
         imageBase64 = string64
     }
+
+    @Expose(serialize = false)
     var isVisiblePhoto: Boolean = false
         set(value){
             field = value

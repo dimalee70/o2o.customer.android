@@ -13,7 +13,9 @@ import com.google.gson.JsonObject
 import com.google.zxing.integration.android.IntentIntegrator
 import dragau.o2o.customer.App
 import dragau.o2o.customer.Constants
+import dragau.o2o.customer.Screens
 import dragau.o2o.customer.api.ApiManager
+import dragau.o2o.customer.api.requests.ProductRegisterRequest
 import dragau.o2o.customer.api.requests.ProductRegisterViewModel
 import dragau.o2o.customer.api.response.ProductCategoriesResponce
 import dragau.o2o.customer.models.enums.ParameterType
@@ -49,17 +51,7 @@ class ProductRegisterPresenter(private var router: Router, var productRegisterVi
         val header = BaseParameter("-2", ParameterType.HEADER, "", null)
         header.presenter = this
         productRegisterViewModel.parameters?.add(header)
-
-        productRegisterViewModel.parameters!!.addAll(arrayListOf(
-            BaseParameter("1", ParameterType.STRING, "Категория", "" ),
-            BaseParameter("2", ParameterType.INT, "Рекомендуемая цена", null, "тг." ),
-            BaseParameter("3", ParameterType.DECIMAL, "Вес", null, "кг." ),
-            BaseParameter("4", ParameterType.INT, "Срок годности", null, "дн." ),
-            BaseParameter("5", ParameterType.BARCODE, "Штрих-код", productRegisterViewModel.productBarcode),
-            BaseParameter("6", ParameterType.STRING, "Описание", "" ),
-            BaseParameter("7", ParameterType.STRING, "Состав", "" )
-
-        ))
+        BaseParameter("5", ParameterType.BARCODE, "Штрих-код", productRegisterViewModel.productBarcode)
         val footer = BaseParameter("-1", ParameterType.FOOTER, "", null)
         footer.presenter = this
         productRegisterViewModel.parameters?.add(footer)
@@ -79,15 +71,7 @@ class ProductRegisterPresenter(private var router: Router, var productRegisterVi
 
     @SuppressLint("CheckResult")
     private fun createProduct(){
-        val body: JsonObject = JsonObject()
-        body.addProperty("productId", productRegisterViewModel.productId)
-        body.addProperty("productCategoryId", productRegisterViewModel.categoryName)
-        body.addProperty("name", productRegisterViewModel.title)
-        body.addProperty("barCode", productRegisterViewModel.barCode)
-        body.addProperty("manufacturer", productRegisterViewModel.produserName)
-        body.addProperty("description", productRegisterViewModel.describe)
-
-        client.createProduct(body)
+        client.createProduct(ProductRegisterRequest.from(productRegisterViewModel))
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
@@ -111,17 +95,7 @@ class ProductRegisterPresenter(private var router: Router, var productRegisterVi
 
     @SuppressLint("CheckResult")
     private fun updateProduct(){
-        val body: JsonObject = JsonObject()
-        body.addProperty("productCategoryId", productRegisterViewModel.categoryName)
-//            println("categoryId")
-//            println(productRegisterViewModel.categoryName)
-//            body.addProperty("productImageBase64", productRegisterViewModel.imageUri)
-        body.addProperty("name", productRegisterViewModel.title)
-        body.addProperty("barCode", productRegisterViewModel.barCode)
-        body.addProperty("manufacturer", productRegisterViewModel.produserName)
-        body.addProperty("description", productRegisterViewModel.describe)
-
-        client.updateProduct(body)
+        client.updateProduct(ProductRegisterRequest.from(productRegisterViewModel))
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
@@ -145,7 +119,7 @@ class ProductRegisterPresenter(private var router: Router, var productRegisterVi
     }
 
     fun showParameters() {
-
+        router.navigateTo(Screens.AddParameterScreen())
     }
 
     fun getProductCategoris(){
