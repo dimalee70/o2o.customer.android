@@ -1,6 +1,7 @@
 package dragau.o2o.customer.models.objects
 
 import com.google.gson.annotations.SerializedName
+import java.util.*
 
 data class Product(
     @field:SerializedName("productId")
@@ -22,6 +23,9 @@ data class Product(
     var manufacturer: String? = null,
 
     @field:SerializedName("description")
-    var description: String? = null
+    var description: String? = null,
+
+    @field:SerializedName("productThumbnails")
+    var productThumbnails: Stack<ProductImage>
 ){
 }

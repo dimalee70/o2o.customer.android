@@ -1,4 +1,4 @@
-package kz.dragau.larek.ui.adapters
+package dragau.o2o.customer.ui.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -22,7 +22,8 @@ class RecyclerBindingAdapter<T>(
     private val variableId: Int,
     private val context: Context
 ) : RecyclerView.Adapter<RecyclerBindingAdapter.BindingHolder>() {
-    private var items: ArrayList<T> = ArrayList()
+//    private var items: ArrayList<T> = ArrayList()
+    private var items: ObservableArrayList<T> = ObservableArrayList()
     private var onItemClickListener: OnItemClickListener<T>? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerBindingAdapter.BindingHolder {
@@ -32,6 +33,15 @@ class RecyclerBindingAdapter<T>(
     }
 
     init {
+        items.addOnListChangedCallback(ObservableListCallback())
+    }
+
+//    fun <T> ObservableList<T>.subscribeRecycler(adapter: RecyclerView.Adapter<*>) {
+//        addOnListChangedCallback(ObservableListCallback())
+//    }
+
+    override fun getItemId(position: Int): Long {
+        return super.getItemId(position)
         //items.addOnListChangedCallback(ObservableListCallback())
     }
 
@@ -43,6 +53,19 @@ class RecyclerBindingAdapter<T>(
                 onItemClickListener!!.onItemClick(position, item)
         }
         holder.binding.setVariable(variableId, item)
+//        holder.binding.executePendingBindings()
+//        if(holderLayout == R.layout.item_custom || holderLayout == R.layout.item_custom_full){
+//            holder.binding.root.closeIb.setOnClickListener{
+//                removeAt(position)
+//            }
+//        }
+    }
+
+    fun removeAt(position: Int){
+        items.removeAt(position)
+//        notifyItemChanged(position)
+//        notifyItemRangeChanged(position, items.size)
+        notifyDataSetChanged()
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -88,7 +111,7 @@ class RecyclerBindingAdapter<T>(
         {
             val list = ArrayList<T>()
             list.addAll(items.toMutableList())
-            this.items = list
+            this.items = items
 
             notifyDataSetChanged()
         }

@@ -4,7 +4,6 @@ import android.net.Uri
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import androidx.databinding.ObservableArrayList
-import com.google.zxing.BarcodeFormat
 import dragau.o2o.customer.extensions.encodeImage
 import dragau.o2o.customer.models.enums.ParameterType
 import dragau.o2o.customer.models.objects.BaseParameter

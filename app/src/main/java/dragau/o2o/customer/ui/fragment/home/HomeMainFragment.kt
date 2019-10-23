@@ -14,22 +14,30 @@ import androidx.lifecycle.Observer
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import dragau.o2o.customer.App
+import dragau.o2o.customer.BR
 import dragau.o2o.customer.R
 import dragau.o2o.customer.Screens
+import dragau.o2o.customer.api.response.ProductResponce
+import dragau.o2o.customer.api.response.ProductResponceContact
 import dragau.o2o.customer.databinding.FragmentHomeMainBinding
+import dragau.o2o.customer.models.objects.Product
 import dragau.o2o.customer.presentation.presenter.home.HomeMainPresenter
 import dragau.o2o.customer.presentation.view.home.HomeMainView
 import dragau.o2o.customer.ui.activity.product.ScanActivity
+import dragau.o2o.customer.ui.adapters.RecyclerBindingAdapter
 import dragau.o2o.customer.ui.fragment.BaseMvpFragment
 import ru.terrakok.cicerone.Router
 import java.lang.ClassCastException
 import javax.inject.Inject
 import kotlin.collections.ArrayList
 
-class HomeMainFragment : BaseMvpFragment(), HomeMainView
+class HomeMainFragment : BaseMvpFragment(), HomeMainView,
+    RecyclerBindingAdapter.OnItemClickListener<Product>
 //    , OnItemClickListener<OrdersByOutletResult>
 {
-
+    override fun onItemClick(position: Int, item: Product) {
+        Toast.makeText(context!!, item.name, Toast.LENGTH_SHORT).show()
+    }
 
 
     //    private var onItemClickListenerRecycler
@@ -43,6 +51,8 @@ class HomeMainFragment : BaseMvpFragment(), HomeMainView
             return fragment
         }
     }
+
+    var products: ObservableArrayList<Product> = ObservableArrayList()
 
 //    override fun onItemClick(position: Int, item: OrdersByOutletResult) {
 //        Toast.makeText(context!!, item.contactId, Toast.LENGTH_SHORT).show()
@@ -64,6 +74,8 @@ class HomeMainFragment : BaseMvpFragment(), HomeMainView
 
     lateinit var binding: FragmentHomeMainBinding
 
+    lateinit var recyclerProductsAdapter: RecyclerBindingAdapter<Product>
+
 //    lateinit var recyclerCustomsAdapter: RecyclerBindingAdapter<OrdersByOutletResult>
 //
 //    lateinit var recyclerTypesAdapter: RecyclerBindingAdapter<Types>
@@ -71,6 +83,7 @@ class HomeMainFragment : BaseMvpFragment(), HomeMainView
 //    private var onCustomClickListenerRecycler: OnItemClickListener<OrdersByOutletResult>? = this
 
     private val lifecycleRegistry = LifecycleRegistry(this)
+    private var onCustomClickListenerRecycler: RecyclerBindingAdapter.OnItemClickListener<Product>? = this
 //    var customs = ObservableArrayList<Customs>()
 //    var types = ObservableArrayList<Types>()
 
@@ -90,7 +103,13 @@ class HomeMainFragment : BaseMvpFragment(), HomeMainView
     override fun onCreate(savedInstanceState: Bundle?) {
         App.appComponent.inject(this)
         super.onCreate(savedInstanceState)
-//        mHomeMainPresenter.attachLifecycle(lifecycleRegistry)
+        mHomeMainPresenter.attachLifecycle(lifecycleRegistry)
+        mHomeMainPresenter.observeProductResponseBoundary()
+            .observe(this, Observer {
+                response -> response.let {
+                setProductsByContact(response)
+            }
+            })
 //        mHomeMainPresenter.observeForOrderByOutletResponseBoundary()
 //            .observe(this, Observer {
 //                response -> response.let {
@@ -98,6 +117,11 @@ class HomeMainFragment : BaseMvpFragment(), HomeMainView
 //            }
 //            })
 //        mHomeMainPresenter.getOrdersByOtlet("fe28218f-10b9-4d70-50a1-08d73cba8606")
+        mHomeMainPresenter.getProductByContactId()
+        recyclerProductsAdapter = RecyclerBindingAdapter(R.layout.item_product, BR.data, context!!)
+        if(onCustomClickListenerRecycler != null){
+            recyclerProductsAdapter.setOnItemClickListener(onCustomClickListenerRecycler!!)
+        }
 //        recyclerCustomsAdapter = RecyclerBindingAdapter(R.layout.item_custom, BR.data, context!!)
 //        recyclerTypesAdapter = RecyclerBindingAdapter(R.layout.item_type, BR.data, context!!)
 //        if(onCustomClickListenerRecycler != null){
@@ -158,9 +182,13 @@ class HomeMainFragment : BaseMvpFragment(), HomeMainView
 //        recyclerTypesAdapter.setItems(types)
 
 //        binding.typesRv.adapter = recyclerTypesAdapter
+        binding.productsRv.adapter = recyclerProductsAdapter
+        binding.productsRv.setHasFixedSize(true)
 //        binding.customsRv.adapter = recyclerCustomsAdapter
 //        binding.typesRv.setHasFixedSize(true)
 //        binding.customsRv.setHasFixedSize(true)
+
+//        mHomeMainPresenter.getProductByContactId()
         return binding.root
     }
 
@@ -205,5 +233,11 @@ class HomeMainFragment : BaseMvpFragment(), HomeMainView
 //        router.navigateTo(Screens.ScanScreen())
 //        var intent = Intent(context, ScanActivity::class.java)
 //        activity!!.startActivity(intent)
+    }
+
+    fun setProductsByContact(response: ProductResponceContact){
+        products.addAll(response.resultObject!!)
+        recyclerProductsAdapter.setItems(products)
+        recyclerProductsAdapter.notifyDataSetChanged()
     }
 }
