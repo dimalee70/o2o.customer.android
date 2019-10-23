@@ -44,6 +44,7 @@ class MainAppPresenter(private val router: Router) : MvpPresenter<MainAppView>()
         FirebaseInstanceId.getInstance().instanceId
             .addOnCompleteListener(OnCompleteListener { task ->
                 if (!task.isSuccessful) {
+                    viewState?.showError("Убедитесь, что ваш телефон подключен к интернете и попробуйте позже", -1)
                     Timber.e(task.exception)
                     return@OnCompleteListener
                 }

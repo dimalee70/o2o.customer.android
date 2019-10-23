@@ -8,7 +8,9 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
+import com.bumptech.glide.Priority
 import com.bumptech.glide.request.RequestOptions
 import com.tiper.MaterialSpinner
 import dragau.o2o.customer.models.objects.ProductCategories
@@ -16,6 +18,9 @@ import java.text.NumberFormat
 import java.util.*
 import java.util.regex.Pattern
 import javax.inject.Inject
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import dragau.o2o.customer.R
+
 
 //@BindingAdapter("setImage")
 //fun CircleImageView.setImage(url: String?){
@@ -45,8 +50,28 @@ fun ImageView.setImageUri(uri: String?){ //, newImageAttrChanged: InverseBinding
         return
 
 //    if (){
+
+        val options = RequestOptions()
+            .centerCrop()
+            .placeholder(R.drawable.progress_animation)
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .priority(Priority.HIGH)
+            .dontAnimate()
+            .dontTransform()
+
+//        val circularProgressDrawable = CircularProgressDrawable(context)
+//        circularProgressDrawable.strokeWidth = 5f
+//        circularProgressDrawable.centerRadius = 30f
+//        circularProgressDrawable.start()
+//
+//        val thumbnailRequest = Glide.with(this)
+//            .load("https://picsum.photos/50/50?image=0")
         val imageAsBytes = android.util.Base64.decode(uri.toByteArray(), android.util.Base64.DEFAULT)
-        Glide.with(context).load(imageAsBytes).into(this)
+        Glide.with(context)
+            .load(imageAsBytes)
+            .apply(options)
+//            .placeholder(circularProgressDrawable)
+            .into(this)
 //        return
 //    }
 

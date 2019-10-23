@@ -46,4 +46,7 @@ interface ApiManager {
     fun getCategories(): Observable<LookupCustomResponse>
 
 
+
+    @GET("/api/v1/product/get")
+    fun getProduct(@Query("productId") productId: String): Observable<ProductResponce>
 }
