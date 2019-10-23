@@ -48,7 +48,7 @@ class RecyclerBindingAdapter<T>(
     override fun onBindViewHolder(holder: RecyclerBindingAdapter.BindingHolder, position: Int) {
         val item = items[position]
 
-        holder.binding!!.root.setOnClickListener { v ->
+        holder.binding!!.root.setOnClickListener { _ ->
             if (onItemClickListener != null)
                 onItemClickListener!!.onItemClick(position, item)
         }
@@ -81,6 +81,7 @@ class RecyclerBindingAdapter<T>(
                 ParameterType.INT -> return R.layout.parameter_int_item
                 ParameterType.BARCODE -> return R.layout.parameter_barcode_item
                 ParameterType.FOOTER -> return  R.layout.parameter_footer_item
+                else -> return  R.layout.parameter_footer_item
             }
         }
         return holderLayout
