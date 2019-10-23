@@ -105,4 +105,5 @@
     <string name="loading_tv">идет проверка введеных вами данных</string>
     <string name="exists_tv">Данный продукт уже есть в базе</string>
     <string name="productCostHint">Ценна</string>
+    <string name="add_parameter">Добавить параметр</string>
 </resources>

@@ -1,7 +1,9 @@
 package dragau.o2o.customer.models.objects
 
 import com.google.gson.annotations.SerializedName
+import dragau.o2o.customer.api.requests.ParameterRequest
 import java.util.*
+import kotlin.collections.ArrayList
 
 data class Product(
     @field:SerializedName("productId")
@@ -26,6 +28,8 @@ data class Product(
     var description: String? = null,
 
     @field:SerializedName("productThumbnails")
-    var productThumbnails: Stack<ProductImage>
-){
+    var productThumbnails: Stack<ProductImage>? = null,
+
+    var productParameters: ArrayList<ParameterRequest>? = null
+    ){
 }
