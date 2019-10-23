@@ -14,6 +14,7 @@ import dragau.o2o.customer.api.ApiManager
 import dragau.o2o.customer.api.response.ProductResponce
 import dragau.o2o.customer.api.response.ProductResponceContact
 import dragau.o2o.customer.models.objects.Product
+import dragau.o2o.customer.models.shared.DataHolder
 import dragau.o2o.customer.presentation.presenter.BasePresenter
 import dragau.o2o.customer.presentation.view.home.HomeMainView
 import ru.terrakok.cicerone.Router
@@ -36,6 +37,7 @@ class HomeMainPresenter(private var router: Router) : BasePresenter<HomeMainView
 
     init {
         App.appComponent.inject(this)
+//        getProductByContactId(DataHolder.user!!.id)
 
     }
 //    fun getOrdersByOtlet(salesOuterId: String){
@@ -68,8 +70,8 @@ class HomeMainPresenter(private var router: Router) : BasePresenter<HomeMainView
 
     fun openScan(){
 //        viewState!!.openScanActivity()
-        getProductByContactId()
-//        router.navigateTo(Screens.ScanScreen())
+//        getProductByContactId(DataHolder.user!!.id)
+        router.navigateTo(Screens.ScanScreen())
 //        router.navigateTo(Screens.ProductScreen())
     }
 
@@ -78,8 +80,8 @@ class HomeMainPresenter(private var router: Router) : BasePresenter<HomeMainView
     }
 
     @SuppressLint("CheckResult")
-    fun getProductByContactId(){
-        client.getProductsByContact("190204ea-fce8-473e-15c2-08d725f7d17c")
+    fun getProductByContactId(contactId: String){
+        client.getProductsByContact(contactId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(

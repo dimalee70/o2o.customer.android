@@ -28,9 +28,9 @@ object Constants
     const val themePrefsKey = "current_theme"
     const val jwtPrefsKey = "current_token"
     const val userIdPrefsKey = "user_id"
-    const val connectTimeout: Long = 25
-    const val writeTimeout: Long = 40
-    const val readTimeout: Long = 40
+    const val connectTimeout: Long = 180
+    const val writeTimeout: Long = 180
+    const val readTimeout: Long = 180
     const val progressDelay: Long = 10
     const val smsVerificationDelay: Long = 60
     const val verificationCode = "verificationCode"

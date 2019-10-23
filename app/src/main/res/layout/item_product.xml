@@ -6,66 +6,82 @@
         <variable name="data" type="dragau.o2o.customer.models.objects.Product" />
     </data>
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="166dp"
+        android:layout_gravity="center"
+        android:layout_margin="3dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         >
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp">
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/productIconIv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
                 android:src="@drawable/ic_groceries"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginStart="16dp"
+                android:layout_margin="10dp"
+                app:setImageUri="@{data.productThumbnails.size() > 0 ?  data.productThumbnails.peek().body : null}"
                 />
 
             <TextView
                 android:id="@+id/productNameTv"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="dcsdcdscsdcdvdfvdfvfdvdfvsdfs"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/productIconIv"
-                app:layout_constraintEnd_toStartOf="@+id/arrowIv"
-                app:layout_constraintBottom_toTopOf="@+id/productCostTi"
+                android:text="@{data.name}"
+                app:layout_constraintStart_toStartOf="@+id/productIconIv"
+                app:layout_constraintEnd_toEndOf="@+id/productIconIv"
+                app:layout_constraintTop_toBottomOf="@+id/productIconIv"
+                app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginStart="6dp"
                 android:textColor="#474747"
                 android:fontFamily="@font/roboto_regular"
                 android:textSize="16sp"
+                android:maxLines="2"
+                android:ellipsize="end"
                 />
 
-            <TextView
-                android:id="@+id/productCostTv"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="600 тг/кг"
-                android:fontFamily="@font/roboto_bold"
-                android:textSize="16sp"
-                app:layout_constraintTop_toBottomOf="@+id/productNameTi"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/arrowIv"
-                app:layout_constraintStart_toEndOf="@+id/productIconIv"
-                />
+<!--            <TextView-->
+<!--                android:id="@+id/productCostTv"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="600 тг/кг"-->
+<!--                android:fontFamily="@font/roboto_bold"-->
+<!--                android:textSize="16sp"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/productNameTi"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toStartOf="@+id/arrowIv"-->
+<!--                app:layout_constraintStart_toEndOf="@+id/productIconIv"-->
+<!--                />-->
 
-            <ImageView
-                android:id="@+id/arrowIv"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:src="@drawable/ic_cyan"
-                />
+<!--            <ImageView-->
+<!--                android:id="@+id/arrowIv"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="match_parent"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                android:src="@drawable/ic_cyan"-->
+<!--                />-->
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

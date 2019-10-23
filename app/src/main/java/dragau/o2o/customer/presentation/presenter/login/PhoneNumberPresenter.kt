@@ -78,6 +78,7 @@ class PhoneNumberPresenter(private val router: Router, smsSent: Boolean) : MvpPr
         )
 
         DataHolder.userId = user.id
+        DataHolder.user = user
     }
 
     var verifId: String? = null
