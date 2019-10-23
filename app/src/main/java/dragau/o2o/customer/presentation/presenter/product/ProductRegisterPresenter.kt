@@ -141,8 +141,10 @@ class ProductRegisterPresenter(private var router: Router, var productRegisterVi
     }
 
     fun makePhoto() {
-
         viewState?.showPictureDialog()
+    }
+
+    fun showParameters() {
 
     }
 
