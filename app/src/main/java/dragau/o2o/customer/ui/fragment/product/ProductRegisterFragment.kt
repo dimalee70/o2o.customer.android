@@ -27,9 +27,9 @@ import dragau.o2o.customer.models.objects.BaseParameter
 import dragau.o2o.customer.models.objects.ProductCategories
 import dragau.o2o.customer.presentation.presenter.product.ProductRegisterPresenter
 import dragau.o2o.customer.presentation.view.product.ProductRegisterView
+import dragau.o2o.customer.ui.adapters.RecyclerBindingAdapter
 import dragau.o2o.customer.ui.fragment.BaseMvpFragment
 import kotlinx.android.synthetic.main.activity_product.*
-import kz.dragau.larek.ui.adapters.RecyclerBindingAdapter
 import ru.terrakok.cicerone.Router
 import timber.log.Timber
 import javax.inject.Inject

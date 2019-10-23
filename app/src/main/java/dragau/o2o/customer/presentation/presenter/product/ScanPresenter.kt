@@ -60,9 +60,9 @@ fun  checkProduct(barcode: String, format: BarcodeFormat){
                             productRegisterViewModel.describe = result.resultObject.description
                             productRegisterViewModel.categoryName = result.resultObject.productCategoryId
                             productRegisterViewModel.barCode = result.resultObject.barCode
-                            if (result.resultObject.productImageBase64.isNullOrEmpty())
+//                            if (result.resultObject.productImageBase64.isNullOrEmpty())
                                 productRegisterViewModel.isVisiblePhoto = false
-                            productRegisterViewModel.imageUri = result.resultObject.productImageBase64
+                            productRegisterViewModel.imageUri = result.resultObject.productThumbnails.peek().body
                             productRegisterViewModel.isVisiblePhoto = true
                             productRegisterViewModel.isEnable = false
                             viewState.showProductExistsDialog()
@@ -86,4 +86,36 @@ fun  checkProduct(barcode: String, format: BarcodeFormat){
                 }
             )
     }
+
+//    @SuppressLint("CheckResult")
+//    private  fun getPhoto(){
+//
+//        client.getPhoto(productRegisterViewModel.productId!!)
+//            .subscribeOn(Schedulers.io())
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .subscribe(
+//                {
+//                        result ->
+//                    run {
+//
+//                        println(result)
+//                        productRegisterViewModel.isVisiblePhoto = true
+//                        productRegisterViewModel.isEnable = false
+//                        viewState.showProductExistsDialog()
+//
+////                       viewState!!.openProduct()
+////                        router.navigateTo(Screens.ProductScreen())
+//
+//                    }
+//                },
+//                {
+//                        error ->
+//                    run {
+//                        productRegisterViewModel.isVisiblePhoto = false
+//                        productRegisterViewModel.isEnable = true
+//                        viewState.showError(error)
+//                    }
+//                }
+//            )
+//    }
 }
