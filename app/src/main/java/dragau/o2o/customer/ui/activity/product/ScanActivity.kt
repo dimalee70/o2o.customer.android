@@ -61,6 +61,10 @@ class ScanActivity : BaseActivity(), ScanView,
 
     private var productExistDialog: AlertDialog? = null
 
+    override fun startScan() {
+        zxingBarcodeScanner.resume()
+    }
+
     override fun barcodeResult(result: BarcodeResult?) {
 
 //        if(result!!.barcodeFormat == BarcodeFormat.CODE_128
@@ -68,6 +72,7 @@ class ScanActivity : BaseActivity(), ScanView,
 //            || result.barcodeFormat == BarcodeFormat.EAN_8
 //        ) {
 //            Toast.makeText(applicationContext, result.text, Toast.LENGTH_SHORT).show()
+            zxingBarcodeScanner.pause()
             productRegisterViewModel.clearObject()
             mScanPresenter.checkProduct(result!!.text, result.barcodeFormat)
 //            finish()

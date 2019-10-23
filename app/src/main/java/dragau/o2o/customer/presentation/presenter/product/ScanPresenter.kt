@@ -2,6 +2,7 @@ package dragau.o2o.customer.presentation.presenter.product
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import androidx.databinding.ObservableArrayList
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.google.zxing.BarcodeFormat
@@ -10,6 +11,7 @@ import dragau.o2o.customer.App
 import dragau.o2o.customer.Screens
 import dragau.o2o.customer.api.ApiManager
 import dragau.o2o.customer.api.requests.ProductRegisterViewModel
+import dragau.o2o.customer.models.objects.BaseParameter
 import dragau.o2o.customer.models.objects.ProductBarcode
 import dragau.o2o.customer.presentation.view.ScanView
 import dragau.o2o.customer.ui.activity.product.ProductActivity
@@ -60,11 +62,18 @@ fun  checkProduct(barcode: String, format: BarcodeFormat){
                             productRegisterViewModel.describe = result.resultObject.description
                             productRegisterViewModel.categoryName = result.resultObject.productCategoryId
                             productRegisterViewModel.barCode = result.resultObject.barCode
+
+                            if (!result.resultObject.productParameters.isNullOrEmpty()) {
+                                val collection = ObservableArrayList<BaseParameter>()
+                                collection.addAll(result.resultObject.productParameters!!.map { BaseParameter(it.id, it.type, it.name, it.value, it.Uom) })
+                                productRegisterViewModel.parameters = collection
+                            }
 //                            if (result.resultObject.productImageBase64.isNullOrEmpty())
-                                productRegisterViewModel.isVisiblePhoto = false
+                            productRegisterViewModel.isVisiblePhoto = false
                             productRegisterViewModel.imageUri = if (!result.resultObject.productThumbnails.isNullOrEmpty()) { result.resultObject.productThumbnails!!.peek().body } else { null }
                             productRegisterViewModel.isVisiblePhoto = true
                             productRegisterViewModel.isEnable = false
+                            productRegisterViewModel.productBarcode = ProductBarcode(barcode, format)
                             viewState.showProductExistsDialog()
                             return@subscribe
                         }
@@ -83,6 +92,9 @@ fun  checkProduct(barcode: String, format: BarcodeFormat){
                         productRegisterViewModel.isEnable = true
                         viewState.showError(error)
                     }
+                },
+                {
+                    viewState?.startScan()
                 }
             )
     }

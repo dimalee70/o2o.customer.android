@@ -45,13 +45,23 @@ class ProductRegisterPresenter(private var router: Router, var productRegisterVi
     init {
         App.appComponent.inject(this)
 
-
+        var oldList: MutableList<BaseParameter>? = null
+        if (!productRegisterViewModel.parameters.isNullOrEmpty())
+        {
+            oldList = productRegisterViewModel.parameters!!.toMutableList()
+        }
 
         productRegisterViewModel.parameters = ObservableArrayList<BaseParameter>()
         val header = BaseParameter("-2", ParameterType.HEADER, "", null)
         header.presenter = this
         productRegisterViewModel.parameters?.add(header)
-        BaseParameter("5", ParameterType.BARCODE, "Штрих-код", productRegisterViewModel.productBarcode)
+
+        if (oldList != null)
+        {
+            productRegisterViewModel.parameters?.addAll(oldList)
+        }
+
+        productRegisterViewModel.parameters?.add(BaseParameter("5", ParameterType.BARCODE, "Штрих-код", productRegisterViewModel.productBarcode))
         val footer = BaseParameter("-1", ParameterType.FOOTER, "", null)
         footer.presenter = this
         productRegisterViewModel.parameters?.add(footer)
@@ -148,6 +158,11 @@ class ProductRegisterPresenter(private var router: Router, var productRegisterVi
 
     @SuppressLint("CheckResult")
     private fun uploadPhoto(){
+        if (productRegisterViewModel.imageUri == null)
+        {
+            return
+        }
+
         val jsonObject = JsonObject()
         jsonObject.addProperty(Constants.objectIdKey, productRegisterViewModel.productId)
         jsonObject.addProperty(Constants.base64BodyKey, productRegisterViewModel.imageUri)

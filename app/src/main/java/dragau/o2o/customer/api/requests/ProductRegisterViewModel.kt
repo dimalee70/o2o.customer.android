@@ -121,5 +121,6 @@ class ProductRegisterViewModel: BaseObservable() {
         describe = null
         imageUri = null
         isVisiblePhoto = false
+        parameters = null
     }
 }

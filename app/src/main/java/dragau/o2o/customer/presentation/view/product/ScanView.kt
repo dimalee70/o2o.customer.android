@@ -6,4 +6,5 @@ import dragau.o2o.customer.presentation.BaseView
 interface ScanView : BaseView {
     fun showProductExistsDialog()
     fun openProduct()
+    fun startScan()
 }
