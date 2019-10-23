@@ -80,7 +80,7 @@ class ProductShowFragment: BaseMvpFragment(), ProductShowView{
 
     fun showProduct(response: ProductResponce){
         data.title = response.resultObject!!.name
-        data.imageUri = if(response.resultObject.productThumbnails == null || response.resultObject.productThumbnails.empty()) null else response.resultObject.productThumbnails.peek().body
+        data.imageUri = if(response.resultObject.productThumbnails == null || response.resultObject.productThumbnails.isNullOrEmpty()) null else response.resultObject.productThumbnails!!.peek().body
         data.describe = response.resultObject.description
 
     }

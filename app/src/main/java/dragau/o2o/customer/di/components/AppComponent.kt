@@ -15,7 +15,9 @@ import dragau.o2o.customer.presentation.presenter.home.HomeMainPresenter
 import dragau.o2o.customer.presentation.presenter.home.HomePresenter
 import dragau.o2o.customer.presentation.presenter.login.PhoneNumberPresenter
 import dragau.o2o.customer.presentation.presenter.login.SmsCodePresenter
+import dragau.o2o.customer.presentation.presenter.product.AddParameterPresenter
 import dragau.o2o.customer.presentation.presenter.product.ProductRegisterPresenter
+import dragau.o2o.customer.presentation.presenter.product.ProductShowPresenter
 import dragau.o2o.customer.presentation.presenter.product.ScanPresenter
 import dragau.o2o.customer.ui.activity.BaseActivity
 import dragau.o2o.customer.ui.activity.MainAppActivity
