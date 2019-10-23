@@ -21,6 +21,7 @@ import dragau.o2o.customer.api.response.ProductResponce
 import dragau.o2o.customer.api.response.ProductResponceContact
 import dragau.o2o.customer.databinding.FragmentHomeMainBinding
 import dragau.o2o.customer.models.objects.Product
+import dragau.o2o.customer.models.shared.DataHolder
 import dragau.o2o.customer.presentation.presenter.home.HomeMainPresenter
 import dragau.o2o.customer.presentation.view.home.HomeMainView
 import dragau.o2o.customer.ui.activity.product.ScanActivity
@@ -110,14 +111,7 @@ class HomeMainFragment : BaseMvpFragment(), HomeMainView,
                 setProductsByContact(response)
             }
             })
-//        mHomeMainPresenter.observeForOrderByOutletResponseBoundary()
-//            .observe(this, Observer {
-//                response -> response.let {
-//                setOrderByOutlet(response)
-//            }
-//            })
-//        mHomeMainPresenter.getOrdersByOtlet("fe28218f-10b9-4d70-50a1-08d73cba8606")
-        mHomeMainPresenter.getProductByContactId()
+
         recyclerProductsAdapter = RecyclerBindingAdapter(R.layout.item_product, BR.data, context!!)
         if(onCustomClickListenerRecycler != null){
             recyclerProductsAdapter.setOnItemClickListener(onCustomClickListenerRecycler!!)
@@ -143,7 +137,7 @@ class HomeMainFragment : BaseMvpFragment(), HomeMainView,
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home_main, container, false)
         binding.presenter = mHomeMainPresenter
-
+        mHomeMainPresenter.getProductByContactId(DataHolder.user!!.id)
 //
 //        val typesList = ArrayList<Types>()
 //        typesList.add(Types("Акции", "#FF7058", "https://img.icons8.com/carbon-copy/2x/instagram-new.png"))
@@ -184,6 +178,7 @@ class HomeMainFragment : BaseMvpFragment(), HomeMainView,
 //        binding.typesRv.adapter = recyclerTypesAdapter
         binding.productsRv.adapter = recyclerProductsAdapter
         binding.productsRv.setHasFixedSize(true)
+
 //        binding.customsRv.adapter = recyclerCustomsAdapter
 //        binding.typesRv.setHasFixedSize(true)
 //        binding.customsRv.setHasFixedSize(true)
