@@ -142,6 +142,13 @@ class ScanActivity : BaseActivity(), ScanView,
         capture = CaptureManager(this, zxingBarcodeScanner)
         capture!!.initializeFromIntent(intent, savedInstanceState)
         zxingBarcodeScanner.decodeContinuous(this)
+
+
+
+//        mScanPresenter.checkProduct("Code 20128")
+
+
+        
 //        zxingBarcodeScanner.decodeSingle(this)
 //        capture!!.decode()
     }

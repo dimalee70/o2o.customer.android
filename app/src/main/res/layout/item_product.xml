@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable name="data" type="dragau.o2o.customer.models.objects.Product" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp">
+
+            <ImageView
+                android:id="@+id/productIconIv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_groceries"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginStart="16dp"
+                />
+
+            <TextView
+                android:id="@+id/productNameTv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="dcsdcdscsdcdvdfvdfvfdvdfvsdfs"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/productIconIv"
+                app:layout_constraintEnd_toStartOf="@+id/arrowIv"
+                app:layout_constraintBottom_toTopOf="@+id/productCostTi"
+                android:layout_marginStart="6dp"
+                android:textColor="#474747"
+                android:fontFamily="@font/roboto_regular"
+                android:textSize="16sp"
+                />
+
+            <TextView
+                android:id="@+id/productCostTv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="600 тг/кг"
+                android:fontFamily="@font/roboto_bold"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@+id/productNameTi"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/arrowIv"
+                app:layout_constraintStart_toEndOf="@+id/productIconIv"
+                />
+
+            <ImageView
+                android:id="@+id/arrowIv"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:src="@drawable/ic_cyan"
+                />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</layout>

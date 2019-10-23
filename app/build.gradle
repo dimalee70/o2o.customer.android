@@ -52,7 +52,7 @@ android {
     flavorDimensions "api"
     productFlavors {
         development {
-            buildConfigField "String", "apiEndpoint", '"http://92.46.55.206:50770/api/"'
+            buildConfigField "String", "apiEndpoint", '"http://192.168.121.71:8090/api/"'
             buildConfigField "String", "wsEndpoint", '"wss://echo.websocket.org"'
             dimension "api"
 
@@ -61,7 +61,7 @@ android {
 
         }
         production {
-            buildConfigField "String", "apiEndpoint", '"http://92.46.55.206:50770/api/"'
+            buildConfigField "String", "apiEndpoint", '"http://192.168.121.71:8090/api/"'
             buildConfigField "String", "wsEndpoint", '"wss://echo.websocket.org"'
             dimension "api"
         }
@@ -169,6 +169,8 @@ dependencies {
     implementation 'me.dm7.barcodescanner:zxing:1.9'
 
     implementation 'com.journeyapps:zxing-android-embedded:3.6.0'
+
+//    implementation 'ru.kolotnev:formatt-edit-text:0.7'
 
 //    implementation "androidx.room:room-runtime:2.2.0"
 //    kapt "androidx.room:room-compiler:2.2.0"

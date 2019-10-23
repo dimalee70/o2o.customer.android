@@ -3,9 +3,17 @@ package dragau.o2o.customer.api.requests
 import android.net.Uri
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
+import androidx.databinding.library.baseAdapters.BR
 import dragau.o2o.customer.extensions.encodeImage
 
 class ProductRegisterViewModel: BaseObservable() {
+
+    var cost: String? = null
+        @Bindable get
+        set(value){
+            field = value
+            notifyPropertyChanged(BR.cost)
+        }
 
     var isEnable: Boolean = true
         @Bindable get

@@ -101,7 +101,8 @@ class ProductRegisterPresenter(private var router: Router, private var productRe
             .subscribe(
                 { result ->
                     run {
-                        updatePhoto()
+//                        updatePhoto()
+                        uploadPhoto()
                     }
                 },
                 { error ->
@@ -164,6 +165,7 @@ class ProductRegisterPresenter(private var router: Router, private var productRe
                 {
                     error ->
                     run {
+                        viewState.hideLoading()
                         viewState.showError(error)
                 }
                 }
@@ -191,6 +193,7 @@ class ProductRegisterPresenter(private var router: Router, private var productRe
                 {
                         error ->
                     run {
+                        viewState.hideLoading()
                         viewState.showError(error)
                     }
                 }

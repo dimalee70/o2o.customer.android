@@ -1,11 +1,9 @@
 package dragau.o2o.customer.api
 
 import com.google.gson.JsonObject
-import dragau.o2o.customer.api.response.CreateResponse
-import dragau.o2o.customer.api.response.ProductCategoriesResponce
-import dragau.o2o.customer.api.response.ProductResponce
+import dragau.o2o.customer.api.response.*
 import io.reactivex.Observable
-import dragau.o2o.customer.api.response.TokenResponse
+import dragau.o2o.customer.models.objects.Product
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -34,4 +32,10 @@ interface ApiManager {
 
     @POST("v1/product/updatephoto")
     fun updatePhoto(@Body body: JsonObject): Observable<CreateResponse>
+
+    @GET("v1/product/getproductbycontact")
+    fun getProductsByContact(@Query("ContactId")contactId: String): Observable<ProductResponceContact>
+
+    @GET("v1/product/getproductthumbnails")
+    fun getPhoto(@Query("ProductId") productId: String): Observable<String>
 }
