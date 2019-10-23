@@ -46,13 +46,19 @@ class ProductRegisterPresenter(private var router: Router, var productRegisterVi
 
 
         productRegisterViewModel.parameters = ObservableArrayList<BaseParameter>()
+        val header = BaseParameter("-2", ParameterType.HEADER, "", null)
+        header.presenter = this
+        productRegisterViewModel.parameters?.add(header)
+
         productRegisterViewModel.parameters!!.addAll(arrayListOf(
-            BaseParameter("2", ParameterType.STRING, "Название", "" ),
             BaseParameter("1", ParameterType.STRING, "Категория", "" ),
-            BaseParameter("2", ParameterType.STRING, "Производитель", "" ),
-            BaseParameter("4", ParameterType.INT, "Рекомендуемая цена", 0 ),
-            BaseParameter("2", ParameterType.BARCODE, "Штрих-код", productRegisterViewModel.productBarcode),
-            BaseParameter("3", ParameterType.STRING, "Описание", "" )
+            BaseParameter("2", ParameterType.INT, "Рекомендуемая цена", null, "тг." ),
+            BaseParameter("3", ParameterType.DECIMAL, "Вес", null, "кг." ),
+            BaseParameter("4", ParameterType.INT, "Срок годности", null, "дн." ),
+            BaseParameter("5", ParameterType.BARCODE, "Штрих-код", productRegisterViewModel.productBarcode),
+            BaseParameter("6", ParameterType.STRING, "Описание", "" ),
+            BaseParameter("7", ParameterType.STRING, "Состав", "" )
+
         ))
         val footer = BaseParameter("-1", ParameterType.FOOTER, "", null)
         footer.presenter = this

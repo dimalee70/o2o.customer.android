@@ -17,6 +17,33 @@
         android:paddingBottom="3dp">
 
         <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:textColorHint="@color/hintTextColor"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="17dp"
+            android:layout_marginEnd="17dp"
+            android:layout_marginTop="9dp"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:enabled="false"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:enabled="false"
+                app:uom="@{data.uom}"
+                app:doubleUomValue="@{data.value}" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/productValue"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -28,6 +55,7 @@
             android:layout_marginStart="17dp"
             android:layout_marginEnd="17dp"
             android:layout_marginTop="9dp"
+            android:hint="@{data.name}"
             >
 
             <com.google.android.material.textfield.TextInputEditText
@@ -35,7 +63,6 @@
                 android:layout_height="wrap_content"
                 android:focusable="true"
                 android:inputType="numberDecimal"
-                android:hint="@{data.name}"
                 app:doubleValue="@={data.value}" />
 
         </com.google.android.material.textfield.TextInputLayout>
