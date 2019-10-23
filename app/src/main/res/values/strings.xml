@@ -92,7 +92,7 @@
     <string name="close_drawer">Close</string>
     <string name="toolbarTitleMain">ГЛАВНАЯ</string>
     <string name="customsText">Онлайн заказы</string>
-    <string name="register_product_title">РЕГИСТРАЦИЯ ПРОДУКТА</string>
+    <string name="register_product_title">ДОБАВЛЕНИЕ ПРОДУКТА</string>
     <string name="error">erroe</string>
     <string name="productCategoryHint">Категория</string>
     <string name="productProducerHint">Производитель</string>
@@ -100,7 +100,7 @@
     <string name="productBarcodeHint">Штрих-код</string>
     <string name="productDescribeHint">Описание</string>
     <string name="productChangePhotoText"><u>Изменить</u></string>
-    <string name="titleRegisterProduct">РЕГИСТРАЦИЯ</string>
+    <string name="titleRegisterProduct">ДОБАВЛЕНИЕ ПРОДУКТА</string>
     <string name="toolbarCustoms">ОНЛАЙН ЗАКАЗЫ</string>
     <string name="loading_tv">идет проверка введеных вами данных</string>
     <string name="exists_tv">Данный продукт уже есть в базе</string>

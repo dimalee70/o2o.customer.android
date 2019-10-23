@@ -69,13 +69,7 @@ class ScanActivity : BaseActivity(), ScanView,
 //        ) {
 //            Toast.makeText(applicationContext, result.text, Toast.LENGTH_SHORT).show()
             productRegisterViewModel.clearObject()
-            mScanPresenter.checkProduct(result!!.text)
-
-
-//            println(result)
-
-
-
+            mScanPresenter.checkProduct(result!!.text, result.barcodeFormat)
 //            finish()
 //            productRegisterViewModel.barCode = result.text
 //            Timber.i("Result from barcode " + result.text)

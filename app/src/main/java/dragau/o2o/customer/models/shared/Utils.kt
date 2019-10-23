@@ -20,17 +20,47 @@ import com.bumptech.glide.request.target.Target
 import java.util.*
 import android.animation.AnimatorListenerAdapter
 import android.animation.Animator
+import android.graphics.Bitmap
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View.VISIBLE
 import android.view.animation.Animation
 import android.view.animation.TranslateAnimation
+import androidx.core.text.set
+import androidx.core.widget.addTextChangedListener
+import androidx.databinding.InverseBindingListener
+import androidx.databinding.InverseBindingMethod
+import androidx.databinding.InverseBindingMethods
+import com.google.android.material.textfield.TextInputEditText
+import com.google.zxing.BarcodeFormat
+import com.google.zxing.MultiFormatWriter
+import com.google.zxing.WriterException
+import com.google.zxing.common.BitMatrix
+import com.journeyapps.barcodescanner.BarcodeEncoder
 import dragau.o2o.customer.App
 import dragau.o2o.customer.R
 import com.theartofdev.edmodo.cropper.CropImageView
 import dragau.o2o.customer.di.modules.GlideApp
 import dragau.o2o.customer.extensions.shortDateDiff
 import dragau.o2o.customer.extensions.shortSecDiff
+import dragau.o2o.customer.models.objects.BaseParameter
+import dragau.o2o.customer.models.objects.ProductBarcode
+import dragau.o2o.customer.ui.adapters.setMoney
+import org.joda.time.DateTime
+import java.text.NumberFormat
 
-
+@InverseBindingMethods(
+    InverseBindingMethod(
+        type = TextInputEditText::class,
+        attribute = "app:intValue",
+        method = "getText"
+    ),
+    InverseBindingMethod(
+            type = TextInputEditText::class,
+    attribute = "app:doubleValue",
+    method = "getText"
+    )
+)
 object Utils {
     var screenWidth = 600
     var screenHeight = 600
@@ -96,6 +126,26 @@ object Utils {
             .into(view)
     }
 
+    @JvmStatic
+    @BindingAdapter("barcodeImage")
+    fun loadBarcodeImage(view: ImageView, parameter: ProductBarcode?) {
+        if (parameter == null)
+        {
+            return
+        }
+        val multiFormatWriter = MultiFormatWriter()
+        try {
+            val bitMatrix = multiFormatWriter.encode(parameter.barcode, parameter.barcodeFormat, 200,200)
+            val barcodeEncoder = BarcodeEncoder()
+            val bitmap = barcodeEncoder.createBitmap(bitMatrix)
+            GlideApp.with(view.context)
+                .load(bitmap)
+                .centerCrop()
+                .into(view)
+        } catch (e: WriterException) {
+           // e.printStackTrace();
+        }
+    }
 
     @JvmStatic
     @BindingAdapter("visibilityFade")
@@ -266,20 +316,15 @@ object Utils {
         }
     }
 
-    /*@JvmStatic
-    @BindingAdapter("showPhones")
-    fun showPhones(text: TextView, list: List<String>){
-        val phones = StringBuilder()
-        list.forEach{
-            phones.append(it).append("\n\n")
+    @JvmStatic
+    @BindingAdapter("barcode")
+    fun showBarcode(text: TextView, parameter: ProductBarcode?){
+        if (parameter?.barcode == null)
+        {
+            return
         }
-        text.text = phones.trim()
-        text.autoLinkMask = Linkify.PHONE_NUMBERS
-        text.linksClickable = true
-        text.movementMethod = LinkMovementMethod.getInstance()
-        text.paint.isUnderlineText = false
-        text.setLinkTextColor(ContextCompat.getColor(text.context, R.color.blueTextColor))
-    }*/
+        text.text = parameter.barcode
+    }
 
     @JvmStatic
     @BindingAdapter("openLink")
@@ -308,4 +353,130 @@ object Utils {
         params.guidePercent = value / 1000f
         guideline.layoutParams = params
     }
+
+    @JvmStatic
+    @BindingAdapter("doubleValue")
+    fun setDoubleValue(view: TextInputEditText, value: Any?) {
+        if (view.value == value?.toString())
+        {
+            return
+        }
+
+        if (value == null) {
+            view.value = "0.0"
+            return
+        }
+
+        if (value is Double)
+        {
+            view.value = value.toString()
+            return
+        }
+
+        val paramValue = value.toString().toDoubleOrNull()
+        if (paramValue == null) {
+            view.value = "0.0"
+            return
+        }
+
+        val format = NumberFormat.getCurrencyInstance()
+        format.maximumFractionDigits = 0
+        view.value = format.format(paramValue)
+    }
+
+
+    @JvmStatic
+    @BindingAdapter(value = ["app:doubleValueAttrChanged"])
+    fun setDoubleListener(editText: TextInputEditText, listener: InverseBindingListener?) {
+        if (listener != null) {
+            editText.addTextChangedListener {
+                listener.onChange()
+            }
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("intValue")
+    fun setIntValue(view: TextInputEditText, value: Any?) {
+        if (view.value == value?.toString())
+        {
+            return
+        }
+
+        if (value == null) {
+            view.value = "0"
+            return
+        }
+
+        if (value is Int)
+        {
+            view.value = value.toString()
+            return
+        }
+
+        val paramValue = value.toString().toIntOrNull()
+        if (paramValue == null) {
+            view.value = "0"
+            return
+        }
+
+        view.value = "$paramValue"
+    }
+
+
+    @JvmStatic
+    @BindingAdapter(value = ["app:intValueAttrChanged"])
+    fun setIntListener(editText: TextInputEditText, listener: InverseBindingListener?) {
+        if (listener != null) {
+            editText.addTextChangedListener {
+                listener.onChange()
+            }
+        }
+    }
+    /*@JvmStatic
+    @BindingAdapter("android:text")
+    fun setText(editText: TextInputEditText, text: String?) {
+        text?.let {
+            if (it != editText.value) {
+                //editText.value = it
+            }
+        }
+    }*/
+
+    @JvmStatic
+    @BindingAdapter("dateValue")
+    fun setDateValue(view: TextInputEditText, param: BaseParameter?) {
+        /*if (param?.value == null) {
+            view.value = DateTime.now().toString()
+            return
+        }
+
+        val paramValue = DateTime.parse(param.value!!)
+        if (paramValue == null) {
+            view.value = "0"
+            return
+        }
+
+        view.value = "${paramValue}"*/
+    }
+
+    @JvmStatic
+    @BindingAdapter("boolValue")
+    fun setBoolValue(view: TextInputEditText, param: BaseParameter?) {
+        /*if (param?.value == null) {
+            view.value = false.toString()
+            return
+        }
+
+        val paramValue = param.value!!.toBoolean()
+
+        view.value = "${paramValue}"*/
+    }
 }
+
+
+var EditText.value
+    get() = this.text.toString()
+    set(value) {
+        this.setText(value)
+    }

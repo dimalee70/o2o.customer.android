@@ -11,14 +11,10 @@
 
 
 
-        <ScrollView
+
+        <!--ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                >
-
-<!--            tools:context=".ui.fragment.product.ProductRegisterFragment"-->
-
-<!--            android:id="@+id/flMain"-->
+                android:layout_height="match_parent">
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -59,29 +55,6 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         />
-<!--                        tools:ignore="UnusedAttribute"-->
-<!--                        android:focusable="false"-->
-
-<!--                <com.jaredrummler.materialspinner.MaterialSpinner-->
-<!--                        android:id="@+id/productCategoryMs"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginTop="34dp"-->
-<!--                        android:layout_marginStart="17dp"-->
-<!--                        android:layout_marginEnd="17dp"-->
-<!--                        android:hint="@string/productCategoryHint"-->
-<!--                        android:prompt="@string/app_name"-->
-<!--                        android:textColorHint="@color/hintTextColor"-->
-<!--                        android:textColor="@color/whiteColor"-->
-<!--                        android:enabled="@{productRegisterViewModel.isEnable}"-->
-<!--                        android:focusable="true"-->
-<!--                        app:srcCompat="@drawable/ic_selector_drawable"-->
-<!--                        app:layout_constraintTop_toBottomOf="@+id/titleTv"-->
-<!--                        app:layout_constraintStart_toStartOf="parent"-->
-<!--                        app:layout_constraintEnd_toEndOf="parent"-->
-<!--                        app:selectedValue="@={productRegisterViewModel.categoryName}"-->
-<!--                        tools:ignore="UnusedAttribute"-->
-<!--                        />-->
 
                 <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/productProducerTi"
@@ -105,9 +78,6 @@
                             android:focusable="true"
                             android:text="@={productRegisterViewModel.produserName}"
                             />
-<!--                            android:enabled="@{productRegisterViewModel.isEnable}"-->
-<!--                            android:text="@={registerStoreViewModel.name}"-->
-
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -178,95 +148,28 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                  <ImageView
-                        android:id="@+id/avaIv"
-                        android:layout_width="match_parent"
-                        android:layout_height="109dp"
-                        android:layout_gravity="end|center"
-                        android:background="#979797"
-                        android:scaleType="center"
-                        android:clickable="@{!productRegisterViewModel.visiblePhoto}"
-                        android:focusable="true"
-                        android:layout_marginStart="15dp"
-                        android:layout_marginTop="30dp"
-                        android:layout_marginEnd="15dp"
-                        android:onClick="@{(v) -> presenter.makePhoto()}"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/productDescribeTi"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:setImageUri="@{productRegisterViewModel.imageUri}"
-                        app:layout_constraintBottom_toTopOf="@+id/changeTv"
-                        />
-
-                <ImageView
-                        android:id="@+id/addPhotoIcon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="29dp"
-                        android:clickable="false"
-                        android:visibility="@{productRegisterViewModel.visiblePhoto? View.GONE: View.VISIBLE}"
-                        app:layout_constraintEnd_toEndOf="@+id/avaIv"
-                        app:layout_constraintStart_toStartOf="@+id/avaIv"
-                        app:layout_constraintTop_toTopOf="@+id/avaIv"
-                        app:srcCompat="@drawable/ic_store_photo"
-                        />
-                <TextView
-                        android:id="@+id/addPhotoTv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Добавить фото"
-                        android:clickable="false"
-                        android:textColor="@color/whiteColor"
-                        android:visibility="@{productRegisterViewModel.visiblePhoto? View.GONE: View.VISIBLE}"
-                        app:layout_constraintStart_toStartOf="@+id/avaIv"
-                        app:layout_constraintEnd_toEndOf="@+id/avaIv"
-                        app:layout_constraintTop_toBottomOf="@+id/addPhotoIcon"
-                        />
-
-                <TextView
-                        android:id="@+id/changeTv"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="9dp"
-                        android:textColor="#007AFF"
-                        android:text="@string/productChangePhotoText"
-                        android:textAlignment="center"
-                        android:visibility="@{productRegisterViewModel.visiblePhoto? View.VISIBLE: View.GONE}"
-                        android:onClick="@{(v) -> presenter.makePhoto()}"
-                        app:layout_constraintTop_toBottomOf="@+id/avaIv"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintBottom_toTopOf="@+id/finishButton"
-                        />
 
 
-<!--        <Button android:layout_width="wrap_content" android:layout_height="wrap_content"-->
-<!--                android:id="@+id/makePhotoBtn"-->
-<!--                app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                app:layout_constraintTop_toTopOf="parent"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                android:text="@string/makePhoto"-->
-<!--                android:onClick="@{(v) -> presenter.makePhoto()}"-->
-<!--        />-->
+        </ScrollView-->
 
-                <Button
-                        android:id="@+id/finishButton"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/addText"
-                        android:background="@drawable/button_green_bg"
-                        android:layout_marginTop="23dp"
-                        android:layout_marginStart="86dp"
-                        android:layout_marginEnd="86dp"
-                        android:layout_marginBottom="52dp"
-                        app:layout_constraintTop_toBottomOf="@+id/changeTv"
-                        android:onClick="@{(v) -> presenter.registerStore()}"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clMain"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:focusableInTouchMode="true"
+        android:focusable="true"
+        >
 
-        </ScrollView>
-
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:scrollbars="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
