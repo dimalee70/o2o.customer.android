@@ -190,13 +190,13 @@ class Screens {
         }
     }
 
-    class ProductShowScreen(private var productId: String?): SupportAppScreen(){
+    class ProductShowScreen(private var productId: String?, private var productName: String?): SupportAppScreen(){
         init {
             this.screenKey = javaClass.simpleName
         }
 
         override fun getFragment(): Fragment {
-            return ProductShowFragment.newInstance(productId)
+            return ProductShowFragment.newInstance(productId, productName)
         }
     }
 //    class StoreRegisterScreen: SupportAppScreen(){

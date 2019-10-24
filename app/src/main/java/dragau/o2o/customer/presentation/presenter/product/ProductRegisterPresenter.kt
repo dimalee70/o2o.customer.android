@@ -116,6 +116,7 @@ class ProductRegisterPresenter(private var router: Router, var productRegisterVi
                 { result ->
                     run {
 //                        updatePhoto()
+                        println(result)
                         uploadPhoto()
                     }
                 },
@@ -206,7 +207,7 @@ class ProductRegisterPresenter(private var router: Router, var productRegisterVi
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {
-                    result ->
+                    _ ->
                     run {
                         viewState.hideLoading()
                         router.exit()
@@ -233,8 +234,7 @@ class ProductRegisterPresenter(private var router: Router, var productRegisterVi
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
-                {
-                        result ->
+                { _ ->
                     run {
                         viewState.hideLoading()
                         router.exit()

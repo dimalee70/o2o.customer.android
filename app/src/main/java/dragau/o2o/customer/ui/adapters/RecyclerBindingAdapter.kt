@@ -49,7 +49,7 @@ class RecyclerBindingAdapter<T>(
     override fun onBindViewHolder(holder: RecyclerBindingAdapter.BindingHolder, position: Int) {
         val item = items[position]
 
-        holder.binding!!.root.setOnClickListener { v ->
+        holder.binding!!.root.setOnClickListener { _ ->
             if (onItemClickListener != null)
                 onItemClickListener!!.onItemClick(position, item)
         }
@@ -81,7 +81,6 @@ class RecyclerBindingAdapter<T>(
                 ParameterType.BOOL -> return R.layout.parameter_bool_item
                 ParameterType.INT -> return R.layout.parameter_int_item
                 ParameterType.BARCODE -> return R.layout.parameter_barcode_item
-                ParameterType.LIST -> return R.layout.parameter_list_item
                 ParameterType.FOOTER -> return  R.layout.parameter_footer_item
             }
         }
@@ -126,10 +125,11 @@ class RecyclerBindingAdapter<T>(
         else {
             if (items != null) {
                 val diffResult = calculateDiff(this.items, items)
-                this.items.clear()
-                this.items.addAll(items)
+//                this.items.clear()
+//                this.items.addAll(items)
+                this.items = items
                 diffResult.dispatchUpdatesTo(this)
-                notifyDataSetChanged() //под вопросом, может стоит удалить
+//                notifyDataSetChanged() //под вопросом, может стоит удалить
             }
         }
         this.items.addOnListChangedCallback(ObservableListCallback())
@@ -155,8 +155,8 @@ class RecyclerBindingAdapter<T>(
                 if (old is Product)
                 {
                     return (old as? Product)?.productId == (new as? Product)?.productId
-                            && (old as? Product)?.name == (new as? Product)?.name
-                            && (old as? Product)?.description == (new as? Product)?.description
+//                            && (old as? Product)?.name == (new as? Product)?.name
+//                            && (old as? Product)?.description == (new as? Product)?.description
                 }
                 else
                 {

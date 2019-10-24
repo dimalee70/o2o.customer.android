@@ -19,6 +19,7 @@ import dragau.o2o.customer.databinding.FragmentProductShowBinding
 import dragau.o2o.customer.presentation.presenter.product.ProductShowPresenter
 import dragau.o2o.customer.presentation.view.product.ProductShowView
 import dragau.o2o.customer.ui.fragment.BaseMvpFragment
+import kotlinx.android.synthetic.main.activity_home.*
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
@@ -26,16 +27,19 @@ class ProductShowFragment: BaseMvpFragment(), ProductShowView{
     companion object{
         const val TAG = "ProductShowFragment"
 
-        fun newInstance(productId: String?): ProductShowFragment{
+        fun newInstance(productId: String?, productName: String?): ProductShowFragment{
             val fragment: ProductShowFragment = ProductShowFragment()
             val args: Bundle = Bundle()
             args.putString(Constants.PRODUCT_ID, productId)
+            args.putString(Constants.PRODUCT_NAME, productName)
             fragment.arguments = args
             return fragment
         }
     }
 
     private var productId: String? = null
+
+    private var productName: String? = null
      fun getAnimationDestionationId(): Int {
         return arguments!!.getInt(Constants.ARG_ANIM_DESTINATION)
     }
@@ -67,15 +71,15 @@ class ProductShowFragment: BaseMvpFragment(), ProductShowView{
         App.appComponent.inject(this)
         super.onCreate(savedInstanceState)
         productId = arguments?.getString(Constants.PRODUCT_ID)
-        mProductShowPresenter.getProductById(productId)
+        productName = arguments?.getString(Constants.PRODUCT_NAME)
         mProductShowPresenter.attachLifecycle(lifecycleRegistry)
+        mProductShowPresenter.getProductById(productId)
         mProductShowPresenter.observeProductResponseBoundary()
             .observe(this, Observer {
                 responce -> responce.let {
                 showProduct(responce)
             }
             })
-        productId = arguments!!.getString(Constants.PRODUCT_ID)
     }
 
     fun showProduct(response: ProductResponce){
@@ -92,6 +96,13 @@ class ProductShowFragment: BaseMvpFragment(), ProductShowView{
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_product_show, container, false)
         binding.presenter = mProductShowPresenter
+        binding.pageTv.text = productName?.toUpperCase()
+//        binding.backButtonIb.setOnClickListener{
+//            router.exit()
+//        }
+        activity?.appbar_layout?.visibility = View.GONE
+        activity?.pageTv?.visibility = View.GONE
+//        activity?.actionBar?.setHomeAsUpIndicator(R.drawable.ic_left_arrow)
         binding.data = data
         return binding.root
     }

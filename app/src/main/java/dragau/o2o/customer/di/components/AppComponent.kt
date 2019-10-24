@@ -87,6 +87,7 @@ interface AppComponent {
     fun inject(presenter: ProductRegisterPresenter)
     fun inject(presenter: ScanPresenter)
     fun inject(presenter: AddParameterPresenter)
+
 //    fun inject(presenter: RegisterStorePresenter)
 //    fun inject(presenter: StorePresenter)
 //    fun inject(presenter: ShowImagePresenter)

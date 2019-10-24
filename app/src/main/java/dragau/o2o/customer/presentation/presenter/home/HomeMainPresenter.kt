@@ -41,8 +41,8 @@ class HomeMainPresenter(private var router: Router) : BasePresenter<HomeMainView
 
     }
 
-    fun openProductShow(productId: String?){
-        router.navigateTo(Screens.ProductShowScreen(productId))
+    fun openProductShow(productId: String?, productName: String?){
+        router.navigateTo(Screens.ProductShowScreen(productId, productName))
     }
 //    fun getOrdersByOtlet(salesOuterId: String){
 //        disposables.add(

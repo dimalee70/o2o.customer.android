@@ -27,6 +27,7 @@ import dragau.o2o.customer.presentation.view.home.HomeMainView
 import dragau.o2o.customer.ui.activity.product.ScanActivity
 import dragau.o2o.customer.ui.adapters.RecyclerBindingAdapter
 import dragau.o2o.customer.ui.fragment.BaseMvpFragment
+import kotlinx.android.synthetic.main.activity_home.*
 import ru.terrakok.cicerone.Router
 import java.lang.ClassCastException
 import javax.inject.Inject
@@ -39,7 +40,7 @@ class HomeMainFragment : BaseMvpFragment(), HomeMainView,
     override fun onItemClick(position: Int, item: Product) {
 
         this.position = position
-        mHomeMainPresenter.openProductShow(item.productId)
+        mHomeMainPresenter.openProductShow(item.productId, item.name)
 
 //        Toast.makeText(context!!, item.name, Toast.LENGTH_SHORT).show()
     }
@@ -97,6 +98,7 @@ class HomeMainFragment : BaseMvpFragment(), HomeMainView,
             }
             })
 
+        println("OnStart")
         recyclerProductsAdapter = RecyclerBindingAdapter(R.layout.item_product, BR.data, context!!)
         if(onCustomClickListenerRecycler != null){
             recyclerProductsAdapter.setOnItemClickListener(onCustomClickListenerRecycler!!)
@@ -110,9 +112,9 @@ class HomeMainFragment : BaseMvpFragment(), HomeMainView,
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home_main, container, false)
         binding.presenter = mHomeMainPresenter
 
-        if(DataHolder.user!!.id != null){
-            mHomeMainPresenter.getProductByContactId(DataHolder.user!!.id)
-        }
+        activity?.appbar_layout?.visibility = View.VISIBLE
+        activity?.pageTv?.visibility = View.VISIBLE
+
 
 //
 //        val typesList = ArrayList<Types>()
@@ -152,8 +154,9 @@ class HomeMainFragment : BaseMvpFragment(), HomeMainView,
 //        recyclerTypesAdapter.setItems(types)
 
 //        binding.typesRv.adapter = recyclerTypesAdapter
+//        recyclerProductsAdapter.setHasStableIds(true)
         binding.productsRv.adapter = recyclerProductsAdapter
-        binding.productsRv.setHasFixedSize(true)
+//        binding.productsRv.setHasFixedSize(true)
         return binding.root
     }
 
@@ -183,6 +186,10 @@ class HomeMainFragment : BaseMvpFragment(), HomeMainView,
 
     override fun onResume() {
         super.onResume()
+        println("OnResume")
+        if(DataHolder.user!!.id != null){
+            mHomeMainPresenter.getProductByContactId(DataHolder.user!!.id)
+        }
 //        binding.productsRv.adapter!!.notifyDataSetChanged()
 //        binding.customsRv.adapter!!.notifyDataSetChanged()
     }
@@ -197,6 +204,7 @@ class HomeMainFragment : BaseMvpFragment(), HomeMainView,
 
     fun setProductsByContact(response: ProductResponceContact){
         products.clear()
+//        products.addAll(response.resultObject!!)
         products.addAll(response.resultObject!!)
         recyclerProductsAdapter.setItems(products)
 //        recyclerProductsAdapter.notifyDataSetChanged()
