@@ -27,6 +27,7 @@
             android:layout_marginStart="17dp"
             android:layout_marginEnd="17dp"
             android:layout_marginTop="9dp"
+            android:hint="@{data.name}"
             android:focusable="false"
             android:focusableInTouchMode="false"
             android:enabled="false"
@@ -39,33 +40,11 @@
                 android:focusableInTouchMode="false"
                 android:enabled="false"
                 app:uom="@{data.uom}"
+                android:background="@null"
                 app:doubleUomValue="@{data.value}" />
             <!--                android:imeOptions="actionDone"-->
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/productValue"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:singleLine="true"
-            android:textColorHint="@color/hintTextColor"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginStart="17dp"
-            android:layout_marginEnd="17dp"
-            android:layout_marginTop="9dp"
-            android:hint="@{data.name}"
-            >
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:focusable="true"
-                android:inputType="numberDecimal"
-                app:doubleValue="@={data.value}" />
-
-        </com.google.android.material.textfield.TextInputLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

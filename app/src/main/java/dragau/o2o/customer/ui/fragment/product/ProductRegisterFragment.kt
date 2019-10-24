@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.databinding.ObservableArrayList
 import androidx.lifecycle.LifecycleRegistry
 import androidx.lifecycle.Observer
 import com.arellomobile.mvp.presenter.InjectPresenter
@@ -26,6 +27,7 @@ import dragau.o2o.customer.api.response.ProductCategoriesResponce
 import dragau.o2o.customer.databinding.FragmentProductRegisterBinding
 import dragau.o2o.customer.models.enums.ParameterType
 import dragau.o2o.customer.models.objects.BaseParameter
+import dragau.o2o.customer.models.objects.Product
 import dragau.o2o.customer.models.objects.ProductCategories
 import dragau.o2o.customer.presentation.presenter.product.ProductRegisterPresenter
 import dragau.o2o.customer.presentation.view.product.ProductRegisterView
@@ -52,6 +54,9 @@ class ProductRegisterFragment : BaseMvpFragment(), ProductRegisterView, Recycler
     }
 
     @Inject
+    lateinit var products: ObservableArrayList<Product>
+
+    @Inject
     lateinit var router: Router
 
     @InjectPresenter
@@ -69,7 +74,7 @@ class ProductRegisterFragment : BaseMvpFragment(), ProductRegisterView, Recycler
 
     @ProvidePresenter
     fun providePresenter(): ProductRegisterPresenter{
-        return ProductRegisterPresenter(router, productRegisterViewModel)
+        return ProductRegisterPresenter(router, productRegisterViewModel, products)
     }
 
     private val listener by lazy {

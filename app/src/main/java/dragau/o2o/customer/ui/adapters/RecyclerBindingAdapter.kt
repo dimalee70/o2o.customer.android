@@ -88,7 +88,7 @@ class RecyclerBindingAdapter<T>(
         else if(holderLayout == R.layout.view_product_parameter_item && item is BaseParameter){
             when (item.type)
             {
-                ParameterType.HEADER -> return  R.layout.view_parameter_header_item
+
                 ParameterType.DECIMAL -> return R.layout.view_parameter_doube_item
                 ParameterType.DATE -> return R.layout.view_parameter_date_item
                 ParameterType.BOOL -> return R.layout.view_parameter_bool_item

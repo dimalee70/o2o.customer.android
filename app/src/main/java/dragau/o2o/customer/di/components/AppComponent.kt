@@ -35,7 +35,7 @@ import javax.inject.Singleton
 @CustomApplicationScope
 @Component(modules = [ApplicationModule::class, NavigationModule::class,
     ServiceUtilModule::class, RoomModule::class, WSocketModule::class,
-    ProductAddModule::class])
+    ProductAddModule::class, ProductListModule::class])
 interface AppComponent {
 
     @ApplicationContext
