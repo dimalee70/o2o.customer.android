@@ -21,7 +21,9 @@ import dragau.o2o.customer.api.response.ProductCategoriesResponce
 import dragau.o2o.customer.models.db.LookupDao
 import dragau.o2o.customer.models.enums.ParameterType
 import dragau.o2o.customer.models.objects.BaseParameter
+import dragau.o2o.customer.models.objects.Product
 import dragau.o2o.customer.models.objects.ProductBarcode
+import dragau.o2o.customer.models.objects.ProductImage
 import dragau.o2o.customer.models.shared.DataHolder
 import dragau.o2o.customer.presentation.presenter.BasePresenter
 import dragau.o2o.customer.presentation.view.product.ProductRegisterView
@@ -31,10 +33,12 @@ import io.reactivex.schedulers.Schedulers
 import org.joda.time.DateTime
 import ru.terrakok.cicerone.Router
 import timber.log.Timber
+import java.util.*
 import javax.inject.Inject
 
 @InjectViewState
-class ProductRegisterPresenter(private var router: Router, var productRegisterViewModel: ProductRegisterViewModel): BasePresenter<ProductRegisterView>() {
+class ProductRegisterPresenter(private var router: Router, var productRegisterViewModel: ProductRegisterViewModel,
+                               private var products: ObservableArrayList<Product>): BasePresenter<ProductRegisterView>() {
 
     @Inject
     lateinit var client: ApiManager
@@ -176,6 +180,8 @@ class ProductRegisterPresenter(private var router: Router, var productRegisterVi
     private fun uploadPhoto(): Boolean{
         if (productRegisterViewModel.imageUri == null)
         {
+            products.add(Product(productId = productRegisterViewModel.productId,
+                name = productRegisterViewModel.title))
             return false
         }
 
@@ -189,9 +195,14 @@ class ProductRegisterPresenter(private var router: Router, var productRegisterVi
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {
-                    _ ->
+                    result ->
                     run {
                         viewState.hideLoading()
+                        var photo = Stack<ProductImage>()
+                        photo.push(ProductImage(annotationId = result.resultObject, body = productRegisterViewModel.imageUri))
+
+                        products.add(Product(productId = productRegisterViewModel.productId,
+                            name = productRegisterViewModel.title, productThumbnails = photo))
                         router.exit()
                     }
                 },

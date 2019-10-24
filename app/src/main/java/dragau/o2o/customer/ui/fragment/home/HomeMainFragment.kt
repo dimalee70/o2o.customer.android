@@ -47,6 +47,8 @@ class HomeMainFragment : BaseMvpFragment(), HomeMainView,
 
     var position: Int? = null
 
+    @Inject
+    lateinit var products: ObservableArrayList<Product>
 
     //    private var onItemClickListenerRecycler
     companion object {
@@ -60,7 +62,7 @@ class HomeMainFragment : BaseMvpFragment(), HomeMainView,
         }
     }
 
-    var products: ObservableArrayList<Product> = ObservableArrayList()
+
 
 //    override fun onItemClick(position: Int, item: OrdersByOutletResult) {
 //        Toast.makeText(context!!, item.contactId, Toast.LENGTH_SHORT).show()
@@ -98,7 +100,7 @@ class HomeMainFragment : BaseMvpFragment(), HomeMainView,
             }
             })
 
-        println("OnStart")
+//        println("OnStart")
         recyclerProductsAdapter = RecyclerBindingAdapter(R.layout.item_product, BR.data, context!!)
         if(onCustomClickListenerRecycler != null){
             recyclerProductsAdapter.setOnItemClickListener(onCustomClickListenerRecycler!!)

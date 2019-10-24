@@ -124,36 +124,36 @@
             app:layout_constraintTop_toBottomOf="@+id/costTv"
             />
 
-        <TextView
-            android:id="@+id/describeTv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Описание"
-            android:textSize="16sp"
-            android:textColor="#000000"
-            android:fontFamily="@font/roboto_bold"
-            android:layout_marginTop="12dp"
-            android:layout_marginStart="20dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/dividerV"
-            />
+<!--        <TextView-->
+<!--            android:id="@+id/describeTv"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Описание"-->
+<!--            android:textSize="16sp"-->
+<!--            android:textColor="#000000"-->
+<!--            android:fontFamily="@font/roboto_bold"-->
+<!--            android:layout_marginTop="12dp"-->
+<!--            android:layout_marginStart="20dp"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/dividerV"-->
+<!--            />-->
 <!--            android:onClick="@{(v) -> presenter.onPhotoClicked(v)}"-->
 
-        <TextView
-            android:id="@+id/textTv"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textColor="#6B6B6B"
-            android:fontFamily="@font/roboto_regular"
-            android:textSize="16sp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:text="@{data.describe}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/describeTv"
-            />
+<!--        <TextView-->
+<!--            android:id="@+id/textTv"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textColor="#6B6B6B"-->
+<!--            android:fontFamily="@font/roboto_regular"-->
+<!--            android:textSize="16sp"-->
+<!--            android:layout_marginStart="20dp"-->
+<!--            android:layout_marginEnd="20dp"-->
+<!--            android:text="@{data.describe}"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/describeTv"-->
+<!--            />-->
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerview"
@@ -161,11 +161,12 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:scrollbars="vertical"
+                android:layout_marginTop="12dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textTv"
+                app:layout_constraintTop_toBottomOf="@+id/dividerV"
                 />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

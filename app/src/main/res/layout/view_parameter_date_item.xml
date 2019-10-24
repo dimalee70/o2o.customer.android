@@ -34,9 +34,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:focusable="true"
-                android:inputType="date"
                 android:hint="@{data.name}"
-                app:dateValue="@{data}" />
+                app:dateValue="@{data}"
+                android:inputType="none"
+                android:enabled="false"
+                android:background="@null"
+                />
 
         </com.google.android.material.textfield.TextInputLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
