@@ -13,6 +13,7 @@ import dragau.o2o.customer.ui.fragment.home.HomeMainFragment
 import dragau.o2o.customer.ui.fragment.login.PhoneNumberFragment
 import dragau.o2o.customer.ui.fragment.login.SmsCodeFragment
 import dragau.o2o.customer.ui.fragment.product.AddParameterFragment
+import dragau.o2o.customer.ui.fragment.product.LookupFragment
 import dragau.o2o.customer.ui.fragment.product.ProductRegisterFragment
 import dragau.o2o.customer.ui.fragment.product.ProductShowFragment
 import ru.terrakok.cicerone.android.support.SupportAppScreen
@@ -62,6 +63,16 @@ class Screens {
 
         override fun getFragment(): Fragment {
             return SmsCodeFragment.newInstance(userRequstModel)
+        }
+    }
+
+    class LookupScreen(var parentId: String): SupportAppScreen() {
+        init {
+            this.screenKey = javaClass.simpleName
+        }
+
+        override fun getFragment(): Fragment {
+            return LookupFragment.newInstance(parentId)
         }
     }
 

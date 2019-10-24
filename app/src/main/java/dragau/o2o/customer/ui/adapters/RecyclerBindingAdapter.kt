@@ -111,8 +111,8 @@ class RecyclerBindingAdapter<T>(
     {
         if (this.items.isEmpty() && items != null)
         {
-//            val list = ArrayList<T>()
-//            list.addAll(items.toMutableList())
+            //val list = ArrayList<T>()
+            //list.addAll(items.toMutableList())
             this.items = items
 
             notifyDataSetChanged()

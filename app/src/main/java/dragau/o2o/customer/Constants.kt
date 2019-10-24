@@ -10,6 +10,7 @@ object Constants
     const val appNameKey = "appName"
     const val mimeTypeKey = "mimeType"
     const val EXTRA_CODE_PHONE = "EXTRA_CODE_PHONE"
+    const val EXTRA_LOOKUP_ID = "EXTRA_LOOKUP_ID"
     const val mimeType = "MimeType"
     const val base64BodyKey = "base64Body"
     const val objectIdKey = "objectId"

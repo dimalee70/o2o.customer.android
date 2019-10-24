@@ -24,6 +24,7 @@ import dragau.o2o.customer.R
 import dragau.o2o.customer.api.requests.ProductRegisterViewModel
 import dragau.o2o.customer.api.response.ProductCategoriesResponce
 import dragau.o2o.customer.databinding.FragmentProductRegisterBinding
+import dragau.o2o.customer.models.enums.ParameterType
 import dragau.o2o.customer.models.objects.BaseParameter
 import dragau.o2o.customer.models.objects.ProductCategories
 import dragau.o2o.customer.presentation.presenter.product.ProductRegisterPresenter
@@ -135,7 +136,7 @@ class ProductRegisterFragment : BaseMvpFragment(), ProductRegisterView, Recycler
 //        val frVew = binding.flMain
         binding.productRegisterViewModel = productRegisterViewModel
         binding.presenter = mProductRegisterPresenter
-        mProductRegisterPresenter.getProductCategoris()
+       //mProductRegisterPresenter.getProductCategoris()
 
         binding.recyclerview.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(
             context,
@@ -173,7 +174,10 @@ class ProductRegisterFragment : BaseMvpFragment(), ProductRegisterView, Recycler
     }
 
     override fun onItemClick(position: Int, item: BaseParameter) {
-
+        if (item.type == ParameterType.LIST)
+        {
+            mProductRegisterPresenter.showLookup(item)
+        }
     }
 
     override fun onDetach() {
