@@ -55,10 +55,7 @@ class ProductShowPresenter(private var router: Router): BasePresenter<ProductSho
                 {
                     result ->
                     run {
-                        result.resultObject?.productParameters?.add(0,
-                            ParameterRequest("5", ParameterType.BARCODE, "Штрих-код", ProductBarcode(result.resultObject.barCode!!, BarcodeFormat.values()[result.resultObject.barcodeFormat!!]), null) )
-                        liveProductResponse.value = result
-
+                         liveProductResponse.value = result
                     }
                 },
                 {

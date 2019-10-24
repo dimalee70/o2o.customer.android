@@ -47,7 +47,9 @@ import dragau.o2o.customer.models.objects.BaseParameter
 import dragau.o2o.customer.models.objects.ProductBarcode
 import dragau.o2o.customer.ui.adapters.setMoney
 import org.joda.time.DateTime
+import java.lang.Exception
 import java.text.NumberFormat
+import kotlin.math.roundToInt
 
 @InverseBindingMethods(
     InverseBindingMethod(
@@ -397,6 +399,12 @@ object Utils {
             view.value = "$value $uom"
             return
         }
+
+        try {
+            val paramValue = (value as Double).roundToInt()
+            view.value = "$paramValue $uom"
+            return
+        }catch (e:Exception){}
     }
 
 

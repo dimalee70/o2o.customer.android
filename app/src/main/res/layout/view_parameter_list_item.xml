@@ -51,6 +51,7 @@
             android:text="@{data.title}"
             android:clickable="false"
             android:longClickable="false"
+            android:background="@null"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

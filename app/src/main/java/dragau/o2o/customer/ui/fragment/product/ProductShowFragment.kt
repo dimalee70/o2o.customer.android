@@ -10,10 +10,12 @@ import androidx.lifecycle.LifecycleRegistry
 import androidx.lifecycle.Observer
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
+import com.google.zxing.BarcodeFormat
 import dragau.o2o.customer.App
 import dragau.o2o.customer.BR
 import dragau.o2o.customer.Constants
 import dragau.o2o.customer.R
+import dragau.o2o.customer.api.requests.ParameterRequest
 import dragau.o2o.customer.api.requests.ProductRegisterViewModel
 import dragau.o2o.customer.api.response.BaseResponse
 import dragau.o2o.customer.api.response.ProductResponce
@@ -21,6 +23,7 @@ import dragau.o2o.customer.databinding.FragmentProductShowBinding
 import dragau.o2o.customer.models.db.LookupDao
 import dragau.o2o.customer.models.enums.ParameterType
 import dragau.o2o.customer.models.objects.BaseParameter
+import dragau.o2o.customer.models.objects.ProductBarcode
 import dragau.o2o.customer.presentation.presenter.product.ProductShowPresenter
 import dragau.o2o.customer.presentation.view.product.ProductShowView
 import dragau.o2o.customer.ui.adapters.RecyclerBindingAdapter
@@ -98,6 +101,9 @@ class ProductShowFragment: BaseMvpFragment(), ProductShowView{
         data.imageUri = if(response.resultObject.productThumbnails == null || response.resultObject.productThumbnails.isNullOrEmpty()) null else response.resultObject.productThumbnails!!.peek().body
         if (!response.resultObject.productParameters.isNullOrEmpty()) {
             val collection = ObservableArrayList<BaseParameter>()
+            collection.add(0,
+                BaseParameter("5", ParameterType.BARCODE, "Штрих-код", ProductBarcode(response.resultObject.barCode!!, BarcodeFormat.values()[response.resultObject.barcodeFormat!!]), null) )
+
             collection.addAll(response.resultObject.productParameters!!.map {it->
                 if (it.type == ParameterType.LIST)
                 {
