@@ -67,7 +67,7 @@ class LookupFragment : BaseMvpFragment(), LookupView, RecyclerBindingAdapter.OnI
             recyclerBindingAdapter.setOnItemClickListener(onItemClickListenerRecycler!!)
         }
 
-        mLookupPresenter.getLookups(parentId!!)
+        mLookupPresenter.getLookups()
         recyclerBindingAdapter.setItems(mLookupPresenter.lookups)
     }
 

@@ -4,9 +4,9 @@ import android.net.Uri
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import androidx.databinding.ObservableArrayList
+import androidx.databinding.library.baseAdapters.BR
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
-import dragau.o2o.customer.BR
 import dragau.o2o.customer.extensions.encodeImage
 import dragau.o2o.customer.models.enums.ParameterType
 import dragau.o2o.customer.models.objects.BaseParameter

@@ -18,6 +18,7 @@ import dragau.o2o.customer.api.ApiManager
 import dragau.o2o.customer.api.requests.ProductRegisterRequest
 import dragau.o2o.customer.api.requests.ProductRegisterViewModel
 import dragau.o2o.customer.api.response.ProductCategoriesResponce
+import dragau.o2o.customer.models.db.LookupDao
 import dragau.o2o.customer.models.enums.ParameterType
 import dragau.o2o.customer.models.objects.BaseParameter
 import dragau.o2o.customer.models.objects.ProductBarcode
@@ -67,8 +68,6 @@ class ProductRegisterPresenter(private var router: Router, var productRegisterVi
         val footer = BaseParameter("-1", ParameterType.FOOTER, "", null)
         footer.presenter = this
         productRegisterViewModel.parameters?.add(footer)
-
-        getCategories()
     }
 
     @SuppressLint("CheckResult")
@@ -93,14 +92,17 @@ class ProductRegisterPresenter(private var router: Router, var productRegisterVi
                     run {
                         productRegisterViewModel.productId = result.resultObject
 //                        if (productRegisterViewModel.imageUri != null)
-                            uploadPhoto()
-//                        viewState.hideLoading()
-//                        router.exit()
+                        if (!uploadPhoto())
+                        {
+                            viewState?.hideLoading()
+                            router.exit()
+                        }
+//
                     }
                 },
                 { error ->
                     run {
-                        viewState.hideLoading()
+
                         viewState.showError(error)
                     }
                 }
@@ -117,7 +119,11 @@ class ProductRegisterPresenter(private var router: Router, var productRegisterVi
                     run {
 //                        updatePhoto()
                         println(result)
-                        uploadPhoto()
+                        if (!uploadPhoto())
+                        {
+                            viewState?.hideLoading()
+                            router.exit()
+                        }
                     }
                 },
                 { error ->
@@ -141,30 +147,6 @@ class ProductRegisterPresenter(private var router: Router, var productRegisterVi
         item.presenter = this
         router.navigateTo(Screens.LookupScreen(item.value.toString()))
     }
-
-    @SuppressLint("CheckResult")
-    fun getCategories(){
-        if (DataHolder.lookups != null)
-        {
-            return
-        }
-        disposable = client.getCategories()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                {
-                        result ->
-                    DataHolder.lookups = result.resultObject
-                },
-                {
-                        error ->
-                    run {
-                        viewState.showError(error)
-                    }
-                }
-            )
-    }
-
 
     fun getProductCategoris(){
         disposables.add(
@@ -191,10 +173,10 @@ class ProductRegisterPresenter(private var router: Router, var productRegisterVi
     }
 
     @SuppressLint("CheckResult")
-    private fun uploadPhoto(){
+    private fun uploadPhoto(): Boolean{
         if (productRegisterViewModel.imageUri == null)
         {
-            return
+            return false
         }
 
         val jsonObject = JsonObject()
@@ -221,6 +203,8 @@ class ProductRegisterPresenter(private var router: Router, var productRegisterVi
                 }
                 }
             )
+
+        return true
     }
 
     @SuppressLint("CheckResult")

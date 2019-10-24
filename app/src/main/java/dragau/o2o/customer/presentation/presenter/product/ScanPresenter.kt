@@ -11,6 +11,8 @@ import dragau.o2o.customer.App
 import dragau.o2o.customer.Screens
 import dragau.o2o.customer.api.ApiManager
 import dragau.o2o.customer.api.requests.ProductRegisterViewModel
+import dragau.o2o.customer.models.db.LookupDao
+import dragau.o2o.customer.models.enums.ParameterType
 import dragau.o2o.customer.models.objects.BaseParameter
 import dragau.o2o.customer.models.objects.ProductBarcode
 import dragau.o2o.customer.presentation.view.ScanView
@@ -20,6 +22,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import ru.terrakok.cicerone.Router
+import timber.log.Timber
 import javax.inject.Inject
 
 @InjectViewState
@@ -34,6 +37,9 @@ class ScanPresenter(private val router: Router
     }
 
     private var disposable: Disposable? = null
+
+    @Inject
+    lateinit var lookupDao: LookupDao
 
 //    fun goBack()
 //    {
@@ -66,7 +72,18 @@ fun  checkProduct(barcode: String, format: BarcodeFormat){
 
                             if (!result.resultObject.productParameters.isNullOrEmpty()) {
                                 val collection = ObservableArrayList<BaseParameter>()
-                                collection.addAll(result.resultObject.productParameters!!.map { BaseParameter(it.id, it.type, it.name, it.value, it.uom) })
+                                collection.addAll(result.resultObject.productParameters!!.map {it->
+                                    if (it.type == ParameterType.LIST)
+                                    {
+                                        val parameter = BaseParameter(it.id, it.type, it.name, it.value, it.uom)
+                                        parameter.title = lookupDao.get(it.value.toString()).value
+                                        return@map parameter
+                                    }
+                                    else
+                                    {
+                                        return@map BaseParameter(it.id, it.type, it.name, it.value, it.uom)
+                                    }
+                                })
                                 productRegisterViewModel.parameters = collection
                             }
 //                            if (result.resultObject.productImageBase64.isNullOrEmpty())

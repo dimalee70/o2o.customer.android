@@ -103,6 +103,8 @@ class HomeMainFragment : BaseMvpFragment(), HomeMainView,
         if(onCustomClickListenerRecycler != null){
             recyclerProductsAdapter.setOnItemClickListener(onCustomClickListenerRecycler!!)
         }
+
+        mHomeMainPresenter.getCategories()
     }
 
     override fun onCreateView(

@@ -13,6 +13,7 @@ import dragau.o2o.customer.Screens
 import dragau.o2o.customer.api.ApiManager
 import dragau.o2o.customer.api.response.ProductResponce
 import dragau.o2o.customer.api.response.ProductResponceContact
+import dragau.o2o.customer.models.db.LookupDao
 import dragau.o2o.customer.models.objects.Product
 import dragau.o2o.customer.models.shared.DataHolder
 import dragau.o2o.customer.presentation.presenter.BasePresenter
@@ -32,6 +33,9 @@ class HomeMainPresenter(private var router: Router) : BasePresenter<HomeMainView
 
     @Inject
     lateinit var sharedPreferences: SharedPreferences
+
+    @Inject
+    lateinit var lookupDao: LookupDao
 
     private var disposable: Disposable? = null
 
@@ -107,5 +111,31 @@ class HomeMainPresenter(private var router: Router) : BasePresenter<HomeMainView
                 }
             )
         )
+    }
+
+    @SuppressLint("CheckResult")
+    fun getCategories(){
+        /*if (DataHolder.lookups != null)
+        {
+            return
+        }*/
+        disposable = client.getCategories()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                        result ->
+                    if (result.resultObject != null) {
+                        lookupDao.insertAll(result.resultObject)
+                        //DataHolder.lookups = result.resultObject
+                    }
+                },
+                {
+                        error ->
+                    run {
+                        viewState.showError(error)
+                    }
+                }
+            )
     }
 }
