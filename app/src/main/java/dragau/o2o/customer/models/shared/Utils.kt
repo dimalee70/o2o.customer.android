@@ -357,21 +357,26 @@ object Utils {
     @JvmStatic
     @BindingAdapter(value = ["bind:doubleUomValue", "bind:uom"], requireAll = false)
     fun setDoubleUomValue(view: TextInputEditText, value: Any?, uom: String?) {
-        if (view.value == value?.toString() || value == "" || (value == null && view.value == "")) {
-            return
+        try {
+            if (view.value == value?.toString() || value == "" || (value == null && view.value == "")) {
+                return
+            }
+
+            if (value == null && view.value != "") {
+                view.value = ""
+                return
+            }
+
+            if (value is Double)
+            {
+                //view.value = "${String.format(Locale.ROOT, "%.2f", value)} $uom"
+                view.value = "$value $uom"
+                return
+            }
+        }catch (e: IllegalStateException){
+            e.printStackTrace()
         }
 
-        if (value == null && view.value != "") {
-            view.value = ""
-            return
-        }
-
-        if (value is Double)
-        {
-            //view.value = "${String.format(Locale.ROOT, "%.2f", value)} $uom"
-            view.value = "$value $uom"
-            return
-        }
     }
 
     @JvmStatic
