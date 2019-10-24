@@ -6,6 +6,7 @@ import dragau.o2o.customer.presentation.BaseView
 
 
 interface ProductRegisterView : BaseView {
+
     @StateStrategyType(SkipStrategy::class)
     fun showPictureDialog()
 }

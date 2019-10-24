@@ -37,4 +37,10 @@ class BaseParameter(val id: String?, val type: ParameterType, var name: String, 
     var isRoot: Boolean = false
 
     var presenter: ProductRegisterPresenter? = null
+
+    fun hideKeyboard(){
+        println("Click ok")
+    }
+
+    val hideKeyboard: Function<Unit> = this::hideKeyboard
 }

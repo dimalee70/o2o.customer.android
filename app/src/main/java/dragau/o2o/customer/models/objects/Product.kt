@@ -30,6 +30,7 @@ data class Product(
     @field:SerializedName("productThumbnails")
     var productThumbnails: Stack<ProductImage>? = null,
 
+    @field:SerializedName("productParameters")
     var productParameters: ArrayList<ParameterRequest>? = null
     ){
 }

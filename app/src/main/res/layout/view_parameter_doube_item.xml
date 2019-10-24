@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
     <data>
         <import type="android.view.View" />
         <variable name="data" type="dragau.o2o.customer.models.objects.BaseParameter" />
@@ -38,10 +38,9 @@
                 android:focusable="false"
                 android:focusableInTouchMode="false"
                 android:enabled="false"
-                android:singleLine="true"
-                android:imeOptions="actionDone"
                 app:uom="@{data.uom}"
-                app:intUomValue="@{data.value}" />
+                app:doubleUomValue="@{data.value}" />
+            <!--                android:imeOptions="actionDone"-->
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -64,11 +63,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:focusable="true"
-                android:inputType="numberSigned"
-                android:imeOptions="actionDone"
-                app:intValue="@={data.value}" />
+                android:inputType="numberDecimal"
+                app:doubleValue="@={data.value}" />
 
         </com.google.android.material.textfield.TextInputLayout>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
