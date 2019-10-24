@@ -2,8 +2,8 @@ package dragau.o2o.customer.models.objects
 
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
+import androidx.databinding.library.baseAdapters.BR
 import com.google.gson.Gson
-import dragau.o2o.customer.BR
 import dragau.o2o.customer.models.enums.ParameterType
 import dragau.o2o.customer.presentation.presenter.product.ProductRegisterPresenter
 

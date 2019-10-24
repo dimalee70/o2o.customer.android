@@ -28,7 +28,7 @@ interface LookupDao {
     fun deleteById(id: String)
 
     @Query("SELECT * from lookup where lookupId = :id")
-    fun get(id: String): Maybe<Lookup>
+    fun get(id: String): Lookup
 
     @Query("SELECT * from lookup where parentLookupId = :parentId")
     fun getChildren(parentId: String): Flowable<List<Lookup>>

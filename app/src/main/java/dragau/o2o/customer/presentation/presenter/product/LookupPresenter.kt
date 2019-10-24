@@ -40,7 +40,7 @@ class LookupPresenter(private val parentLookupId: String, private var router: Ro
     @SuppressLint("CheckResult")
     fun getLookups()
     {
-        lookups?.clear()
+        lookups.clear()
 
         removeLookup(parentLookupId)
 
@@ -67,7 +67,7 @@ class LookupPresenter(private val parentLookupId: String, private var router: Ro
         val lookup = productRegisterViewModel.parameters?.firstOrNull { it.id == parentId }
         if(lookup != null)
         {
-            removeLookup(lookup.value.toString()!!)
+            removeLookup(lookup.value.toString())
         }
         productRegisterViewModel.parameters?.removeIf { it.id == parentId }
     }
