@@ -85,6 +85,18 @@ class RecyclerBindingAdapter<T>(
                 ParameterType.FOOTER -> return  R.layout.parameter_footer_item
             }
         }
+        else if(holderLayout == R.layout.view_product_parameter_item && item is BaseParameter){
+            when (item.type)
+            {
+                ParameterType.HEADER -> return  R.layout.view_parameter_header_item
+                ParameterType.DECIMAL -> return R.layout.view_parameter_doube_item
+                ParameterType.DATE -> return R.layout.view_parameter_date_item
+                ParameterType.BOOL -> return R.layout.view_parameter_bool_item
+                ParameterType.INT -> return R.layout.view_parameter_int_item
+                ParameterType.BARCODE -> return R.layout.view_parameter_barcode_item
+                ParameterType.LIST -> return R.layout.view_parameter_list_item
+            }
+        }
         return holderLayout
     }
 

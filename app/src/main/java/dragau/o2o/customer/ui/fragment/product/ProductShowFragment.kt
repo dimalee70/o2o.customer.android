@@ -132,7 +132,7 @@ class ProductShowFragment: BaseMvpFragment(), ProductShowView{
 //        activity?.actionBar?.setHomeAsUpIndicator(R.drawable.ic_left_arrow)
         binding.data = data
 
-        recyclerBindingAdapter = RecyclerBindingAdapter(R.layout.product_parameter_item, BR.data, context!!)
+        recyclerBindingAdapter = RecyclerBindingAdapter(R.layout.view_product_parameter_item, BR.data, context!!)
         binding.recyclerview.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(
             context,
             androidx.recyclerview.widget.LinearLayoutManager.VERTICAL,
