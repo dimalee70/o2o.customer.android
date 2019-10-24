@@ -1,7 +1,9 @@
 package dragau.o2o.customer.ui.adapters
 
+import android.content.res.Resources
 import android.graphics.Color
 import android.net.Uri
+import android.util.Base64
 import android.view.View
 import android.widget.*
 import androidx.core.content.ContextCompat
@@ -46,8 +48,13 @@ fun TextView.setMoney(money: Int){
 
 @BindingAdapter("setImageUri")
 fun ImageView.setImageUri(uri: String?){ //, newImageAttrChanged: InverseBindingListener){
-    if(uri == null)
+    if(uri.isNullOrEmpty()) {
+        Glide.with(context).clear(this)
+        this.setImageDrawable(null)
+//        this.setImageDrawable(resources.getDrawable(R.drawable.progress_animation, context.theme))
+//        this.setImageDrawable(resources.getDrawable(R.drawable.ic_groceries, context.theme))
         return
+    }
 
 //    if (){
 
@@ -55,6 +62,8 @@ fun ImageView.setImageUri(uri: String?){ //, newImageAttrChanged: InverseBinding
             .centerCrop()
             .placeholder(R.drawable.progress_animation)
             .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
+            .skipMemoryCache(true)
             .priority(Priority.HIGH)
             .dontAnimate()
             .dontTransform()
@@ -66,7 +75,7 @@ fun ImageView.setImageUri(uri: String?){ //, newImageAttrChanged: InverseBinding
 //
 //        val thumbnailRequest = Glide.with(this)
 //            .load("https://picsum.photos/50/50?image=0")
-        val imageAsBytes = android.util.Base64.decode(uri.toByteArray(), android.util.Base64.DEFAULT)
+        val imageAsBytes = Base64.decode(uri.toByteArray(), Base64.DEFAULT)
         Glide.with(context)
             .load(imageAsBytes)
             .apply(options)

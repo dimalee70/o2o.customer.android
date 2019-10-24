@@ -11,7 +11,65 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        >
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar_layout"
+            android:layout_width="match_parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@android:color/transparent"
+            >
+            <!--                    android:theme="@style/AppTheme.AppBarOverlay"-->
+            <!--                    app:elevation="0dp"-->
+
+
+<!--            <androidx.appcompat.widget.Toolbar-->
+<!--                android:id="@+id/homeToolbar"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="?attr/actionBarSize"-->
+<!--                android:background="@android:color/transparent"-->
+<!--                />-->
+        </com.google.android.material.appbar.AppBarLayout>
+        <TextView
+            android:id="@+id/pageTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/toolbarTitleMain"
+            android:gravity="center"
+            android:textColor="@color/toolbarTitleColor"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="@+id/appbar_layout"
+            app:layout_constraintStart_toStartOf="@+id/appbar_layout"
+            app:layout_constraintEnd_toEndOf="@+id/appbar_layout"
+            app:layout_constraintBottom_toBottomOf="@+id/appbar_layout"
+            />
+
+<!--            android:onClick="@{(v) -> presenter.onPhotoClicked(v)}"-->
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="?actionBarSize"
+            >
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            >
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/appbar_layout"-->
+
+
+
         <ImageView
             android:id="@+id/avatarIv"
             android:layout_width="0dp"
@@ -76,14 +134,14 @@
             android:fontFamily="@font/roboto_bold"
             android:layout_marginTop="12dp"
             android:layout_marginStart="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/dividerV"
             />
+<!--            android:onClick="@{(v) -> presenter.onPhotoClicked(v)}"-->
 
         <TextView
             android:id="@+id/textTv"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textColor="#6B6B6B"
             android:fontFamily="@font/roboto_regular"
@@ -93,8 +151,25 @@
             android:text="@{data.describe}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/describeTv"
+            />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
 
+        <ImageButton
+            android:id="@+id/backButtonIb"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="11dp"
+            android:src="@drawable/ic_arrow_back"
+            android:background="@android:color/transparent"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:scaleType="center"
+            android:onClick="@{(v) -> presenter.onPhotoClicked(v)}"
+            app:layout_constraintTop_toTopOf="@+id/appbar_layout"
+            app:layout_constraintStart_toStartOf="@+id/appbar_layout"
+            app:layout_constraintBottom_toBottomOf="@+id/appbar_layout"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

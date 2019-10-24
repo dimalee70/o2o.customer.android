@@ -3,6 +3,7 @@ package dragau.o2o.customer.ui.activity.home
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
@@ -59,7 +60,11 @@ class HomeActivity : BaseActivity(), HomeView {
             navigator.applyCommands(arrayOf<Command>(Replace(Screens.HomeMainScreen())))
         }
         setContentView(R.layout.activity_home)
-//        setupToolbar()
+//        backButtonIv.visibility = View.VISIBLE
+//        backButtonIv.setOnClickListener {
+//            onBackPressed()
+//        }
+        setupToolbar()
 //        setupNavigationDrawer(homeToolbar)
 
     }
@@ -135,12 +140,11 @@ class HomeActivity : BaseActivity(), HomeView {
     }
 
     override fun onResume() {
+//        backButtonIv.visibility = View.GONE
         super.onResume()
 //        navigationView.menu.getItem(0).isChecked = true
 
     }
-
-
 
     var navigator: SupportAppNavigator = object : SupportAppNavigator(this, R.id.activity_home_frame_layout) {
         override fun setupFragmentTransaction(

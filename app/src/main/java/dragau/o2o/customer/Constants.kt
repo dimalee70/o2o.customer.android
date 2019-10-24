@@ -3,6 +3,7 @@ package dragau.o2o.customer
 
 object Constants
 {
+    const val PRODUCT_NAME = "product_name"
     const val PRODUCT_ID = "product_id"
     const val PHOTO_TRANSITION = "photo_transition"
     const val ARG_ANIM_DESTINATION = "arg_anim_dest"

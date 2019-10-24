@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import dragau.o2o.customer.R
 import dragau.o2o.customer.models.enums.ParameterType
 import dragau.o2o.customer.models.objects.BaseParameter
+import dragau.o2o.customer.models.objects.Product
 
 import java.util.ArrayList
 import java.util.Objects.compare
@@ -110,8 +111,8 @@ class RecyclerBindingAdapter<T>(
     {
         if (this.items.isEmpty() && items != null)
         {
-            //val list = ArrayList<T>()
-            //list.addAll(items.toMutableList())
+//            val list = ArrayList<T>()
+//            list.addAll(items.toMutableList())
             this.items = items
 
             notifyDataSetChanged()
@@ -124,10 +125,11 @@ class RecyclerBindingAdapter<T>(
         else {
             if (items != null) {
                 val diffResult = calculateDiff(this.items, items)
-                this.items.clear()
-                this.items.addAll(items)
+//                this.items.clear()
+//                this.items.addAll(items)
+                this.items = items
                 diffResult.dispatchUpdatesTo(this)
-                notifyDataSetChanged() //под вопросом, может стоит удалить
+//                notifyDataSetChanged() //под вопросом, может стоит удалить
             }
         }
         this.items.addOnListChangedCallback(ObservableListCallback())
@@ -140,27 +142,26 @@ class RecyclerBindingAdapter<T>(
             {
                 val old = oldList[oldItemPosition]
                 val new = newList[newItemPosition]
-                /*if (old is Game)
+                if (old is Product)
                 {
-                    return (old as? Game)?.id == (new as? Game)?.id
-                }*/
+                    return (old as? Product)?.productId == (new as? Product)?.productId
+                }
                 return old == new
             }
 
             override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
                 val old = oldList[oldItemPosition]
                 val new = newList[newItemPosition]
-                /*if (old is Game)
+                if (old is Product)
                 {
-                    return (old as? Game)?.id == (new as? Game)?.id && (old as? Game)?.hashkey == (new as? Game)?.hashkey
-                            && (old as? Game)?.isPlayerTurn == (new as? Game)?.isPlayerTurn
-                            && (old as? Game)?.currentRound?.stage == (new as? Game)?.currentRound?.stage
-                            && (new as? Game)?.partner_mission_id == null
+                    return (old as? Product)?.productId == (new as? Product)?.productId
+//                            && (old as? Product)?.name == (new as? Product)?.name
+//                            && (old as? Product)?.description == (new as? Product)?.description
                 }
                 else
                 {
                     return old == new
-                }*/
+                }
                 return old == new
             }
 
