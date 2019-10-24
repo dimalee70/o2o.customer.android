@@ -6,11 +6,17 @@ import android.view.View
 import androidx.lifecycle.MutableLiveData
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
+import com.google.zxing.BarcodeFormat
 import dragau.o2o.customer.App
 import dragau.o2o.customer.Constants
 import dragau.o2o.customer.api.ApiManager
+import dragau.o2o.customer.api.requests.ParameterRequest
+import dragau.o2o.customer.api.requests.ProductRegisterViewModel
 import dragau.o2o.customer.api.response.ProductResponce
+import dragau.o2o.customer.models.enums.ParameterType
+import dragau.o2o.customer.models.objects.BaseParameter
 import dragau.o2o.customer.models.objects.Product
+import dragau.o2o.customer.models.objects.ProductBarcode
 import dragau.o2o.customer.presentation.presenter.BasePresenter
 import dragau.o2o.customer.presentation.view.product.ProductShowView
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -31,6 +37,7 @@ class ProductShowPresenter(private  var router: Router): BasePresenter<ProductSh
 
     init {
         App.appComponent.inject(this)
+
     }
 
     fun onPhotoClicked(v: View){
@@ -48,7 +55,10 @@ class ProductShowPresenter(private  var router: Router): BasePresenter<ProductSh
                 {
                     result ->
                     run {
+                        result.resultObject?.productParameters?.add(0,
+                            ParameterRequest("5", ParameterType.BARCODE, "Штрих-код", ProductBarcode(result.resultObject.barCode!!, BarcodeFormat.values()[result.resultObject.barcodeFormat!!]), null) )
                         liveProductResponse.value = result
+
                     }
                 },
                 {

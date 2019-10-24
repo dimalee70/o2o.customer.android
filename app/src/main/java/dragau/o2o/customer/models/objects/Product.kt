@@ -1,6 +1,7 @@
 package dragau.o2o.customer.models.objects
 
 import com.google.gson.annotations.SerializedName
+import com.google.zxing.BarcodeFormat
 import dragau.o2o.customer.api.requests.ParameterRequest
 import java.util.*
 import kotlin.collections.ArrayList
@@ -31,6 +32,9 @@ data class Product(
     var productThumbnails: Stack<ProductImage>? = null,
 
     @field:SerializedName("productParameters")
-    var productParameters: ArrayList<ParameterRequest>? = null
+    var productParameters: ArrayList<ParameterRequest>? = null,
+
+    @field:SerializedName("barcodeFormat")
+    var barcodeFormat: Int? = null
     ){
 }
