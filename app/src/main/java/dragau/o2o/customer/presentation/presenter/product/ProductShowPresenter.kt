@@ -19,7 +19,7 @@ import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
 @InjectViewState
-class ProductShowPresenter(private  var router: Router): BasePresenter<ProductShowView>() {
+class ProductShowPresenter(private var router: Router): BasePresenter<ProductShowView>() {
 
     var liveProductResponse = MutableLiveData<ProductResponce>()
 

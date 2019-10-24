@@ -114,6 +114,7 @@ class ProductRegisterViewModel: BaseObservable() {
         }
 
     fun clearObject(){
+        productId = null
         categoryName = null
         produserName = null
         title = null

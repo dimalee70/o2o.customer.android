@@ -61,7 +61,7 @@ android {
 
         }
         production {
-            buildConfigField "String", "apiEndpoint", '"http://192.168.121.71:8090/api/"'
+            buildConfigField "String", "apiEndpoint", '"http://92.46.55.206:50770/api/"'
             buildConfigField "String", "wsEndpoint", '"wss://echo.websocket.org"'
             dimension "api"
         }

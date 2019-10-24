@@ -95,6 +95,7 @@ fun  checkProduct(barcode: String, format: BarcodeFormat){
                             viewState.showProductExistsDialog()
                             return@subscribe
                         }
+                        productRegisterViewModel.clearObject()
                         productRegisterViewModel.productBarcode = ProductBarcode(barcode, format)
                         productRegisterViewModel.isVisiblePhoto = false
                         productRegisterViewModel.isEnable = true
