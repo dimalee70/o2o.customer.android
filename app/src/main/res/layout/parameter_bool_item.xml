@@ -35,6 +35,7 @@
                 android:layout_height="wrap_content"
                 android:focusable="true"
                 android:hint="@{data.name}"
+                android:imeOptions="actionDone"
                 app:boolValue="@{data}" />
 
         </com.google.android.material.textfield.TextInputLayout>

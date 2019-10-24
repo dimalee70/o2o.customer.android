@@ -65,6 +65,7 @@
                 android:layout_height="wrap_content"
                 android:focusable="true"
                 android:inputType="numberSigned"
+                android:imeOptions="actionDone"
                 app:intValue="@={data.value}" />
 
         </com.google.android.material.textfield.TextInputLayout>

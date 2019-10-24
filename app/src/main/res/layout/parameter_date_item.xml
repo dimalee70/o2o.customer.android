@@ -36,6 +36,7 @@
                 android:focusable="true"
                 android:inputType="date"
                 android:hint="@{data.name}"
+                android:imeOptions="actionDone"
                 app:dateValue="@{data}" />
 
         </com.google.android.material.textfield.TextInputLayout>
