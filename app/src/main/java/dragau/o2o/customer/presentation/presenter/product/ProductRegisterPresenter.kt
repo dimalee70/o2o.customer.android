@@ -21,6 +21,7 @@ import dragau.o2o.customer.api.response.ProductCategoriesResponce
 import dragau.o2o.customer.models.enums.ParameterType
 import dragau.o2o.customer.models.objects.BaseParameter
 import dragau.o2o.customer.models.objects.ProductBarcode
+import dragau.o2o.customer.models.shared.DataHolder
 import dragau.o2o.customer.presentation.presenter.BasePresenter
 import dragau.o2o.customer.presentation.view.product.ProductRegisterView
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -41,6 +42,7 @@ class ProductRegisterPresenter(private var router: Router, var productRegisterVi
     lateinit var sharedPreferences: SharedPreferences
 
     var liveProductCategoriesResponse = MutableLiveData<ProductCategoriesResponce>()
+    private var disposable: Disposable? = null
 
     init {
         App.appComponent.inject(this)
@@ -65,6 +67,8 @@ class ProductRegisterPresenter(private var router: Router, var productRegisterVi
         val footer = BaseParameter("-1", ParameterType.FOOTER, "", null)
         footer.presenter = this
         productRegisterViewModel.parameters?.add(footer)
+
+        getCategories()
     }
 
     @SuppressLint("CheckResult")
@@ -131,6 +135,35 @@ class ProductRegisterPresenter(private var router: Router, var productRegisterVi
     fun showParameters() {
         router.navigateTo(Screens.AddParameterScreen())
     }
+
+    fun showLookup(item: BaseParameter) {
+        item.presenter = this
+        router.navigateTo(Screens.LookupScreen(item.value.toString()))
+    }
+
+    @SuppressLint("CheckResult")
+    fun getCategories(){
+        if (DataHolder.lookups != null)
+        {
+            return
+        }
+        disposable = client.getCategories()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                        result ->
+                    DataHolder.lookups = result.resultObject
+                },
+                {
+                        error ->
+                    run {
+                        viewState.showError(error)
+                    }
+                }
+            )
+    }
+
 
     fun getProductCategoris(){
         disposables.add(

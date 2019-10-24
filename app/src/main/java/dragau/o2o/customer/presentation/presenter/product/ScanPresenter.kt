@@ -46,30 +46,9 @@ class ScanPresenter(private val router: Router
 //        router.navigateTo(Screens.StoreScreen())
 //    }
 //
-@SuppressLint("CheckResult")
-fun  getCategories(){
-    disposable = client.getCategories()
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(
-            {
-                    result ->
-                val r = result
-            },
-            {
-                    error ->
-                run {
-                    viewState.showError(error)
-                }
-            }
-        )
-}
-
-
 
 @SuppressLint("CheckResult")
 fun  checkProduct(barcode: String, format: BarcodeFormat){
-    getCategories()
     disposable = client.getProductByBarcode(barcode)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

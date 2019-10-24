@@ -15,10 +15,7 @@ import dragau.o2o.customer.presentation.presenter.home.HomeMainPresenter
 import dragau.o2o.customer.presentation.presenter.home.HomePresenter
 import dragau.o2o.customer.presentation.presenter.login.PhoneNumberPresenter
 import dragau.o2o.customer.presentation.presenter.login.SmsCodePresenter
-import dragau.o2o.customer.presentation.presenter.product.AddParameterPresenter
-import dragau.o2o.customer.presentation.presenter.product.ProductRegisterPresenter
-import dragau.o2o.customer.presentation.presenter.product.ProductShowPresenter
-import dragau.o2o.customer.presentation.presenter.product.ScanPresenter
+import dragau.o2o.customer.presentation.presenter.product.*
 import dragau.o2o.customer.ui.activity.BaseActivity
 import dragau.o2o.customer.ui.activity.MainAppActivity
 import dragau.o2o.customer.ui.activity.home.HomeActivity
@@ -28,6 +25,7 @@ import dragau.o2o.customer.ui.fragment.home.HomeMainFragment
 import dragau.o2o.customer.ui.fragment.login.PhoneNumberFragment
 import dragau.o2o.customer.ui.fragment.login.SmsCodeFragment
 import dragau.o2o.customer.ui.fragment.product.AddParameterFragment
+import dragau.o2o.customer.ui.fragment.product.LookupFragment
 import dragau.o2o.customer.ui.fragment.product.ProductRegisterFragment
 import dragau.o2o.customer.ui.fragment.product.ProductShowFragment
 import javax.inject.Singleton
@@ -75,6 +73,7 @@ interface AppComponent {
     fun inject(fragment: HomeMainFragment)
     fun inject(fragment: AddParameterFragment)
     fun inject(fragment: ProductShowFragment)
+    fun inject(fragment: LookupFragment)
 //    fun inject(fragment: OnlineCustomsFragment)
 
     fun inject(presenter: MainAppPresenter)
@@ -96,6 +95,7 @@ interface AppComponent {
     fun inject(pressenter: HomePresenter)
     fun inject(pressenter: HomeMainPresenter)
     fun inject (presenter: ProductShowPresenter)
+    fun inject (presenter: LookupPresenter)
 //    fun inject(pressenter: CustomsPresenter)
 //    fun inject(pressenter: OnlineCustomsPresenter)
 

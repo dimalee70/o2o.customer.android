@@ -7,7 +7,7 @@ import dragau.o2o.customer.BR
 import dragau.o2o.customer.models.enums.ParameterType
 import dragau.o2o.customer.presentation.presenter.product.ProductRegisterPresenter
 
-class BaseParameter(val id: String?, val type: ParameterType, val name: String, private var _value: Any?, val Uom: String? = null): BaseObservable()
+class BaseParameter(val id: String?, val type: ParameterType, var name: String, private var _value: Any?, val Uom: String? = null): BaseObservable()
 {
     var value: Any?
         @Bindable get() = _value
@@ -27,6 +27,14 @@ class BaseParameter(val id: String?, val type: ParameterType, val name: String, 
             }
             notifyPropertyChanged(BR.value)
         }
+
+    var selectedId: String? = null
+        @Bindable get
+
+    var title: String? = null
+        @Bindable get
+
+    var isRoot: Boolean = false
 
     var presenter: ProductRegisterPresenter? = null
 }

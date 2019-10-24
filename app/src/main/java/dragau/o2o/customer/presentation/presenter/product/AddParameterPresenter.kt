@@ -29,24 +29,6 @@ class AddParameterPresenter(private var router: Router, var productRegisterViewM
     var parameters: ObservableArrayList<BaseParameter> = ObservableArrayList<BaseParameter>()
     private var disposable: Disposable? = null
 
-   /* fun getParameters(){
-        parameters.clear()
-        var mainList = arrayListOf(
-            BaseParameter("1", ParameterType.STRING, "Категория", "" ),
-            BaseParameter("2", ParameterType.INT, "Рекомендуемая цена", null, "тг." ),
-            BaseParameter("3", ParameterType.DECIMAL, "Вес", null, "кг." ),
-            BaseParameter("4", ParameterType.INT, "Срок годности", null, "дн." ),
-            BaseParameter("6", ParameterType.STRING, "Описание", "" ),
-            BaseParameter("7", ParameterType.STRING, "Состав", "" )
-        ).toMutableList()
-
-        mainList.forEach {param ->
-            if (productRegisterViewModel.parameters?.count { it.id == param.id } == 0) {
-                parameters.add(param)
-            }
-        }
-    }*/
-
     @SuppressLint("CheckResult")
     fun getParameters(){
        parameters.clear()
@@ -58,7 +40,7 @@ class AddParameterPresenter(private var router: Router, var productRegisterViewM
                     run {
                         result.resultObject?.forEach { param ->
                             if (productRegisterViewModel.parameters?.count { it.id == param.id } == 0) {
-                                parameters.add(param)
+                                parameters.add(BaseParameter(param.id, param.type, param.name, param.value, param.uom))
                             }
                         }
                     }
@@ -73,6 +55,10 @@ class AddParameterPresenter(private var router: Router, var productRegisterViewM
 
     fun addParameterToProduct(parameter: BaseParameter)
     {
+        if (parameter.type == ParameterType.LIST)
+        {
+            parameter.isRoot = true
+        }
         productRegisterViewModel.parameters!!.add(productRegisterViewModel.parameters!!.size - 1 ,parameter)
         router.exit()
     }

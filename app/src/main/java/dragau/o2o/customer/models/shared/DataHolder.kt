@@ -6,6 +6,7 @@ import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import dragau.o2o.customer.App
 import dragau.o2o.customer.Constants
+import dragau.o2o.customer.models.objects.Lookup
 import dragau.o2o.customer.models.objects.User
 
 
@@ -35,4 +36,6 @@ object DataHolder : BaseObservable()
     get() {
         return sharedPref.getString(Constants.jwtPrefsKey, null)
     }
+
+    var lookups: ArrayList<Lookup>? = null
 }
