@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
     <data>
         <import type="android.view.View" />
-        <variable name="data" type="dragau.o2o.customer.models.objects.BaseParameter" />
+        <variable name="data" type="dragau.o2o.customer.api.requests.ParameterRequest" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

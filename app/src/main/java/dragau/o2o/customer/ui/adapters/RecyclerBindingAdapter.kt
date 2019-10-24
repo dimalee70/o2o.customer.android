@@ -11,6 +11,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import dragau.o2o.customer.R
+import dragau.o2o.customer.api.requests.ParameterRequest
 import dragau.o2o.customer.models.enums.ParameterType
 import dragau.o2o.customer.models.objects.BaseParameter
 import dragau.o2o.customer.models.objects.Product
@@ -85,7 +86,7 @@ class RecyclerBindingAdapter<T>(
                 ParameterType.FOOTER -> return  R.layout.parameter_footer_item
             }
         }
-        else if(holderLayout == R.layout.view_product_parameter_item && item is BaseParameter){
+        else if(holderLayout == R.layout.view_product_parameter_item && item is ParameterRequest){
             when (item.type)
             {
 
