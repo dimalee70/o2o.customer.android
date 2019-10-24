@@ -47,23 +47,30 @@
 <!--                    app:layout_constraintTop_toTopOf="parent"-->
 <!--                    />-->
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/productsRv"
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/swipe_container"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:orientation="vertical"
-                android:layout_gravity="center_horizontal"
                 android:layout_marginStart="3dp"
                 android:layout_marginEnd="3dp"
                 android:layout_marginBottom="102dp"
-                android:focusable="false"
+                app:refreshing="@{presenter.isLoading}"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:spanCount="3"
-                />
+                app:onRefreshListener="@{() -> presenter.reloadData()}">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/productsRv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_gravity="center_horizontal"
+                    android:focusable="false"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:spanCount="3"
+                    />
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 <!--                app:layout_constraintTop_toBottomOf="@+id/productTv"-->
 

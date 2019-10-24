@@ -2,6 +2,7 @@ package dragau.o2o.customer.presentation.presenter.home
 
 import android.annotation.SuppressLint
 import android.content.SharedPreferences
+import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.MutableLiveData
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
@@ -37,7 +38,7 @@ class HomeMainPresenter(private var router: Router) : BasePresenter<HomeMainView
     @Inject
     lateinit var lookupDao: LookupDao
 
-    private var disposable: Disposable? = null
+    var isLoading = ObservableBoolean()
 
     init {
         App.appComponent.inject(this)
@@ -87,7 +88,7 @@ class HomeMainPresenter(private var router: Router) : BasePresenter<HomeMainView
         return liveProducttResponse
     }
 
-    @SuppressLint("CheckResult")
+    /*@SuppressLint("CheckResult")
     fun getProductByContactId(contactId: String){
 
         disposables.add(
@@ -113,29 +114,57 @@ class HomeMainPresenter(private var router: Router) : BasePresenter<HomeMainView
         )
     }
 
+
     @SuppressLint("CheckResult")
     fun getCategories(){
-        /*if (DataHolder.lookups != null)
-        {
-            return
-        }*/
-        disposable = client.getCategories()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                {
-                        result ->
-                    if (result.resultObject != null) {
-                        lookupDao.insertAll(result.resultObject)
-                        //DataHolder.lookups = result.resultObject
-                    }
-                },
-                {
+    }*/
+
+    fun reloadData() = reloadData(showRefresh = true)
+
+    fun reloadData(showRefresh: Boolean) {
+        isLoading.set(showRefresh)
+
+        disposables.add(
+            client.getProductsByContact(DataHolder.user!!.id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    {
+                            result ->
+                        run {
+                            liveProducttResponse.value = result
+                        }
+
+                        disposables.add(client.getCategories()
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(
+                                {
+                                        result ->
+                                    if (result.resultObject != null) {
+                                        lookupDao.insertAll(result.resultObject)
+                                    }
+                                },
+                                {
+                                        error ->
+                                    run {
+                                        viewState?.showError(error)
+                                    }
+                                },
+                                {
+                                    isLoading.set(false)
+                                }
+                            ))
+                    },
+                    {
                         error ->
-                    run {
-                        viewState.showError(error)
+                        run {
+                            isLoading.set(false)
+                           viewState?.showError(error)
+                        }
                     }
-                }
-            )
+                )
+        )
+
     }
 }
