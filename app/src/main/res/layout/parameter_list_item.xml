@@ -25,6 +25,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            android:enabled="false"
             android:layout_marginStart="17dp"
             android:layout_marginEnd="17dp"
             android:layout_marginTop="9dp"
@@ -33,6 +34,8 @@
             android:focusableInTouchMode="false"
             android:focusable="false"
             android:text="@{data.title}"
+            android:clickable="false"
+            android:longClickable="false"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

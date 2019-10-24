@@ -37,5 +37,5 @@ object DataHolder : BaseObservable()
         return sharedPref.getString(Constants.jwtPrefsKey, null)
     }
 
-    var lookups: ArrayList<Lookup>? = null
+    //var lookups: ArrayList<Lookup>? = null
 }

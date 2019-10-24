@@ -9,6 +9,7 @@ import dragau.o2o.customer.di.ApplicationContext
 import dragau.o2o.customer.di.CustomApplicationScope
 import dragau.o2o.customer.di.modules.*
 import dragau.o2o.customer.models.db.Db
+import dragau.o2o.customer.models.db.LookupDao
 import dragau.o2o.customer.models.db.UserDao
 import dragau.o2o.customer.presentation.presenter.MainAppPresenter
 import dragau.o2o.customer.presentation.presenter.home.HomeMainPresenter
@@ -50,6 +51,8 @@ interface AppComponent {
     fun glideComponentBuilder(): GlideComponent.Builder
 
     fun userDao(): UserDao
+
+    fun lookupDao(): LookupDao
 
     fun getDb(): Db
 

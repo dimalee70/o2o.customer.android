@@ -81,6 +81,7 @@ class RecyclerBindingAdapter<T>(
                 ParameterType.BOOL -> return R.layout.parameter_bool_item
                 ParameterType.INT -> return R.layout.parameter_int_item
                 ParameterType.BARCODE -> return R.layout.parameter_barcode_item
+                ParameterType.LIST -> return R.layout.parameter_list_item
                 ParameterType.FOOTER -> return  R.layout.parameter_footer_item
             }
         }
