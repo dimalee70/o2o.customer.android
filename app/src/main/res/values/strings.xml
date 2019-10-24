@@ -90,7 +90,7 @@
     <string name="empty_text_rule">Обязательно к заполнению</string>
     <string name="open_drawer">Open</string>
     <string name="close_drawer">Close</string>
-    <string name="toolbarTitleMain">ГЛАВНАЯ</string>
+    <string name="toolbarTitleMain">ПРОДУКТЫ</string>
     <string name="customsText">Онлайн заказы</string>
     <string name="register_product_title">ДОБАВЛЕНИЕ ПРОДУКТА</string>
     <string name="error">erroe</string>
@@ -106,4 +106,5 @@
     <string name="exists_tv">Данный продукт уже есть в базе</string>
     <string name="productCostHint">Ценна</string>
     <string name="add_parameter">Добавить параметр</string>
+    <string name="action_add_product">Добавить продукт</string>
 </resources>

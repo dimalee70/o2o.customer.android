@@ -15,7 +15,7 @@
 
         <Button
             android:id="@+id/btnLogin"
-            android:text="Зарегистрировать"
+            android:text="@string/action_add_product"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
