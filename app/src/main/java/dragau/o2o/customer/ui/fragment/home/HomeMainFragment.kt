@@ -104,7 +104,7 @@ class HomeMainFragment : BaseMvpFragment(), HomeMainView,
             recyclerProductsAdapter.setOnItemClickListener(onCustomClickListenerRecycler!!)
         }
 
-        mHomeMainPresenter.getCategories()
+        mHomeMainPresenter.reloadData()
     }
 
     override fun onCreateView(
@@ -189,9 +189,6 @@ class HomeMainFragment : BaseMvpFragment(), HomeMainView,
     override fun onResume() {
         super.onResume()
         println("OnResume")
-        if(DataHolder.user!!.id != null){
-            mHomeMainPresenter.getProductByContactId(DataHolder.user!!.id)
-        }
 //        binding.productsRv.adapter!!.notifyDataSetChanged()
 //        binding.customsRv.adapter!!.notifyDataSetChanged()
     }
