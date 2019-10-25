@@ -108,7 +108,10 @@ class ProductShowFragment: BaseMvpFragment(), ProductShowView{
                 if (it.type == ParameterType.LIST)
                 {
                     val parameter = BaseParameter(it.id, it.type, it.name, it.value, it.uom)
-                    parameter.title = lookupDao.get(it.value.toString()).value
+                    var s = getCategories(it.value.toString())
+                    parameter.title = s.substring(s.indexOf("\n") + 1)
+
+//                    parameter.title = lookupDao.get(it.value.toString()).value
                     return@map parameter
                 }
                 else
@@ -119,7 +122,24 @@ class ProductShowFragment: BaseMvpFragment(), ProductShowView{
             data.parameters = collection
             recyclerBindingAdapter.setItems(data.parameters)
         }
+    }
 
+//    fun getCategories(id: String, rootId: String): String {
+//        var lookup = lookupDao.get(id)
+//        var answer = lookup.value
+//        if (lookup.lookupId.equals(rootId)){
+//            return answer
+//        }
+//        return  getCategories(lookup.parentLookupId.toString(), rootId) + "\n" + answer
+//    }
+
+    fun getCategories(id: String): String {
+        var lookup = lookupDao.get(id)
+        var answer = lookup.value
+        if (lookup.parentLookupId.isNullOrEmpty()){
+            return answer
+        }
+        return  getCategories(lookup.parentLookupId.toString()) + "\n" + answer
     }
 
     override fun onCreateView(
