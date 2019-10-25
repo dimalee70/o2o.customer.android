@@ -38,6 +38,12 @@ class ProductRegisterRequest (
                 })
             }
 
+            if (model.parameters != null && model.parameters!!.count{ it.type == ParameterType.LIST && !it.isRoot} > 0) {
+                params.addAll(model.parameters!!.filter{ it.type == ParameterType.LIST && !it.isRoot }.map{
+                    ParameterRequest(it.id, it.type, it.name, it.selectedId, it.Uom)
+                })
+            }
+
             val request = ProductRegisterRequest(
                 productId = model.productId,
                 productCategoryId = model.productCategoryId,

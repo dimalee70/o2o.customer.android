@@ -62,4 +62,6 @@ class AddParameterPresenter(private var router: Router, var productRegisterViewM
         productRegisterViewModel.parameters!!.add(productRegisterViewModel.parameters!!.size - 1 ,parameter)
         router.exit()
     }
+
+
 }
