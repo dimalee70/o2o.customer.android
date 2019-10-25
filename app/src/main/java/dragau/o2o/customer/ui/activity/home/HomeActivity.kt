@@ -166,6 +166,14 @@ class HomeActivity : BaseActivity(), HomeView {
         }
     }
 
+
+    /*override fun setupFragmentTransactionAnimation(command: Command,
+                                                   currentFragment: Fragment,
+                                                   nextFragment: Fragment,
+                                                   fragmentTransaction: FragmentTransaction) {
+        fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left)
+    }*/
+
     private fun setupSharedElement(
         showImageFragment: HomeMainFragment,
         nextFragment: ProductShowFragment,

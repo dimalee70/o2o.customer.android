@@ -25,6 +25,7 @@ import dragau.o2o.customer.api.requests.ProductRegisterViewModel
 import dragau.o2o.customer.presentation.presenter.product.ProductPresenter
 import dragau.o2o.customer.presentation.view.product.ProductView
 import dragau.o2o.customer.ui.activity.BaseActivity
+import dragau.o2o.customer.ui.common.BackButtonListener
 import dragau.o2o.customer.ui.fragment.product.ProductRegisterFragment
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_scan.*
@@ -146,6 +147,14 @@ class ProductActivity : BaseActivity(), ProductView {
     }
 
     override fun onBackPressed() {
+        val fragment = supportFragmentManager.findFragmentById(R.id.activity_product_frame_layout)
+        if (fragment != null && (fragment is BackButtonListener)){
+            if (fragment.onBackPressed()) {
+                super.onBackPressed()
+            }
+            return
+        }
+
         super.onBackPressed()
 //        productRegisterViewModel = ProductRegisterViewModel()
     }

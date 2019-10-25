@@ -66,13 +66,13 @@ class Screens {
         }
     }
 
-    class LookupScreen(var parentId: String): SupportAppScreen() {
+    class LookupScreen(var parentId: String, var prevLookupIdList: ArrayList<String>): SupportAppScreen() {
         init {
             this.screenKey = javaClass.simpleName
         }
 
         override fun getFragment(): Fragment {
-            return LookupFragment.newInstance(parentId)
+            return LookupFragment.newInstance(parentId, prevLookupIdList)
         }
     }
 

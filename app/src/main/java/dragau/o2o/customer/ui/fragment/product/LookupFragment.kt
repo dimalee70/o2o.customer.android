@@ -19,18 +19,25 @@ import dragau.o2o.customer.api.requests.ProductRegisterViewModel
 import dragau.o2o.customer.databinding.FragmentLookupBinding
 import dragau.o2o.customer.models.objects.BaseParameter
 import dragau.o2o.customer.ui.adapters.RecyclerBindingAdapter
+import dragau.o2o.customer.ui.common.BackButtonListener
 import dragau.o2o.customer.ui.fragment.BaseMvpFragment
+import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.activity_product.*
+import kotlinx.android.synthetic.main.activity_product.pageTv
+import kotlinx.android.synthetic.main.fragment_product_show.view.*
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
-class LookupFragment : BaseMvpFragment(), LookupView, RecyclerBindingAdapter.OnItemClickListener<BaseParameter> {
+class LookupFragment : BaseMvpFragment(), LookupView, RecyclerBindingAdapter.OnItemClickListener<BaseParameter>,
+    BackButtonListener {
     companion object {
         const val TAG = "LookupFragment"
 
-        fun newInstance(parentId: String): LookupFragment {
+        fun newInstance(parentId: String, prevLookupIdList: ArrayList<String>): LookupFragment {
             val fragment: LookupFragment = LookupFragment()
             val args: Bundle = Bundle()
             args.putString(Constants.EXTRA_LOOKUP_ID, parentId)
+            args.putStringArrayList(Constants.EXTRA_LOOKUP_PREV_NAMES, prevLookupIdList)
             fragment.arguments = args
             return fragment
         }
@@ -47,10 +54,11 @@ class LookupFragment : BaseMvpFragment(), LookupView, RecyclerBindingAdapter.OnI
 
     @ProvidePresenter
     fun providePresenter(): LookupPresenter{
-        return LookupPresenter(parentId!!, router, productRegisterViewModel)
+        return LookupPresenter(parentId!!, router, productRegisterViewModel, prevLookupIdList)
     }
 
     var parentId: String? = null
+    lateinit var prevLookupIdList: ArrayList<String>
 
     lateinit var binding: FragmentLookupBinding
 
@@ -59,9 +67,10 @@ class LookupFragment : BaseMvpFragment(), LookupView, RecyclerBindingAdapter.OnI
 
     override fun onCreate(savedInstanceState: Bundle?) {
         this.parentId = arguments!!.getString(Constants.EXTRA_LOOKUP_ID, "")
+        this.prevLookupIdList = arguments!!.getStringArrayList(Constants.EXTRA_LOOKUP_PREV_NAMES)!!
         App.appComponent.inject(this)
         super.onCreate(savedInstanceState)
-        recyclerBindingAdapter = RecyclerBindingAdapter(R.layout.add_parameter_item, BR.data, context!!)
+        recyclerBindingAdapter = RecyclerBindingAdapter(R.layout.add_lookup_item, BR.data, context!!)
 
         if (onItemClickListenerRecycler != null) {
             recyclerBindingAdapter.setOnItemClickListener(onItemClickListenerRecycler!!)
@@ -79,14 +88,20 @@ class LookupFragment : BaseMvpFragment(), LookupView, RecyclerBindingAdapter.OnI
         binding.productRegisterViewModel = productRegisterViewModel
         binding.presenter = mLookupPresenter
 
-        binding.recyclerview.layoutManager = androidx.recyclerview.widget.GridLayoutManager(
+            /* binding.recyclerview.layoutManager = androidx.recyclerview.widget.GridLayoutManager(
             context,
             3
-        )
+        )*/
         binding.recyclerview.adapter = recyclerBindingAdapter
 
+        if (!prevLookupIdList.isNullOrEmpty())
+            activity!!.pageTv.text = prevLookupIdList.last()
+
+        mLookupPresenter.getTitle()
         return binding.root
     }
+
+
 
     override fun onItemClick(position: Int, item: BaseParameter) {
         mLookupPresenter.selectLookup(item)
@@ -95,7 +110,7 @@ class LookupFragment : BaseMvpFragment(), LookupView, RecyclerBindingAdapter.OnI
     override fun onDetach() {
         super.onDetach()
         onItemClickListenerRecycler = null
-        mLookupPresenter.removeParameterIfAdded()
+        //mLookupPresenter.removeParameterIfAdded()
     }
 
     override fun onAttach(context: Context) {
@@ -105,6 +120,14 @@ class LookupFragment : BaseMvpFragment(), LookupView, RecyclerBindingAdapter.OnI
         } catch (e: Throwable) {
             throw ClassCastException(context.toString())
         }
+    }
 
+    override fun setTitle(value: String) {
+        activity!!.pageTv.text = value
+    }
+
+    override fun onBackPressed(): Boolean {
+        mLookupPresenter.onBackPressed()
+        return true
     }
 }

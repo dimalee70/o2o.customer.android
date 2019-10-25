@@ -23,7 +23,8 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @InjectViewState
-class LookupPresenter(private val parentLookupId: String, private var router: Router, var productRegisterViewModel: ProductRegisterViewModel) : MvpPresenter<LookupView>() {
+class LookupPresenter(private val parentLookupId: String, private var router: Router, var productRegisterViewModel: ProductRegisterViewModel,
+                      private var prevLookupIdList: ArrayList<String>) : MvpPresenter<LookupView>() {
 
     @Inject
     lateinit var client: ApiManager
@@ -101,6 +102,13 @@ class LookupPresenter(private val parentLookupId: String, private var router: Ro
         productRegisterViewModel.parameters!!.removeIf { it.id == parentLookupId && it.selectedId == null}
     }
 
+    fun getTitle()
+    {
+        if (!prevLookupIdList.isNullOrEmpty())
+        {
+            viewState.setTitle(lookupDao.getValue(parentLookupId))
+        }
+    }
 
     fun selectLookup(parameter: BaseParameter)
     {
@@ -118,7 +126,8 @@ class LookupPresenter(private val parentLookupId: String, private var router: Ro
                     if (count > 0)
                     {
                         productRegisterViewModel.parameters!!.add(productRegisterViewModel.parameters!!.size - 1, parameter)
-                        router.navigateTo(Screens.LookupScreen(parameter.value.toString()))
+                        prevLookupIdList.add(parameter.id!!)
+                        router.navigateTo(Screens.LookupScreen(parameter.value.toString(), prevLookupIdList))
                     }
                     else
                     {
@@ -137,5 +146,13 @@ class LookupPresenter(private val parentLookupId: String, private var router: Ro
         }*/
 
 
+    }
+
+    fun onBackPressed()
+    {
+        if (!prevLookupIdList.isNullOrEmpty()) {
+            productRegisterViewModel.parameters!!.removeIf { it.id == prevLookupIdList.last() }
+            prevLookupIdList.remove(prevLookupIdList.last())
+        }
     }
 }

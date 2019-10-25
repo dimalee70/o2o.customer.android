@@ -42,4 +42,6 @@ interface LookupDao {
     @Query("SELECT COUNT(lookupId) FROM lookup where parentLookupId = :parentId")
     fun getChildrenCount(parentId: String): Single<Int>
 
+    @Query("SELECT value from lookup where lookupId = :id")
+    fun getValue(id: String): String
 }
