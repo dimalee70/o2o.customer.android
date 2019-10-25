@@ -35,6 +35,7 @@ import ru.terrakok.cicerone.Router
 import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
+import kotlin.collections.ArrayList
 
 @InjectViewState
 class ProductRegisterPresenter(private var router: Router, var productRegisterViewModel: ProductRegisterViewModel,
@@ -149,7 +150,7 @@ class ProductRegisterPresenter(private var router: Router, var productRegisterVi
 
     fun showLookup(item: BaseParameter) {
         item.presenter = this
-        router.navigateTo(Screens.LookupScreen(item.value.toString()))
+        router.navigateTo(Screens.LookupScreen(item.value.toString(), ArrayList()))
     }
 
     fun getProductCategoris(){
