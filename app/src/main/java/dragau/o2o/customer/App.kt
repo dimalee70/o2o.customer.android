@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.content.Context
 import androidx.multidex.MultiDex
 import androidx.multidex.MultiDexApplication
+import com.crashlytics.android.Crashlytics
+import com.crashlytics.android.core.CrashlyticsCore
 import com.navin.flintstones.rxwebsocket.RxWebsocket
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -14,6 +16,7 @@ import dragau.o2o.customer.di.components.DaggerAppComponent
 import dragau.o2o.customer.di.modules.ApplicationModule
 import dragau.o2o.customer.di.modules.RoomModule
 import dragau.o2o.customer.di.modules.WSocketModule
+import io.fabric.sdk.android.Fabric
 import ru.terrakok.cicerone.Cicerone
 import ru.terrakok.cicerone.Router
 import timber.log.Timber
@@ -41,10 +44,10 @@ class App : MultiDexApplication() {
             .build()
 
 
-//        val crashlyticsKit = Crashlytics.Builder()
-//            .core(CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build())
-//            .build()
-//        Fabric.with(this, crashlyticsKit)
+        val crashlyticsKit = Crashlytics.Builder()
+            .core(CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build())
+            .build()
+        Fabric.with(this, crashlyticsKit)
 
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
