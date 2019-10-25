@@ -4,6 +4,7 @@ import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import androidx.room.*
 import java.time.OffsetDateTime
+import java.util.*
 
 @Entity(tableName = "user", indices = [Index(value = ["phone"], unique = true) ])
 data class User(
@@ -15,7 +16,7 @@ data class User(
     @ColumnInfo
     var token: String?,
     @ColumnInfo
-    val expireDate: OffsetDateTime? = null
+    val expireDate: Date? = null
 ) : BaseObservable()
 {
 
