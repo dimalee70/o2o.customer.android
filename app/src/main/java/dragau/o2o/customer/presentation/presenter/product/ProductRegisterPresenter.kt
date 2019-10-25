@@ -95,8 +95,10 @@ class ProductRegisterPresenter(private var router: Router, var productRegisterVi
             .subscribe(
                 { result ->
                     run {
-                        productRegisterViewModel.productId = result.resultObject
-//                        if (productRegisterViewModel.imageUri != null)
+//                        productRegisterViewModel.productId = result.resultObject
+////                        if (productRegisterViewModel.imageUri != null)
+//                        products.add(Product(productId = productRegisterViewModel.productId,
+//                            name = productRegisterViewModel.title))
                         if (!uploadPhoto())
                         {
                             viewState?.hideLoading()
@@ -201,9 +203,12 @@ class ProductRegisterPresenter(private var router: Router, var productRegisterVi
                         viewState.hideLoading()
                         var photo = Stack<ProductImage>()
                         photo.push(ProductImage(annotationId = result.resultObject, body = productRegisterViewModel.imageUri))
-
+//                        products.filter {
+//                            s -> s.productId == productRegisterViewModel.productId
+//                        }.single().productThumbnails = photo
                         products.add(Product(productId = productRegisterViewModel.productId,
                             name = productRegisterViewModel.title, productThumbnails = photo))
+
                         router.exit()
                     }
                 },

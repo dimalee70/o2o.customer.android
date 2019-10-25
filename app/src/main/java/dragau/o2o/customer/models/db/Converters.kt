@@ -6,6 +6,8 @@ import androidx.annotation.RequiresApi
 import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import org.joda.time.DateTime
+import java.text.SimpleDateFormat
 import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -23,24 +25,41 @@ class Converters {
             return gson.fromJson<ArrayList<String>>(value, listType)
         }
 
-        @SuppressLint("NewApi")
-        private val formatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME
+        @SuppressLint("NewApi", "SimpleDateFormat")
+        private val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.ZZZZZZZ'Z'")
+//            .ISO_OFFSET_DATE_TIME
 
-        @SuppressLint("NewApi")
         @TypeConverter
         @JvmStatic
-        fun toOffsetDateTime(value: String?): OffsetDateTime? {
+        fun toOffsetDateTime(value: String?): Date? {
             return value?.let {
-                return formatter.parse(value, OffsetDateTime::from)
+                return DateTime.parse(value).toDate()
             }
         }
 
         @RequiresApi(Build.VERSION_CODES.O)
         @TypeConverter
         @JvmStatic
-        fun fromOffsetDateTime(date: OffsetDateTime?): String? {
-            return date?.format(formatter)
+        fun fromOffsetDateTime(date: Date?): String? {
+            return dateFormat.format(date)
         }
+//        @SuppressLint("NewApi")
+//        @TypeConverter
+//        @JvmStatic
+//        fun toOffsetDateTime(value: String?): OffsetDateTime? {
+//            return value?.let {
+//                target = scheduledDate.toInstant().atOffset( ZoneOffset.UTC );
+//                return formatter.parse(value)
+////                return formatter.parse(value, OffsetDateTime::from)
+//            }
+//        }
+
+//        @RequiresApi(Build.VERSION_CODES.O)
+//        @TypeConverter
+//        @JvmStatic
+//        fun fromOffsetDateTime(date: OffsetDateTime?): String? {
+//            return date?.format(formatter)
+//        }
 
         @TypeConverter
         fun fromArrayList(list: ArrayList<String>): String {

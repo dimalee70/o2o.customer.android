@@ -169,7 +169,7 @@ class PhoneNumberPresenter(private val router: Router, smsSent: Boolean) : MvpPr
             } else if (e is FirebaseTooManyRequestsException) {
                 // The SMS quota for the project has been
                 // exceeded
-                viewState?.showError(null, R.string.quota_exceeded)
+                 //   viewState?.showError(null, R.string.quota_exceeded)
             }
         }
 

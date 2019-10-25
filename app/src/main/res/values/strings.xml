@@ -107,4 +107,5 @@
     <string name="productCostHint">Ценна</string>
     <string name="add_parameter">Добавить параметр</string>
     <string name="action_add_product">Добавить продукт</string>
+    <string name="block_firebase">Запросы с этого устройства заблокированы из-за необычной активности. Попробуйте позже.</string>
 </resources>

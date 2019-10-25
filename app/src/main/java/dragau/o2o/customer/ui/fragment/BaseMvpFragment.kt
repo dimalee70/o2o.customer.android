@@ -7,6 +7,7 @@ import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat.getSystemService
 import com.bumptech.glide.load.engine.GlideException
+import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.jakewharton.retrofit2.adapter.rxjava2.HttpException
@@ -130,6 +131,8 @@ open class BaseMvpFragment: MvpAppCompatFragment(), BaseView
             is SocketTimeoutException -> return getString(R.string.timed_out)
             is IOException -> return getString(R.string.network_connection_lost)
             is GlideException -> return getString(R.string.bad_connection)
+            is FirebaseTooManyRequestsException -> return getString(R.string.block_firebase)
+//            is FirebasezTooManyRequestsException -> return getString(R.string.quota_exceeded)
 
             else -> return if (error.localizedMessage != null) getString(R.string.unknown_error) else ""
         }
