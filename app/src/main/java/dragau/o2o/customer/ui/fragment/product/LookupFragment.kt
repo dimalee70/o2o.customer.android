@@ -95,6 +95,7 @@ class LookupFragment : BaseMvpFragment(), LookupView, RecyclerBindingAdapter.OnI
     override fun onDetach() {
         super.onDetach()
         onItemClickListenerRecycler = null
+        mLookupPresenter.removeParameterIfAdded()
     }
 
     override fun onAttach(context: Context) {

@@ -6,6 +6,7 @@ import androidx.databinding.ObservableArrayList
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import dragau.o2o.customer.App
+import dragau.o2o.customer.Screens
 import dragau.o2o.customer.api.ApiManager
 import dragau.o2o.customer.api.requests.ProductRegisterViewModel
 import dragau.o2o.customer.models.db.LookupDao
@@ -36,6 +37,8 @@ class LookupPresenter(private val parentLookupId: String, private var router: Ro
 
     var lookups: ObservableArrayList<BaseParameter> = ObservableArrayList<BaseParameter>()
     private var disposable: Disposable? = null
+
+    var isSelected: Boolean = false
 
     @SuppressLint("CheckResult")
     fun getLookups()
@@ -72,6 +75,33 @@ class LookupPresenter(private val parentLookupId: String, private var router: Ro
         productRegisterViewModel.parameters?.removeIf { it.id == parentId }
     }
 
+    private fun removeLookupInverted(parentId: String): String?
+    {
+        val lookup = productRegisterViewModel.parameters?.firstOrNull { it.selectedId == parentId }
+        var id: String? = null
+        if (lookup?.isRoot == true)
+        {
+            id = lookup.id
+        }
+
+        if(lookup != null)
+        {
+            val temp = removeLookupInverted(lookup.value.toString())
+            if (temp != null) {
+                id = temp
+            }
+        }
+
+        productRegisterViewModel.parameters?.remove(lookup)
+        return id
+    }
+
+    fun removeParameterIfAdded()
+    {
+        productRegisterViewModel.parameters!!.removeIf { it.id == parentLookupId && it.selectedId == null}
+    }
+
+
     fun selectLookup(parameter: BaseParameter)
     {
         disposable = lookupDao.getChildrenCount(parameter.value.toString())
@@ -79,17 +109,23 @@ class LookupPresenter(private val parentLookupId: String, private var router: Ro
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe (
                 { count ->
-                    if (count > 0)
-                    {
-                        productRegisterViewModel.parameters!!.add(productRegisterViewModel.parameters!!.size - 1, parameter)
-                    }
-
                     val parent = productRegisterViewModel.parameters?.firstOrNull { it.value == parentLookupId }
                     if (parent != null) {
                         parent.title = parameter.name
                         parent.selectedId = parameter.value.toString()
                     }
-                        router.exit()
+
+                    if (count > 0)
+                    {
+                        productRegisterViewModel.parameters!!.add(productRegisterViewModel.parameters!!.size - 1, parameter)
+                        router.navigateTo(Screens.LookupScreen(parameter.value.toString()))
+                    }
+                    else
+                    {
+                        val rootId = removeLookupInverted(parameter.id!!)
+                        parent?.id = rootId
+                        router.backTo(Screens.ProductRegisterScreen())
+                    }
                 },
                 { error ->
                     Timber.e(error)

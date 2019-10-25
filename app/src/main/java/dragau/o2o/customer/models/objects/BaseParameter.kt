@@ -7,7 +7,7 @@ import com.google.gson.Gson
 import dragau.o2o.customer.models.enums.ParameterType
 import dragau.o2o.customer.presentation.presenter.product.ProductRegisterPresenter
 
-class BaseParameter(val id: String?, val type: ParameterType, var name: String, private var _value: Any?, val Uom: String? = null): BaseObservable()
+class BaseParameter(var id: String?, val type: ParameterType, var name: String, private var _value: Any?, val Uom: String? = null): BaseObservable()
 {
     var value: Any?
         @Bindable get() = _value
