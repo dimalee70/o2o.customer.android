@@ -190,7 +190,7 @@ class HomeMainFragment : BaseMvpFragment(), HomeMainView,
 
     override fun onResume() {
         super.onResume()
-        println("OnResume")
+//        println("OnResume")
 //        binding.productsRv.adapter!!.notifyDataSetChanged()
 //        binding.customsRv.adapter!!.notifyDataSetChanged()
     }
