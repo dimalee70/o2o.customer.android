@@ -220,7 +220,7 @@ class ProductRegisterPresenter(private var router: Router, var productRegisterVi
                         var idx: Int = products.indexOfFirst{
                             it.productId == productRegisterViewModel.productId
                         }
-                        if(idx < 0){
+                        if(idx < 0 ){
                             productsLinkedList.addFirst(
                                 Product(productId = productRegisterViewModel.productId,
                                     name = productRegisterViewModel.title, productThumbnails = photo)
