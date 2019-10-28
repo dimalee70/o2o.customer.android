@@ -36,6 +36,7 @@ import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
 import kotlin.collections.ArrayList
+import kotlin.collections.LinkedHashSet
 
 @InjectViewState
 class ProductRegisterPresenter(private var router: Router, var productRegisterViewModel: ProductRegisterViewModel,
@@ -48,10 +49,15 @@ class ProductRegisterPresenter(private var router: Router, var productRegisterVi
     lateinit var sharedPreferences: SharedPreferences
 
     var liveProductCategoriesResponse = MutableLiveData<ProductCategoriesResponce>()
+
+    var productsLinkedList: LinkedList<Product>
+
     private var disposable: Disposable? = null
 
     init {
         App.appComponent.inject(this)
+
+        productsLinkedList = LinkedList(products.toMutableList())
 
         var oldList: MutableList<BaseParameter>? = null
         if (!productRegisterViewModel.parameters.isNullOrEmpty())
@@ -95,7 +101,7 @@ class ProductRegisterPresenter(private var router: Router, var productRegisterVi
             .subscribe(
                 { result ->
                     run {
-//                        productRegisterViewModel.productId = result.resultObject
+                        productRegisterViewModel.productId = result.resultObject
 ////                        if (productRegisterViewModel.imageUri != null)
 //                        products.add(Product(productId = productRegisterViewModel.productId,
 //                            name = productRegisterViewModel.title))
@@ -125,7 +131,7 @@ class ProductRegisterPresenter(private var router: Router, var productRegisterVi
                 { result ->
                     run {
 //                        updatePhoto()
-                        println(result)
+//                        println(result)
                         if (!uploadPhoto())
                         {
                             viewState?.hideLoading()
@@ -206,8 +212,36 @@ class ProductRegisterPresenter(private var router: Router, var productRegisterVi
 //                        products.filter {
 //                            s -> s.productId == productRegisterViewModel.productId
 //                        }.single().productThumbnails = photo
-                        products.add(Product(productId = productRegisterViewModel.productId,
-                            name = productRegisterViewModel.title, productThumbnails = photo))
+
+//                        var product = products.filter {
+//                            it.productId == productRegisterViewModel.productId
+//                        }
+
+                        var idx: Int = products.indexOfFirst{
+                            it.productId == productRegisterViewModel.productId
+                        }
+                        if(idx < 0){
+                            productsLinkedList.addFirst(
+                                Product(productId = productRegisterViewModel.productId,
+                                    name = productRegisterViewModel.title, productThumbnails = photo)
+                            )
+                        }else
+                        {
+                            productsLinkedList.set(idx,
+                                Product(productId = productRegisterViewModel.productId,
+                                    name = productRegisterViewModel.title, productThumbnails = photo)
+                            )
+                        }
+
+                        products.clear()
+                        products.addAll(productsLinkedList)
+//                        if (product)
+
+
+
+
+//                        products.add(Product(productId = productRegisterViewModel.productId,
+//                            name = productRegisterViewModel.title, productThumbnails = photo))
 
                         router.exit()
                     }

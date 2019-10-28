@@ -70,7 +70,8 @@ class PhoneNumberPresenter(private val router: Router, smsSent: Boolean) : MvpPr
         var user: User = User(tokenResponse.resultObject?.systemUserId!!,
             userRequstModel.mobilePhone,
             tokenResponse.resultObject?.token,
-            toOffsetDateTime(tokenResponse.resultObject?.expireDate))
+            toOffsetDateTime(tokenResponse.resultObject?.expireDate)
+        )
 
 
         userDao.insert(

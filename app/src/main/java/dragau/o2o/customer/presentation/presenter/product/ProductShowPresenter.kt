@@ -68,25 +68,4 @@ class ProductShowPresenter(private var router: Router): BasePresenter<ProductSho
     fun observeProductResponseBoundary(): MutableLiveData<ProductResponce>{
         return liveProductResponse
     }
-
-//    client.getProductsByContact(contactId)
-//    .subscribeOn(Schedulers.io())
-//    .observeOn(AndroidSchedulers.mainThread())
-//    .subscribe(
-//    {
-//        result ->
-//        run {
-//            liveProducttResponse.value = result
-//        }
-//    },
-//    {
-//        error ->
-//        run {
-//            run {
-//                viewState.showError(error)
-//            }
-//        }
-//    }
-//    )
-
 }

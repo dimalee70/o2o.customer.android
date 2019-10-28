@@ -33,7 +33,7 @@ class Converters {
         @JvmStatic
         fun toOffsetDateTime(value: String?): Date? {
             return value?.let {
-                return DateTime.parse(value).toDate()
+                return DateTime.parse(value.substring(0,value.indexOf("."))).toDate()
             }
         }
 

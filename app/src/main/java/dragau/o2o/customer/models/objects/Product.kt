@@ -37,4 +37,12 @@ data class Product(
     @field:SerializedName("barcodeFormat")
     var barcodeFormat: Int? = null
     ){
+
+    override fun equals(other: Any?): Boolean {
+        return this.productId.equals((other as Product).productId)
+    }
+
+    override fun hashCode(): Int {
+        return this.productId.hashCode()
+    }
 }
