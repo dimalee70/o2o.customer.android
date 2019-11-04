@@ -4,7 +4,7 @@
         xmlns:tools="http://schemas.android.com/tools">
     <data>
         <import type="android.view.View" />
-        <variable name="data" type="dragau.o2o.customer.models.objects.BaseParameter" />
+        <variable name="data" type="dragau.o2o.customer.models.objects.Lookup" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,7 +18,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{data.name}"
+            android:text="@{data.value}"
             android:background="@drawable/param_lookup_bg"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"

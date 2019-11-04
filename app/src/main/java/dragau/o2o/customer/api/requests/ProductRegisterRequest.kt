@@ -32,7 +32,7 @@ class ProductRegisterRequest (
                 params.addAll(tempList)
             }
 
-            if (model.parameters != null && model.parameters!!.count{ it.type == ParameterType.LIST && it.isRoot } > 0) {
+            /*if (model.parameters != null && model.parameters!!.count{ it.type == ParameterType.LIST && it.isRoot } > 0) {
                 params.addAll(model.parameters!!.filter{ it.type == ParameterType.LIST && it.isRoot }.map{
                     ParameterRequest(it.id, it.type, it.name, getLookupValue(model.parameters!!, it.value.toString()), it.Uom)
                 })
@@ -42,7 +42,7 @@ class ProductRegisterRequest (
                 params.addAll(model.parameters!!.filter{ it.type == ParameterType.LIST && !it.isRoot }.map{
                     ParameterRequest(it.id, it.type, it.name, it.selectedId, it.Uom)
                 })
-            }
+            }*/
 
             val request = ProductRegisterRequest(
                 productId = model.productId,
@@ -65,7 +65,7 @@ class ProductRegisterRequest (
             {
                 return getLookupValue(parameters, lookup.value.toString())
             }
-            return parameters.firstOrNull { it.value == parentId }?.selectedId
+            return parameters.firstOrNull { it.value == parentId }?.value.toString()
         }
     }
 

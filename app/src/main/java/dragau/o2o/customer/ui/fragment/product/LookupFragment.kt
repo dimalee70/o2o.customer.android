@@ -18,6 +18,7 @@ import dragau.o2o.customer.Constants
 import dragau.o2o.customer.api.requests.ProductRegisterViewModel
 import dragau.o2o.customer.databinding.FragmentLookupBinding
 import dragau.o2o.customer.models.objects.BaseParameter
+import dragau.o2o.customer.models.objects.Lookup
 import dragau.o2o.customer.ui.adapters.RecyclerBindingAdapter
 import dragau.o2o.customer.ui.common.BackButtonListener
 import dragau.o2o.customer.ui.fragment.BaseMvpFragment
@@ -28,7 +29,7 @@ import kotlinx.android.synthetic.main.fragment_product_show.view.*
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
-class LookupFragment : BaseMvpFragment(), LookupView, RecyclerBindingAdapter.OnItemClickListener<BaseParameter>,
+class LookupFragment : BaseMvpFragment(), LookupView, RecyclerBindingAdapter.OnItemClickListener<Lookup>,
     BackButtonListener {
     companion object {
         const val TAG = "LookupFragment"
@@ -62,8 +63,8 @@ class LookupFragment : BaseMvpFragment(), LookupView, RecyclerBindingAdapter.OnI
 
     lateinit var binding: FragmentLookupBinding
 
-    lateinit var recyclerBindingAdapter: RecyclerBindingAdapter<BaseParameter>
-    private var onItemClickListenerRecycler: RecyclerBindingAdapter.OnItemClickListener<BaseParameter>? = null
+    lateinit var recyclerBindingAdapter: RecyclerBindingAdapter<Lookup>
+    private var onItemClickListenerRecycler: RecyclerBindingAdapter.OnItemClickListener<Lookup>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         this.parentId = arguments!!.getString(Constants.EXTRA_LOOKUP_ID, "")
@@ -103,7 +104,7 @@ class LookupFragment : BaseMvpFragment(), LookupView, RecyclerBindingAdapter.OnI
 
 
 
-    override fun onItemClick(position: Int, item: BaseParameter) {
+    override fun onItemClick(position: Int, item: Lookup) {
         mLookupPresenter.selectLookup(item)
     }
 

@@ -36,30 +36,65 @@ class LookupPresenter(private val parentLookupId: String, private var router: Ro
     @Inject
     lateinit var lookupDao: LookupDao
 
-    var lookups: ObservableArrayList<BaseParameter> = ObservableArrayList<BaseParameter>()
+    var lookups: ObservableArrayList<Lookup> = ObservableArrayList<Lookup>()
     private var disposable: Disposable? = null
 
     var isSelected: Boolean = false
+    var parameter: BaseParameter? = null
 
     @SuppressLint("CheckResult")
     fun getLookups()
     {
         lookups.clear()
 
-        removeLookup(parentLookupId)
+        //removeLookup(parentLookupId)
+        parameter = productRegisterViewModel.parameters?.firstOrNull { it.value == parentLookupId }
+        if (parameter?.rootId == null)
+        {
+            parameter?.rootId = parameter?.value?.toString()
+        }
 
-        disposable = lookupDao.getChildren(parentLookupId)
-            .subscribeOn(Schedulers.computation())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe (
-                { resList ->
-                    resList.map {  lookup ->
-                        lookups.add(BaseParameter(parentLookupId, ParameterType.LIST, lookup.value, lookup.lookupId)) }
-                },
-                { error ->
-                    Timber.e(error)
-                }
-            )
+        if(parameter?.rootId == parameter?.value || prevLookupIdList.isNotEmpty()) {
+            disposable = lookupDao.getChildren(parentLookupId)
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    { resList ->
+                        lookups.addAll(resList)
+                        /*resList.map {  lookup ->
+                        lookups.add(BaseParameter(parentLookupId, ParameterType.LIST, lookup.value, lookup.lookupId)) }*/
+                    },
+                    { error ->
+                        Timber.e(error)
+                    }
+                )
+        }
+        else
+        {
+            disposable = lookupDao.getParentId(parentLookupId)
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    { result ->
+                        lookupDao.getChildren(result)
+                            .subscribeOn(Schedulers.computation())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(
+                                { resList ->
+                                    lookups.addAll(resList)
+                                },
+                                { error ->
+                                    Timber.e(error)
+                                }
+                            )
+                    },
+                    { error ->
+                        Timber.e(error)
+                    }
+                )
+
+        }
+
 
        /* DataHolder.lookups?.filter { it.parentLookupId == id }?.map { lookup ->
             lookups.add(BaseParameter(parentLookupId, ParameterType.LIST, lookup.value, lookup.lookupId))
@@ -75,7 +110,7 @@ class LookupPresenter(private val parentLookupId: String, private var router: Ro
         }
         productRegisterViewModel.parameters?.removeIf { it.id == parentId }
     }
-
+/*
     private fun removeLookupInverted(parentId: String): String?
     {
         val lookup = productRegisterViewModel.parameters?.firstOrNull { it.selectedId == parentId }
@@ -101,7 +136,7 @@ class LookupPresenter(private val parentLookupId: String, private var router: Ro
     {
         productRegisterViewModel.parameters!!.removeIf { it.id == parentLookupId && it.selectedId == null}
     }
-
+*/
     fun getTitle()
     {
         if (!prevLookupIdList.isNullOrEmpty())
@@ -110,14 +145,28 @@ class LookupPresenter(private val parentLookupId: String, private var router: Ro
         }
     }
 
-    fun selectLookup(parameter: BaseParameter)
+    fun selectLookup(lookup: Lookup)
     {
-        disposable = lookupDao.getChildrenCount(parameter.value.toString())
+        parameter?.value = lookup.lookupId
+        //parameter?.selectedId = lookup.lookupId
+
+        disposable = lookupDao.getChildrenCount(lookup.lookupId)
             .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe (
                 { count ->
-                    val parent = productRegisterViewModel.parameters?.firstOrNull { it.value == parentLookupId }
+
+                    if (count > 0)
+                    {
+                        prevLookupIdList.add(lookup.parentLookupId!!)
+                        router.replaceScreen(Screens.LookupScreen(lookup.lookupId, prevLookupIdList))
+                    }
+                    else
+                    {
+                        router.backTo(Screens.ProductRegisterScreen())
+                    }
+
+                    /*val parent = productRegisterViewModel.parameters?.firstOrNull { it.value == parentLookupId }
                     if (parent != null) {
                         parent.title = parameter.name
                         parent.selectedId = parameter.value.toString()
@@ -133,7 +182,7 @@ class LookupPresenter(private val parentLookupId: String, private var router: Ro
                         }
 //                        println(parameter.id)
 //                        println(parentLookupId)
-//                        productRegisterViewModel.parameters!!.add(productRegisterViewModel.parameters!!.size-1, parameter)
+                        //productRegisterViewModel.parameters!!.add(productRegisterViewModel.parameters!!.size-1, parameter)
                         prevLookupIdList.add(parameter.id!!)
                         router.navigateTo(Screens.LookupScreen(parameter.value.toString(), prevLookupIdList))
                     }
@@ -142,7 +191,7 @@ class LookupPresenter(private val parentLookupId: String, private var router: Ro
                         val rootId = removeLookupInverted(parameter.id!!)
                         parent?.id = rootId
                         router.backTo(Screens.ProductRegisterScreen())
-                    }
+                    }*/
                 },
                 { error ->
                     Timber.e(error)
@@ -158,9 +207,26 @@ class LookupPresenter(private val parentLookupId: String, private var router: Ro
 
     fun onBackPressed()
     {
-        if (!prevLookupIdList.isNullOrEmpty()) {
-            productRegisterViewModel.parameters!!.removeIf { it.id == prevLookupIdList.last() }
-            prevLookupIdList.remove(prevLookupIdList.last())
+
+        if (parameter!!.value != parameter?.rootId) {
+            disposable = lookupDao.getParentId(parameter!!.value.toString())
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    { result ->
+                        if (prevLookupIdList.isNotEmpty()) {
+                            prevLookupIdList.removeAt(prevLookupIdList.size - 1)
+                        }
+                        router.replaceScreen(Screens.LookupScreen(result, prevLookupIdList))
+                    },
+                    { error ->
+                        Timber.e(error)
+                    }
+                )
+        }
+        else
+        {
+            router.backTo(Screens.ProductRegisterScreen())
         }
     }
 }

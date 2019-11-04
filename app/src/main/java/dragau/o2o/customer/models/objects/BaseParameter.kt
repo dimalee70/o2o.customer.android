@@ -28,7 +28,7 @@ class BaseParameter(var id: String?, val type: ParameterType, var name: String, 
             notifyPropertyChanged(BR.value)
         }
 
-    var selectedId: String? = null
+    var rootId: String? = null
         @Bindable get
 
     var title: String? = null
