@@ -125,7 +125,15 @@ class LookupPresenter(private val parentLookupId: String, private var router: Ro
 
                     if (count > 0)
                     {
-                        productRegisterViewModel.parameters!!.add(productRegisterViewModel.parameters!!.size - 1, parameter)
+                        var idx: Int = productRegisterViewModel.parameters!!.toMutableList().indexOfFirst{
+                            it.id.equals(parentLookupId)
+                        }
+                        if(idx >= 0 ){
+                            productRegisterViewModel.parameters?.set(idx, parameter)
+                        }
+//                        println(parameter.id)
+//                        println(parentLookupId)
+//                        productRegisterViewModel.parameters!!.add(productRegisterViewModel.parameters!!.size-1, parameter)
                         prevLookupIdList.add(parameter.id!!)
                         router.navigateTo(Screens.LookupScreen(parameter.value.toString(), prevLookupIdList))
                     }

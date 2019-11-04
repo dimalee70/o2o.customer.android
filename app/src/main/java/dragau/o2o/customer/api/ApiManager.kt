@@ -4,6 +4,7 @@ import com.google.gson.JsonObject
 import dragau.o2o.customer.api.requests.ProductRegisterRequest
 import dragau.o2o.customer.api.response.*
 import io.reactivex.Observable
+import io.reactivex.Single
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -34,7 +35,7 @@ interface ApiManager {
     fun updatePhoto(@Body body: JsonObject): Observable<CreateResponse>
 
     @GET("v1/product/getproductbycontact")
-    fun getProductsByContact(@Query("ContactId")contactId: String): Observable<ProductResponceContact>
+    fun getProductsByContact(@Query("ContactId")contactId: String, @Query("index") index: Int): Single<ProductResponceContact>
 
     @GET("v1/sync/getparameters")
     fun getParameters(): Observable<ParametersResponse>

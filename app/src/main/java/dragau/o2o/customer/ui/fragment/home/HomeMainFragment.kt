@@ -20,11 +20,13 @@ import dragau.o2o.customer.Screens
 import dragau.o2o.customer.api.response.ProductResponce
 import dragau.o2o.customer.api.response.ProductResponceContact
 import dragau.o2o.customer.databinding.FragmentHomeMainBinding
+import dragau.o2o.customer.models.enums.PagingState
 import dragau.o2o.customer.models.objects.Product
 import dragau.o2o.customer.models.shared.DataHolder
 import dragau.o2o.customer.presentation.presenter.home.HomeMainPresenter
 import dragau.o2o.customer.presentation.view.home.HomeMainView
 import dragau.o2o.customer.ui.activity.product.ScanActivity
+import dragau.o2o.customer.ui.adapters.ProductsListAdapter
 import dragau.o2o.customer.ui.adapters.RecyclerBindingAdapter
 import dragau.o2o.customer.ui.fragment.BaseMvpFragment
 import kotlinx.android.synthetic.main.activity_home.*
@@ -41,11 +43,11 @@ class HomeMainFragment : BaseMvpFragment(), HomeMainView,
 
         this.position = position
         mHomeMainPresenter.openProductShow(item.productId, item.name)
-
-//        Toast.makeText(context!!, item.name, Toast.LENGTH_SHORT).show()
     }
 
     var position: Int? = null
+
+    private lateinit var productListAdapter: ProductsListAdapter
 
     @Inject
     lateinit var products: ObservableArrayList<Product>
@@ -84,7 +86,7 @@ class HomeMainFragment : BaseMvpFragment(), HomeMainView,
 
     lateinit var binding: FragmentHomeMainBinding
 
-    lateinit var recyclerProductsAdapter: RecyclerBindingAdapter<Product>
+//    lateinit var recyclerProductsAdapter: RecyclerBindingAdapter<Product>
 
     private val lifecycleRegistry = LifecycleRegistry(this)
     private var onCustomClickListenerRecycler: RecyclerBindingAdapter.OnItemClickListener<Product>? = this
@@ -93,20 +95,22 @@ class HomeMainFragment : BaseMvpFragment(), HomeMainView,
         App.appComponent.inject(this)
         super.onCreate(savedInstanceState)
         mHomeMainPresenter.attachLifecycle(lifecycleRegistry)
-        mHomeMainPresenter.observeProductResponseBoundary()
-            .observe(this, Observer {
-                response -> response.let {
-                setProductsByContact(response)
-            }
-            })
+
+//        mHomeMainPresenter.observeProductResponseBoundary()
+//            .observe(this, Observer {
+//                response -> response.let {
+//                setProductsByContact(response)
+//            }
+//            })
 
 //        println("OnStart")
-        recyclerProductsAdapter = RecyclerBindingAdapter(R.layout.item_product, BR.data, context!!)
-        if(onCustomClickListenerRecycler != null){
-            recyclerProductsAdapter.setOnItemClickListener(onCustomClickListenerRecycler!!)
-        }
 
-        mHomeMainPresenter.reloadData()
+//        recyclerProductsAdapter = RecyclerBindingAdapter(R.layout.item_product, BR.data, context!!)
+//        if(onCustomClickListenerRecycler != null){
+//            recyclerProductsAdapter.setOnItemClickListener(onCustomClickListenerRecycler!!)
+//        }
+
+//        mHomeMainPresenter.reloadData()
     }
 
     override fun onCreateView(
@@ -118,6 +122,9 @@ class HomeMainFragment : BaseMvpFragment(), HomeMainView,
 
         activity?.appbar_layout?.visibility = View.VISIBLE
         activity?.pageTv?.visibility = View.VISIBLE
+
+        initAdapter()
+        initState()
 
 
 //
@@ -159,9 +166,35 @@ class HomeMainFragment : BaseMvpFragment(), HomeMainView,
 
 //        binding.typesRv.adapter = recyclerTypesAdapter
 //        recyclerProductsAdapter.setHasStableIds(true)
-        binding.productsRv.adapter = recyclerProductsAdapter
+
+//        binding.productsRv.adapter = recyclerProductsAdapter
+
 //        binding.productsRv.setHasFixedSize(true)
         return binding.root
+    }
+
+    private fun initAdapter(){
+        productListAdapter = ProductsListAdapter { mHomeMainPresenter.retry() }
+        binding.productsRv.adapter = productListAdapter
+        mHomeMainPresenter.liveProducttResponse.observe(this, Observer {
+            productListAdapter.submitList(it)
+        })
+    }
+
+    private fun initState(){
+        binding.txtError.setOnClickListener{
+            mHomeMainPresenter.retry()
+        }
+        mHomeMainPresenter.getState().observe(this, Observer {
+            state ->
+            binding.progressBar.visibility = if (mHomeMainPresenter.listIsEmpty() && state == PagingState.LOADING)
+                View.VISIBLE else View.GONE
+            binding.txtError.visibility = if (mHomeMainPresenter.listIsEmpty() && state == PagingState.ERROR)
+                View.VISIBLE else View.GONE
+            if(!mHomeMainPresenter.listIsEmpty()){
+                productListAdapter.setState(state?: PagingState.DONE)
+            }
+        })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -203,11 +236,13 @@ class HomeMainFragment : BaseMvpFragment(), HomeMainView,
 //        activity!!.startActivity(intent)
     }
 
-    fun setProductsByContact(response: ProductResponceContact){
-        products.clear()
+//    fun setProductsByContact(response: ProductResponceContact){
+//        products.clear()
 //        products.addAll(response.resultObject!!)
-        products.addAll(response.resultObject!!)
-        recyclerProductsAdapter.setItems(products)
-//        recyclerProductsAdapter.notifyDataSetChanged()
-    }
+//        recyclerProductsAdapter.setItems(products)
+//
+//
+////        products.addAll(response.resultObject!!)
+////        recyclerProductsAdapter.notifyDataSetChanged()
+//    }
 }

@@ -13,6 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
+
         <Button
             android:id="@+id/btnLogin"
             android:text="@string/action_add_product"
@@ -31,6 +33,24 @@
                 android:layout_height="match_parent"
                 android:fitsSystemWindows="true"
                 >
+
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                />
+
+            <TextView
+                android:id="@+id/txt_error"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="ERROR !! Tap to retry." />
+
 <!--            <TextView-->
 <!--                    android:id="@+id/productTv"-->
 <!--                    android:layout_width="match_parent"-->
@@ -67,9 +87,9 @@
                     android:orientation="vertical"
                     android:layout_gravity="center_horizontal"
                     android:focusable="false"
-                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                    app:spanCount="3"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     />
+<!--                    app:spanCount="3"-->
             </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 <!--                app:layout_constraintTop_toBottomOf="@+id/productTv"-->

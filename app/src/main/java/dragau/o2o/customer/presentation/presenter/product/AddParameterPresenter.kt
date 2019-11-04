@@ -31,7 +31,7 @@ class AddParameterPresenter(private var router: Router, var productRegisterViewM
 
     @SuppressLint("CheckResult")
     fun getParameters(){
-       parameters.clear()
+//       parameters.clear()
         disposable = client.getParameters()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

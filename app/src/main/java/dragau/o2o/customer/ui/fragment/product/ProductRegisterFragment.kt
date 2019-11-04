@@ -94,6 +94,27 @@ class ProductRegisterFragment : BaseMvpFragment(), ProductRegisterView, Recycler
 
     override fun onCreate(savedInstanceState: Bundle?) {
         App.appComponent.inject(this)
+        if(productRegisterViewModel.parameters == null){
+            productRegisterViewModel.parameters = ObservableArrayList()
+
+        }
+
+        var idx: Int = productRegisterViewModel.parameters!!.toMutableList().indexOfFirst{
+            it.id.equals("be2004ed-82f5-e911-80ef-001a64d2fb8e")
+        }
+        if(idx < 0 ){
+            productRegisterViewModel.parameters?.add( BaseParameter("be2004ed-82f5-e911-80ef-001a64d2fb8e",
+                    ParameterType.LIST, "Категория", "f654cfc3-8af5-e911-80ef-001a64d2fb8e", null))
+        }
+
+//        else
+//        {
+//            productRegisterViewModel.parameters?.set(idx, )
+//                add(
+//                productRegisterViewModel.parameters?.size!! - 1, BaseParameter("be2004ed-82f5-e911-80ef-001a64d2fb8e",
+//                    ParameterType.LIST, "Категория", "f654cfc3-8af5-e911-80ef-001a64d2fb8e", null))
+//        }
+
         super.onCreate(savedInstanceState)
         recyclerBindingAdapter = RecyclerBindingAdapter(R.layout.product_parameter_item, BR.data, context!!)
 
@@ -111,6 +132,12 @@ class ProductRegisterFragment : BaseMvpFragment(), ProductRegisterView, Recycler
 
         recyclerBindingAdapter.setItems(productRegisterViewModel.parameters)
     }
+
+//    private fun addCategiry(){
+//        productRegisterViewModel.parameters?.add(
+//            productRegisterViewModel.parameters?.size!! - 1, BaseParameter("be2004ed-82f5-e911-80ef-001a64d2fb8e",
+//                ParameterType.LIST, "Категория", "f654cfc3-8af5-e911-80ef-001a64d2fb8e", null))
+//    }
 
     private fun setProductCategories(response: ProductCategoriesResponce){
 

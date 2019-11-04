@@ -3,7 +3,11 @@ package dragau.o2o.customer.presentation.presenter.home
 import android.annotation.SuppressLint
 import android.content.SharedPreferences
 import androidx.databinding.ObservableBoolean
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -15,9 +19,12 @@ import dragau.o2o.customer.api.ApiManager
 import dragau.o2o.customer.api.response.ProductResponce
 import dragau.o2o.customer.api.response.ProductResponceContact
 import dragau.o2o.customer.models.db.LookupDao
+import dragau.o2o.customer.models.enums.PagingState
 import dragau.o2o.customer.models.objects.Product
 import dragau.o2o.customer.models.shared.DataHolder
 import dragau.o2o.customer.presentation.presenter.BasePresenter
+import dragau.o2o.customer.presentation.presenter.product.ProductsDataSource
+import dragau.o2o.customer.presentation.presenter.product.ProductsDataSourceFactory
 import dragau.o2o.customer.presentation.view.home.HomeMainView
 import ru.terrakok.cicerone.Router
 import ru.terrakok.cicerone.Screen
@@ -27,7 +34,9 @@ import javax.inject.Inject
 @InjectViewState
 class HomeMainPresenter(private var router: Router) : BasePresenter<HomeMainView>() {
 
-    var liveProducttResponse = MutableLiveData<ProductResponceContact>()
+//    var liveProducttResponse = MutableLiveData<ProductResponceContact>()
+
+    var liveProducttResponse: LiveData<PagedList<Product>>
 
     @Inject
     lateinit var client: ApiManager
@@ -40,11 +49,45 @@ class HomeMainPresenter(private var router: Router) : BasePresenter<HomeMainView
 
     var isLoading = ObservableBoolean()
 
+    private val pageSize = 10
+
+    private val productsDataSourceFactory: ProductsDataSourceFactory
+
     init {
         App.appComponent.inject(this)
+        productsDataSourceFactory = ProductsDataSourceFactory(disposables, client)
+        val config = PagedList.Config.Builder()
+            .setPageSize(pageSize)
+            .setInitialLoadSizeHint(pageSize)
+            .setEnablePlaceholders(false)
+            .build()
+        liveProducttResponse = LivePagedListBuilder<Int, Product>(productsDataSourceFactory, config).build()
+
 //        getProductByContactId(DataHolder.user!!.id)
 
     }
+
+//    fun initPagging(){
+//        val config = PagedList.Config.Builder()
+//            .setPageSize(pageSize)
+//            .setInitialLoadSizeHint(pageSize)
+//            .setEnablePlaceholders(false)
+//            .build()
+//        liveProducttResponse = LivePagedListBuilder<Int, Product>(productsDataSourceFactory, config).build()
+//    }
+
+    fun getState(): LiveData<PagingState> = Transformations.switchMap<ProductsDataSource,
+        PagingState>(productsDataSourceFactory.productsDataSourceLiveData, ProductsDataSource::state)
+
+    fun retry(){
+        productsDataSourceFactory.productsDataSourceLiveData.value?.retry()
+    }
+
+    fun listIsEmpty(): Boolean{
+        return liveProducttResponse.value?.isEmpty()?:true
+    }
+
+
 
     fun openProductShow(productId: String?, productName: String?){
         router.navigateTo(Screens.ProductShowScreen(productId, productName))
@@ -84,7 +127,7 @@ class HomeMainPresenter(private var router: Router) : BasePresenter<HomeMainView
 //        router.navigateTo(Screens.ProductScreen())
     }
 
-    fun observeProductResponseBoundary(): MutableLiveData<ProductResponceContact>{
+    fun observeProductResponseBoundary(): LiveData<PagedList<Product>>{
         return liveProducttResponse
     }
 
@@ -123,48 +166,50 @@ class HomeMainPresenter(private var router: Router) : BasePresenter<HomeMainView
 
     fun reloadData(showRefresh: Boolean) {
         isLoading.set(showRefresh)
+        productsDataSourceFactory.productsDataSourceLiveData.value?.invalidate()
+        isLoading.set(false)
 
-        disposables.add(
-            client.getProductsByContact(DataHolder.user!!.id)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                    {
-                            result ->
-                        run {
-                            liveProducttResponse.value = result
-                        }
-
-                        disposables.add(client.getCategories()
-                            .subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe(
-                                {
-                                        result ->
-                                    if (result.resultObject != null) {
-                                        lookupDao.insertAll(result.resultObject)
-                                    }
-                                },
-                                {
-                                        error ->
-                                    run {
-                                        viewState?.showError(error)
-                                    }
-                                },
-                                {
-                                    isLoading.set(false)
-                                }
-                            ))
-                    },
-                    {
-                        error ->
-                        run {
-                            isLoading.set(false)
-                           viewState?.showError(error)
-                        }
-                    }
-                )
-        )
+//        disposables.add(
+//            client.getProductsByContact(DataHolder.user!!.id)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(
+//                    {
+//                            result ->
+//                        run {
+//                            liveProducttResponse.value = result
+//                        }
+//
+//                        disposables.add(client.getCategories()
+//                            .subscribeOn(Schedulers.io())
+//                            .observeOn(AndroidSchedulers.mainThread())
+//                            .subscribe(
+//                                {
+//                                        result ->
+//                                    if (result.resultObject != null) {
+//                                        lookupDao.insertAll(result.resultObject)
+//                                    }
+//                                },
+//                                {
+//                                        error ->
+//                                    run {
+//                                        viewState?.showError(error)
+//                                    }
+//                                },
+//                                {
+//                                    isLoading.set(false)
+//                                }
+//                            ))
+//                    },
+//                    {
+//                        error ->
+//                        run {
+//                            isLoading.set(false)
+//                           viewState?.showError(error)
+//                        }
+//                    }
+//                )
+//        )
 
     }
 }
