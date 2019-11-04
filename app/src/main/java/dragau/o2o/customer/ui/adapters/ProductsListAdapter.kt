@@ -15,14 +15,16 @@ class ProductsListAdapter(private val retry: () -> Unit)
 
     private var state = PagingState.LOADING
 
+    private var onItemClickListener: OnItemClickListener<Product>? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == DATA_VIEW_TYPE) ProductsViewHolder.create(parent) else ListFooterViewHolder.create(retry, parent)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (getItemViewType(position) == DATA_VIEW_TYPE)
-            (holder as ProductsViewHolder).bind(getItem(position))
-        else (holder as ListFooterViewHolder).bind(state)
+            (holder as ProductsViewHolder).bind(getItem(position), onItemClickListener!!)
+        else (holder as ListFooterViewHolder).bind(state, onItemClickListener!!)
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -55,5 +57,13 @@ class ProductsListAdapter(private val retry: () -> Unit)
     fun setState(state: PagingState) {
         this.state = state
         notifyItemChanged(super.getItemCount())
+    }
+
+    fun setOnItemClickListener(onItemClickListener: OnItemClickListener<Product>) {
+        this.onItemClickListener = onItemClickListener
+    }
+
+    interface OnItemClickListener<Product> {
+        fun onItemClick(item: Product)
     }
 }

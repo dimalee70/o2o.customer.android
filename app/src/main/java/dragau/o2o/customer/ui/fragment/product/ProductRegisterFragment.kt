@@ -198,8 +198,8 @@ class ProductRegisterFragment : BaseMvpFragment(), ProductRegisterView, Recycler
             CropImage.activity(null)
 //                .setMaxCropResultSize(1920,1080)
 //                .setMinCropResultSize(1920, 100.toPx())
-//                .setAspectRatio(3,1)
-//                .setRequestedSize(150,50, CropImageView.RequestSizeOptions.RESIZE_EXACT)
+                .setAspectRatio(3,1)
+                .setRequestedSize(150,50, CropImageView.RequestSizeOptions.RESIZE_EXACT)
                 .setGuidelines(CropImageView.Guidelines.ON)
                 .start(it)
         }

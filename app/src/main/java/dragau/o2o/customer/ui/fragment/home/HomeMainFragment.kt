@@ -36,12 +36,12 @@ import javax.inject.Inject
 import kotlin.collections.ArrayList
 
 class HomeMainFragment : BaseMvpFragment(), HomeMainView,
-    RecyclerBindingAdapter.OnItemClickListener<Product>
+    ProductsListAdapter.OnItemClickListener<Product>
 //    , OnItemClickListener<OrdersByOutletResult>
 {
-    override fun onItemClick(position: Int, item: Product) {
+    override fun onItemClick(item: Product) {
 
-        this.position = position
+//        this.position = position
         mHomeMainPresenter.openProductShow(item.productId, item.name)
     }
 
@@ -89,7 +89,8 @@ class HomeMainFragment : BaseMvpFragment(), HomeMainView,
 //    lateinit var recyclerProductsAdapter: RecyclerBindingAdapter<Product>
 
     private val lifecycleRegistry = LifecycleRegistry(this)
-    private var onCustomClickListenerRecycler: RecyclerBindingAdapter.OnItemClickListener<Product>? = this
+    private var onCustomClickListenerRecycler: ProductsListAdapter.OnItemClickListener<Product>? = this
+//    private var onCustomClickListenerRecycler: RecyclerBindingAdapter.OnItemClickListener<Product>? = this
 
     override fun onCreate(savedInstanceState: Bundle?) {
         App.appComponent.inject(this)
@@ -106,6 +107,7 @@ class HomeMainFragment : BaseMvpFragment(), HomeMainView,
 //        println("OnStart")
 
 //        recyclerProductsAdapter = RecyclerBindingAdapter(R.layout.item_product, BR.data, context!!)
+
 //        if(onCustomClickListenerRecycler != null){
 //            recyclerProductsAdapter.setOnItemClickListener(onCustomClickListenerRecycler!!)
 //        }
@@ -175,6 +177,9 @@ class HomeMainFragment : BaseMvpFragment(), HomeMainView,
 
     private fun initAdapter(){
         productListAdapter = ProductsListAdapter { mHomeMainPresenter.retry() }
+        if(onCustomClickListenerRecycler != null){
+            productListAdapter.setOnItemClickListener(onCustomClickListenerRecycler!!)
+        }
         binding.productsRv.adapter = productListAdapter
         mHomeMainPresenter.liveProducttResponse.observe(this, Observer {
             productListAdapter.submitList(it)

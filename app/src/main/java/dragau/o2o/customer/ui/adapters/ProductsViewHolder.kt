@@ -15,9 +15,13 @@ import kotlinx.android.synthetic.main.item_product.view.*
 
 class ProductsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-    fun bind(product: Product?) {
+    fun bind(product: Product?, onItemClickListener: ProductsListAdapter.OnItemClickListener<Product>) {
         if (product != null) {
             itemView.productNameTv.text = product.name
+            itemView.setOnClickListener {
+                onItemClickListener.onItemClick(product)
+                println("Hello")
+            }
 
 //            if(product.productThumbnails?.peek()?.body.isNullOrEmpty()) {
 //                Glide.with(context).clear(this)
