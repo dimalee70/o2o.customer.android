@@ -128,7 +128,6 @@ class LookupFragment : BaseMvpFragment(), LookupView, RecyclerBindingAdapter.OnI
     }
 
     override fun onBackPressed(): Boolean {
-        mLookupPresenter.onBackPressed()
-        return true
+        return mLookupPresenter.onBackPressed()
     }
 }

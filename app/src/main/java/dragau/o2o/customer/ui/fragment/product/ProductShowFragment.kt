@@ -15,9 +15,7 @@ import dragau.o2o.customer.App
 import dragau.o2o.customer.BR
 import dragau.o2o.customer.Constants
 import dragau.o2o.customer.R
-import dragau.o2o.customer.api.requests.ParameterRequest
 import dragau.o2o.customer.api.requests.ProductRegisterViewModel
-import dragau.o2o.customer.api.response.BaseResponse
 import dragau.o2o.customer.api.response.ProductResponce
 import dragau.o2o.customer.databinding.FragmentProductShowBinding
 import dragau.o2o.customer.models.db.LookupDao

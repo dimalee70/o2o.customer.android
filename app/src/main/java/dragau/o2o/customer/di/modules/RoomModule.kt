@@ -6,6 +6,7 @@ import dagger.Provides
 import dragau.o2o.customer.App
 import dragau.o2o.customer.models.db.Db
 import dragau.o2o.customer.models.db.LookupDao
+import dragau.o2o.customer.models.db.ParameterDao
 import dragau.o2o.customer.models.db.UserDao
 import javax.inject.Singleton
 
@@ -34,5 +35,11 @@ class RoomModule(private val mApplication: App){
     @Provides
     fun providesLookupDao(roomDatabase: Db): LookupDao {
         return roomDatabase.getLookupDao()
+    }
+
+    @Singleton
+    @Provides
+    fun providesParameterDao(roomDatabase: Db): ParameterDao {
+        return roomDatabase.getParameterDao()
     }
 }

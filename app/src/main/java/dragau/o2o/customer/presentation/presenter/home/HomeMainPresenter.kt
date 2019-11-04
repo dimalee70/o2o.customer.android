@@ -19,6 +19,7 @@ import dragau.o2o.customer.api.ApiManager
 import dragau.o2o.customer.api.response.ProductResponce
 import dragau.o2o.customer.api.response.ProductResponceContact
 import dragau.o2o.customer.models.db.LookupDao
+import dragau.o2o.customer.models.db.ParameterDao
 import dragau.o2o.customer.models.enums.PagingState
 import dragau.o2o.customer.models.objects.Product
 import dragau.o2o.customer.models.shared.DataHolder
@@ -26,6 +27,7 @@ import dragau.o2o.customer.presentation.presenter.BasePresenter
 import dragau.o2o.customer.presentation.presenter.product.ProductsDataSource
 import dragau.o2o.customer.presentation.presenter.product.ProductsDataSourceFactory
 import dragau.o2o.customer.presentation.view.home.HomeMainView
+import io.reactivex.rxkotlin.Observables
 import ru.terrakok.cicerone.Router
 import ru.terrakok.cicerone.Screen
 import timber.log.Timber
@@ -47,6 +49,9 @@ class HomeMainPresenter(private var router: Router) : BasePresenter<HomeMainView
     @Inject
     lateinit var lookupDao: LookupDao
 
+    @Inject
+    lateinit var parameterDao: ParameterDao
+
     var isLoading = ObservableBoolean()
 
     private val pageSize = 10
@@ -62,9 +67,7 @@ class HomeMainPresenter(private var router: Router) : BasePresenter<HomeMainView
             .setEnablePlaceholders(false)
             .build()
         liveProducttResponse = LivePagedListBuilder<Int, Product>(productsDataSourceFactory, config).build()
-
-//        getProductByContactId(DataHolder.user!!.id)
-
+        sync()
     }
 
 //    fun initPagging(){
@@ -167,49 +170,38 @@ class HomeMainPresenter(private var router: Router) : BasePresenter<HomeMainView
     fun reloadData(showRefresh: Boolean) {
         isLoading.set(showRefresh)
         productsDataSourceFactory.productsDataSourceLiveData.value?.invalidate()
-        isLoading.set(false)
-
-//        disposables.add(
-//            client.getProductsByContact(DataHolder.user!!.id)
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(
-//                    {
-//                            result ->
-//                        run {
-//                            liveProducttResponse.value = result
-//                        }
-//
-//                        disposables.add(client.getCategories()
-//                            .subscribeOn(Schedulers.io())
-//                            .observeOn(AndroidSchedulers.mainThread())
-//                            .subscribe(
-//                                {
-//                                        result ->
-//                                    if (result.resultObject != null) {
-//                                        lookupDao.insertAll(result.resultObject)
-//                                    }
-//                                },
-//                                {
-//                                        error ->
-//                                    run {
-//                                        viewState?.showError(error)
-//                                    }
-//                                },
-//                                {
-//                                    isLoading.set(false)
-//                                }
-//                            ))
-//                    },
-//                    {
-//                        error ->
-//                        run {
-//                            isLoading.set(false)
-//                           viewState?.showError(error)
-//                        }
-//                    }
-//                )
-//        )
-
+        sync()
     }
+
+
+
+    fun sync()
+    {
+        disposables.add(Observables
+            .zip( client.getCategories(), client.getParameters())
+            { cats, params ->
+                lookupDao.deleteAll()
+                lookupDao.insertAll(cats.resultObject!!)
+
+                parameterDao.deleteAll()
+                parameterDao.insertAll(params.resultObject!!)
+            }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                run {
+                    viewState?.hideProgress()
+                }
+            },
+                { error ->
+                    run {
+                        viewState?.showError(error)
+                    }
+                },
+                {
+                    isLoading.set(false)
+                }))
+     }
 }
+
+

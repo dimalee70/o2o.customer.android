@@ -6,6 +6,7 @@ import androidx.annotation.RequiresApi
 import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import dragau.o2o.customer.models.enums.ParameterType
 import org.joda.time.DateTime
 import java.text.SimpleDateFormat
 import java.time.OffsetDateTime
@@ -78,5 +79,34 @@ class Converters {
         fun toLong(value: Date?): Long? {
             return (value?.time)
         }
+
+
+        @TypeConverter
+        @JvmStatic
+        fun fromParameterType(obj: ParameterType?): String? = obj?.name
+
+        @TypeConverter
+        @JvmStatic
+        fun toParameterType(s: String?): ParameterType? = if (s == null) null else ParameterType.valueOf(s)
+
+
+        @JvmStatic
+        @TypeConverter
+        fun fromAny(value: Any?): String? {
+            val type = object : TypeToken<Any?>() {}.type
+            return gson.toJson(value, type)
+        }
+
+        @JvmStatic
+        @TypeConverter
+        fun toAny(valuesString: String?): Any? {
+            if (valuesString == null) {
+                return null
+            }
+
+            val type = object : TypeToken<Any?>() {}.type
+            return gson.fromJson(valuesString, type)
+        }
+
     }
 }

@@ -6,10 +6,11 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import dragau.o2o.customer.App
 import dragau.o2o.customer.models.objects.Lookup
+import dragau.o2o.customer.models.objects.Parameter
 import dragau.o2o.customer.models.objects.User
 
 
-@Database(entities = [User::class, Lookup::class],
+@Database(entities = [User::class, Lookup::class, Parameter::class],
     version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class Db : RoomDatabase() {
@@ -23,5 +24,6 @@ abstract class Db : RoomDatabase() {
 
     abstract fun getUserDao(): UserDao
     abstract fun getLookupDao(): LookupDao
+    abstract fun getParameterDao(): ParameterDao
 
 }

@@ -11,13 +11,11 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import dragau.o2o.customer.R
-import dragau.o2o.customer.api.requests.ParameterRequest
 import dragau.o2o.customer.models.enums.ParameterType
 import dragau.o2o.customer.models.objects.BaseParameter
 import dragau.o2o.customer.models.objects.Product
 
 import java.util.ArrayList
-import java.util.Objects.compare
 
 class RecyclerBindingAdapter<T>(
     private val holderLayout: Int,

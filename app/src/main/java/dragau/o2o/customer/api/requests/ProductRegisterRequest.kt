@@ -1,17 +1,15 @@
 package dragau.o2o.customer.api.requests
 
 import androidx.databinding.ObservableArrayList
-import com.google.zxing.BarcodeFormat
 import dragau.o2o.customer.models.enums.ParameterType
 import dragau.o2o.customer.models.objects.BaseParameter
-import dragau.o2o.customer.models.objects.ProductImage
-import java.util.*
+import dragau.o2o.customer.models.objects.Parameter
 import kotlin.collections.ArrayList
 
 class ProductRegisterRequest (
     var productId: String? = null,
     var productCategoryId: String? = null,
-    var productParameters: ArrayList<ParameterRequest>? = null,
+    var productParameters: ArrayList<Parameter>? = null,
     var manufacturer: String? = null,
     var name: String? = null,
     var barCode: String? = null,
@@ -22,11 +20,19 @@ class ProductRegisterRequest (
     companion object {
         fun from(model: ProductRegisterViewModel): ProductRegisterRequest
         {
-            val params = ArrayList<ParameterRequest>()
+            val params = ArrayList<Parameter>()
             val tempList = model.parameters?.filter { it.value != null
                     && it.type != ParameterType.BARCODE
                     &&  it.type != ParameterType.LIST }?.
-                map { ParameterRequest(it.id, it.type, it.name, it.value, it.Uom) }
+                map {
+                    Parameter(
+                        it.id!!,
+                        it.type,
+                        it.name,
+                        it.value,
+                        it.Uom
+                    )
+                }
             if (tempList != null)
             {
                 params.addAll(tempList)
@@ -34,13 +40,13 @@ class ProductRegisterRequest (
 
             /*if (model.parameters != null && model.parameters!!.count{ it.type == ParameterType.LIST && it.isRoot } > 0) {
                 params.addAll(model.parameters!!.filter{ it.type == ParameterType.LIST && it.isRoot }.map{
-                    ParameterRequest(it.id, it.type, it.name, getLookupValue(model.parameters!!, it.value.toString()), it.Uom)
+                    Parameter(it.id, it.type, it.name, getLookupValue(model.parameters!!, it.value.toString()), it.Uom)
                 })
             }
 
             else if (model.parameters != null && model.parameters!!.count{ it.type == ParameterType.LIST && !it.isRoot} > 0) {
                 params.addAll(model.parameters!!.filter{ it.type == ParameterType.LIST && !it.isRoot }.map{
-                    ParameterRequest(it.id, it.type, it.name, it.selectedId, it.Uom)
+                    Parameter(it.id, it.type, it.name, it.selectedId, it.Uom)
                 })
             }*/
 

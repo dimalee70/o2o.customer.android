@@ -7,6 +7,7 @@ import com.arellomobile.mvp.MvpPresenter
 import dragau.o2o.customer.App
 import dragau.o2o.customer.api.ApiManager
 import dragau.o2o.customer.api.requests.ProductRegisterViewModel
+import dragau.o2o.customer.models.db.ParameterDao
 import dragau.o2o.customer.models.enums.ParameterType
 import dragau.o2o.customer.models.objects.BaseParameter
 import dragau.o2o.customer.presentation.view.product.AddParameterView
@@ -22,6 +23,9 @@ class AddParameterPresenter(private var router: Router, var productRegisterViewM
     @Inject
     lateinit var client: ApiManager
 
+    @Inject
+    lateinit var parametersDao: ParameterDao
+
     init {
         App.appComponent.inject(this)
     }
@@ -32,13 +36,13 @@ class AddParameterPresenter(private var router: Router, var productRegisterViewM
     @SuppressLint("CheckResult")
     fun getParameters(){
 //       parameters.clear()
-        disposable = client.getParameters()
+        disposable = parametersDao.getAllActive()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 { result ->
                     run {
-                        result.resultObject?.forEach { param ->
+                        result.forEach { param ->
                             if (productRegisterViewModel.parameters?.count { it.id == param.id } == 0) {
                                 parameters.add(BaseParameter(param.id, param.type, param.name, param.value, param.uom))
                             }

@@ -19,6 +19,7 @@ import dragau.o2o.customer.api.requests.ProductRegisterRequest
 import dragau.o2o.customer.api.requests.ProductRegisterViewModel
 import dragau.o2o.customer.api.response.ProductCategoriesResponce
 import dragau.o2o.customer.models.db.LookupDao
+import dragau.o2o.customer.models.db.ParameterDao
 import dragau.o2o.customer.models.enums.ParameterType
 import dragau.o2o.customer.models.objects.BaseParameter
 import dragau.o2o.customer.models.objects.Product
@@ -46,6 +47,9 @@ class ProductRegisterPresenter(private var router: Router, var productRegisterVi
     lateinit var client: ApiManager
 
     @Inject
+    lateinit var parametersDao: ParameterDao
+
+    @Inject
     lateinit var sharedPreferences: SharedPreferences
 
     var liveProductCategoriesResponse = MutableLiveData<ProductCategoriesResponce>()
@@ -62,6 +66,12 @@ class ProductRegisterPresenter(private var router: Router, var productRegisterVi
         var oldList: MutableList<BaseParameter>? = null
         if (!productRegisterViewModel.parameters.isNullOrEmpty())
         {
+            productRegisterViewModel.parameters!!.forEach {
+                val value = parametersDao.get(it.id!!).value
+                if (value != null) {
+                    it.rootId = value.toString()
+                }
+            }
             oldList = productRegisterViewModel.parameters!!.toMutableList()
         }
 

@@ -34,7 +34,7 @@ interface LookupDao {
     fun getChildren(parentId: String): Flowable<List<Lookup>>
 
     @Query("SELECT parentLookupId from lookup where lookupId = :childId")
-    fun getParentId(childId: String): Single<String>
+    fun getParentId(childId: String): String
 
     @Update
     fun update(model: Lookup)
