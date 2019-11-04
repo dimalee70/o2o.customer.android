@@ -20,7 +20,7 @@ class ProductsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             itemView.productNameTv.text = product.name
             itemView.setOnClickListener {
                 onItemClickListener.onItemClick(product)
-                println("Hello")
+//                println("Hello")
             }
 
 //            if(product.productThumbnails?.peek()?.body.isNullOrEmpty()) {

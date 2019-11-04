@@ -36,7 +36,7 @@ class LookupPresenter(private val parentLookupId: String, private var router: Ro
     @Inject
     lateinit var lookupDao: LookupDao
 
-    var lookups: ObservableArrayList<Lookup> = ObservableArrayList<Lookup>()
+    var lookups: ObservableArrayList<Lookup> = ObservableArrayList()
     private var disposable: Disposable? = null
 
     var isSelected: Boolean = false
@@ -148,6 +148,7 @@ class LookupPresenter(private val parentLookupId: String, private var router: Ro
     fun selectLookup(lookup: Lookup)
     {
         parameter?.value = lookup.lookupId
+        parameter?.title = lookup.value
         //parameter?.selectedId = lookup.lookupId
 
         disposable = lookupDao.getChildrenCount(lookup.lookupId)
@@ -163,6 +164,11 @@ class LookupPresenter(private val parentLookupId: String, private var router: Ro
                     }
                     else
                     {
+                        val indexOfFirst = productRegisterViewModel.parameters?.indexOfFirst {
+                            it.rootId.equals("f654cfc3-8af5-e911-80ef-001a64d2fb8e")
+                        }
+                        if (indexOfFirst != null && indexOfFirst >= 0)
+                            productRegisterViewModel.parameters?.set(indexOfFirst, parameter)
                         router.backTo(Screens.ProductRegisterScreen())
                     }
 
@@ -208,7 +214,7 @@ class LookupPresenter(private val parentLookupId: String, private var router: Ro
     fun onBackPressed()
     {
 
-        if (parameter!!.value != parameter?.rootId) {
+        if (parameter != null && parameter!!.value != parameter?.rootId) {
             disposable = lookupDao.getParentId(parameter!!.value.toString())
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -226,6 +232,7 @@ class LookupPresenter(private val parentLookupId: String, private var router: Ro
         }
         else
         {
+
             router.backTo(Screens.ProductRegisterScreen())
         }
     }
