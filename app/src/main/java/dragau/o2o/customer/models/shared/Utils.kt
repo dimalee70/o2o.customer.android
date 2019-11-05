@@ -472,7 +472,7 @@ object Utils {
             return
         }
 
-        val paramValue = value.toString().toIntOrNull()
+        val paramValue = value.toString().toDoubleOrNull()?.roundToInt()
         if (paramValue == null) {
             view.value = ""
             return
@@ -533,7 +533,7 @@ object Utils {
 }
 
 
-var EditText.value
+var TextInputEditText.value
     get() = this.text.toString()
     set(value) {
         this.setText(value)
