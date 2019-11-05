@@ -2,6 +2,7 @@ package dragau.o2o.customer.ui.activity
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.net.ConnectivityManager
 import android.os.Build
 import android.os.Bundle
 import android.view.WindowManager
@@ -29,7 +30,6 @@ import javax.inject.Inject
 
 
 open class BaseActivity : MvpActivity(), BaseView {
-
 
     val BASE_TAG: String = "BaseActivity"
 

@@ -1,5 +1,7 @@
 package dragau.o2o.customer.extensions
 
+import android.content.Context
+import android.net.ConnectivityManager
 import androidx.appcompat.app.AlertDialog
 import dragau.o2o.customer.moxy.MvpAppCompatFragment
 import dragau.o2o.customer.presentation.presenter.dialogs.ConfirmDialogPresenter
@@ -15,3 +17,8 @@ inline fun MvpAppCompatFragment.showConfirmAlertDialog(func: ConfirmDialogPresen
     ConfirmDialogPresenter(this.context!!, title, message).apply{
         func()
     }.create(null)
+
+inline fun Context.isConnected(): Boolean{
+        return (getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager)
+            .activeNetworkInfo?.isConnected == true
+    }

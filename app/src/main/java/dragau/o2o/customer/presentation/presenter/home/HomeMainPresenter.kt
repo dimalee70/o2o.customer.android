@@ -31,6 +31,7 @@ import io.reactivex.rxkotlin.Observables
 import ru.terrakok.cicerone.Router
 import ru.terrakok.cicerone.Screen
 import timber.log.Timber
+import java.lang.Exception
 import javax.inject.Inject
 
 @InjectViewState
@@ -169,6 +170,7 @@ class HomeMainPresenter(private var router: Router) : BasePresenter<HomeMainView
 
     fun reloadData(showRefresh: Boolean) {
         isLoading.set(showRefresh)
+        viewState.clearItems()
         productsDataSourceFactory.productsDataSourceLiveData.value?.invalidate()
         sync()
     }
@@ -197,6 +199,7 @@ class HomeMainPresenter(private var router: Router) : BasePresenter<HomeMainView
                     run {
                         viewState?.showError(error)
                     }
+                    isLoading.set(false)
                 },
                 {
                     isLoading.set(false)

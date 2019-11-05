@@ -20,6 +20,7 @@ import dragau.o2o.customer.Screens
 import dragau.o2o.customer.api.response.ProductResponce
 import dragau.o2o.customer.api.response.ProductResponceContact
 import dragau.o2o.customer.databinding.FragmentHomeMainBinding
+import dragau.o2o.customer.extensions.isConnected
 import dragau.o2o.customer.models.enums.PagingState
 import dragau.o2o.customer.models.objects.Product
 import dragau.o2o.customer.models.shared.DataHolder
@@ -39,6 +40,10 @@ class HomeMainFragment : BaseMvpFragment(), HomeMainView,
     ProductsListAdapter.OnItemClickListener<Product>
 //    , OnItemClickListener<OrdersByOutletResult>
 {
+    override fun clearItems() {
+        productListAdapter.submitList(null)
+    }
+
     override fun onItemClick(item: Product) {
 
 //        this.position = position
