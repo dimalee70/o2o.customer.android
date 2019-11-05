@@ -51,7 +51,7 @@ class ProductsListAdapter(private val retry: () -> Unit)
     }
 
     private fun hasFooter(): Boolean {
-        return super.getItemCount() != 0 && (state == PagingState.LOADING || state == PagingState.ERROR)
+        return super.getItemCount() != null && super.getItemCount() != 0 && (state == PagingState.LOADING || state == PagingState.ERROR)
     }
 
     fun setState(state: PagingState) {

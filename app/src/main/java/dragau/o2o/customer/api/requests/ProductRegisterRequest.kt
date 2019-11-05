@@ -23,7 +23,9 @@ class ProductRegisterRequest (
             val params = ArrayList<Parameter>()
             val tempList = model.parameters?.filter { it.value != null
                     && it.type != ParameterType.BARCODE
-                    &&  it.type != ParameterType.LIST }?.
+                    && it.type != ParameterType.HEADER
+                    && it.type != ParameterType.FOOTER
+            }?.
                 map {
                     Parameter(
                         it.id!!,
