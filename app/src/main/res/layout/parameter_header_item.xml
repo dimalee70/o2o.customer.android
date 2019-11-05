@@ -42,29 +42,29 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/productProducerTi"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:singleLine="true"
-                android:layout_marginStart="17dp"
-                android:layout_marginEnd="17dp"
-                android:layout_marginTop="9dp"
-                android:textColorHint="@color/hintTextColor"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/productNameTi"
-                >
+<!--            <com.google.android.material.textfield.TextInputLayout-->
+<!--                android:id="@+id/productProducerTi"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:singleLine="true"-->
+<!--                android:layout_marginStart="17dp"-->
+<!--                android:layout_marginEnd="17dp"-->
+<!--                android:layout_marginTop="9dp"-->
+<!--                android:textColorHint="@color/hintTextColor"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/productNameTi"-->
+<!--                >-->
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:singleLine="true"
-                    android:hint="@string/productProducerHint"
-                    android:focusable="true"
-                    android:text="@={data.presenter.productRegisterViewModel.produserName}"
-                    />
-            </com.google.android.material.textfield.TextInputLayout>
+<!--                <com.google.android.material.textfield.TextInputEditText-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:singleLine="true"-->
+<!--                    android:hint="@string/productProducerHint"-->
+<!--                    android:focusable="true"-->
+<!--                    android:text="@={data.presenter.productRegisterViewModel.produserName}"-->
+<!--                    />-->
+<!--            </com.google.android.material.textfield.TextInputLayout>-->
 
 <!--            <include layout="@layout/parameter_list_item"-->
 <!--                android:layout_height="0dp"-->

@@ -107,6 +107,15 @@ class ProductRegisterFragment : BaseMvpFragment(), ProductRegisterView, Recycler
                     ParameterType.LIST, "Категория", "f654cfc3-8af5-e911-80ef-001a64d2fb8e", null))
         }
 
+        var idxCost: Int = productRegisterViewModel.parameters!!.toMutableList().indexOfFirst{
+            it.id.equals("bf2004ed-82f5-e911-80ef-001a64d2fb8e")
+        }
+
+        if(idxCost < 0 ){
+            productRegisterViewModel.parameters?.add( BaseParameter("bf2004ed-82f5-e911-80ef-001a64d2fb8e",
+                ParameterType.INT, "Рекомендованная цена", null, "₸"))
+        }
+
 //        else
 //        {
 //            productRegisterViewModel.parameters?.set(idx, )
