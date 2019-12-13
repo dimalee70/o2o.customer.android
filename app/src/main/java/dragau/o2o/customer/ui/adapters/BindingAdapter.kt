@@ -51,8 +51,6 @@ fun ImageView.setImageUri(uri: String?){ //, newImageAttrChanged: InverseBinding
     if(uri.isNullOrEmpty()) {
         Glide.with(context).clear(this)
         this.setImageDrawable(null)
-//        this.setImageDrawable(resources.getDrawable(R.drawable.progress_animation, context.theme))
-//        this.setImageDrawable(resources.getDrawable(R.drawable.ic_groceries, context.theme))
         return
     }
 

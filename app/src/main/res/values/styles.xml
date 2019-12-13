@@ -123,7 +123,7 @@
         <item name="colorControlActivated">@color/quantum_black_100</item>
         <item name="colorControlHighlight">@color/greenBgColor</item>
     </style>
-    ®
+
     <style name="Widget.Button.Primary" parent="Widget.AppCompat.Button">
         <item name="background">@drawable/button_green_bg</item>
         <item name="android:textColor">@color/playButtonTextColor</item>

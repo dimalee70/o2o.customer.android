@@ -38,19 +38,4 @@ data class User(
     override fun toString(): String {
         return "User(username=$username, token=$token, expireDate=$expireDate, id=$id)"
     }
-
-
-//    @ColumnInfo
-//    var token: String? = null
-//        @Bindable get
-//        set(value){
-//            field = value
-//        }
-//
-//    @ColumnInfo
-//    var expireDate: String? = null
-//    @Bindable get
-//    set(value){
-//        field = value
-//    }
 }

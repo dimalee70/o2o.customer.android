@@ -72,7 +72,7 @@ open class BaseActivity : MvpActivity(), BaseView {
         } else {
             Constants.lightTheme
         }
-        setAppTheme(currentTheme)
+            setAppTheme(currentTheme)
     }
 
     override fun onResume() {
